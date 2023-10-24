@@ -45,7 +45,7 @@ create table Jugador (
 create table Modo_De_Juego (
 	ID_Modo INT auto_increment PRIMARY KEY,
     Nombre_Modo varchar(255) NOT NULL,
-    Descripcion varchar(255) NOT NULL,
+    Descripcion text,
     Imagen varchar(255) NOT NULL
 );
 
