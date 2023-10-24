@@ -31,7 +31,7 @@ create table Liga (
 create table Jugador (
 	ID_Jugador INT auto_increment PRIMARY KEY,
     ID_LIGA INT NOT NULL,
-    Nombre_Jugador varchar(255) NOT NULL.
+    Nombre_Jugador varchar(255) NOT NULL,
     Goles INT NOT NULL,
     Asistencias INT NOT NULL,
     Valor INT NOT NULL,
