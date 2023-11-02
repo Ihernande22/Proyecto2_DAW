@@ -11,66 +11,287 @@ body, html {
 
 ul {
     list-style-type: none;
-    margin: 0;
-}
-
-button:hover {
-    cursor: pointer;
 }
 
 a {
     text-decoration: none;
 }
 
-/* Menu */
+
+/* Barra de navegación  */
 nav {
+    width: 100%;
     background-color: var(--color-secundario);
-    overflow: hidden;
+    padding: 5px;
+    display: flex;
+    padding-left: 10%;
+    padding-right: 10%;
 }
 
 .menu {
-    margin-left: 200px;
-    margin-right: 200px;
     display: flex;
     align-items: center;
-    height: 80px;
+    margin: auto;
+    width: 100%;
+}
+
+.menu img {
+    max-width: 250px;
+    width: 100%;
+}
+
+.menu .logo {
+    display: flex;
+}
+
+.menu_lista {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.menu_lista .login {
+    padding: 2px;
+    width: 100%;
+    display: flex;
+    justify-content: end;
+}
+
+.menu_lista li a{
+    font-weight: bold;
+    color: var(--color-principal);
+    font-family: sans-serif;
+    font-size: 22px;
+    margin: 20px;
+}
+
+.menu_lista .login button {
+    background-color: transparent;
+    border-radius: 20px;
+    border: 1px solid white;
+    padding: 10px;
+    color: white;
+    font-size: 22px;
+    font-weight: bold;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    -ms-border-radius: 20px;
+    -o-border-radius: 20px;
+    width: 150px;
+    transition: 0.3s;
+    -webkit-transition: 0.3s;
+    -moz-transition: 0.3s;
+    -ms-transition: 0.3s;
+    -o-transition: 0.3s;
+}
+
+.menu_lista .login button:hover {
+    cursor: pointer;
+    background-color: var(--color-principal);
+}
+
+/*Barra de navegación en tablet/móvil*/
+@media screen and (max-width: 800px) {
+    nav {
+        background-color: white;
+        padding: 0;
+        padding-top: 5px;
+    }
+    .menu {
+        flex-direction: column;
+    }
+    .menu_lista {
+        background-color: var(--color-secundario);
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        margin-top: 5px;
+        justify-content: center;
+    }
+    .menu_lista li a {
+        margin: 0px;
+    }
+    .menu_lista li {
+        margin: 10px;
+    }
+
+    .menu_lista .login {
+        width: max-content;
+    }
+
+}
+
+/* Ajuste del texto para pantallas muy pequeñas*/
+@media screen and (max-width: 450px) {
+    .menu_lista li a {
+        font-size: 1.2em;
+    }
+    .menu_lista .login button {
+        font-size: 1.2em;
+        width: max-content;
+    }
 }
 
 
-.menu a {
-    color: var(--color-principal);
+/* Selección de modo de juego*/
+.container_modos {
+    margin-top: 50px;
+    margin-left: 10%;
+    margin-right: 10%;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Botones seleccionables*/
+#modo {
+    margin-left: 10%;
+    margin-right: 10%;
+    display: flex;
+    justify-content: space-between;
+}
+#modo input[type="radio"] {
+    display: none;
+}
+  
+#modo span {
+    display: inline-block;
+    padding: 10px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    text-transform: uppercase;
+    color: black;
+    border-radius: 20px;
+    width: 130px;
+    text-align: center;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    -ms-border-radius: 20px;
+    -o-border-radius: 20px;
+    font-family: sans-serif;
+    transition: 0.3s;
+    -webkit-transition: 0.3s;
+    -moz-transition: 0.3s;
+    -ms-transition: 0.3s;
+    -o-transition: 0.3s;
+}
+
+  
+#modo input[type="radio"]:checked + span {
+    background-color: var(--color-principal);
+    color: black;
     font-weight: bold;
+}
+
+#modo input[type="radio"]:hover + span {
+    cursor: pointer;
+}
+
+/* Botones seleccionables móvil/tablet */
+@media screen and (max-width: 900px) {
+    #modo {
+        margin: 0;
+        padding: 0;
+    }
+}
+@media screen and (max-width: 700px) {
+    #modo {
+        margin: 0;
+        padding: 0;
+        flex-wrap: wrap;
+        padding-left: 2%;
+        padding-right: 2%;
+    }
+    .container_modos {
+        margin: 0;
+        margin-top: 40px;
+    }
+}
+@media screen and (max-width: 550px) {
+    #modo {
+        flex-direction: column;
+        margin: auto;
+    }
+    #modo span {
+        margin-bottom: 10px;
+    }
+
+}
+
+
+/* Contenido descriptivo del modo seleccionado */
+.desc_modo {
+    display: flex;
+    margin-top: 40px;
+    border-radius: 10px;
+    background-color: var(--color-principal);
+    padding-left: 10%;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+    max-height: 600px;
+    overflow: hidden;
+}
+
+.desc_modo .texto {
+    width: 40%;
+    margin-right: 30px;
+}
+
+.desc_modo .texto h4{
+    color: rgb(68, 68, 68);
+    font-size: 35px;
+    font-family: sans-serif;
+    margin-bottom: 0px;
+}
+
+.desc_modo .texto p{
     font-size: 22px;
     font-family: sans-serif;
 }
 
-.menu .item, .menu .logo {
-    margin-right: 30px;
-    float: left;
-}
-
-.menu .login {
-    padding: 10px;
-    width: 100%;
-    display: flex;
-    justify-content: end;
-    margin-right: 60px;
-}
-
-.menu .login button {
-    color: var(--color-principal);
-    font-weight: bold;
-    font-size: 22px;
-    background-color: transparent;
-    border: none;
+.desc_modo img {
+    margin: auto;
+    height: 100%;
+    max-height: 500px;
 }
 
 
-.menu img {
-    max-height: 150px;
-    padding-top: 8px;
+/* Adaptar IMG */
+@media screen and (max-width: 900px) {
+    .desc_modo img {
+        max-height: 400px;
+    }
+}
+@media screen and (max-width: 770px) {
+    .desc_modo img {
+        max-height: 350px;
+    }
 }
 
-.menu a:hover, .menu .login button:hover {
-    text-decoration: underline;
+@media screen and (max-width: 700px) {
+    .desc_modo img {
+        max-height: 350px;
+    }
+    .desc_modo {
+        width: 90%;
+        margin: auto;
+        margin-top: 40px;
+    }
+}
+
+@media screen and (max-width: 650px) {
+    .desc_modo {
+        flex-direction: column;
+        padding-left: 2%;
+    }
+    .desc_modo .texto {
+        width: 100%;
+        margin-right: 0;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .desc_modo img {
+        max-height: 300px;
+    }
 }

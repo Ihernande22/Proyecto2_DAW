@@ -11,12 +11,29 @@
 <body>
     <!-- BARRA DE NAVEGACIÓN -->
     <nav>
-        <ul class="menu">
-            <li class="logo"><a href="index.html"><img src="img/logo.png" alt="image"></a></li>
-            <li class="item"><a href="logros.html">LOGROS</a></li>
-            <li class="item"><a href="rankings.html">RANKINGS</a></li>
-            <li class="login"><button>LOGIN</button></li>
-        </ul>
+        <div class="menu">
+            <a class="logo" href="index.html"><img src="img/logo.png" alt="image"></a>
+            <ul class="menu_lista">
+                <li class="item"><a href="logros.html">LOGROS</a></li>
+                <li class="item"><a href="rankings.html">RANKINGS</a></li>
+                <li class="login"><button>LOGIN</button></li>
+            </ul>
+        </div>
     </nav>
+    <div class="container_modos">
+        <p id="modo">
+            <label><input type="radio" name="modo" value="goles"><span>GOLES</span></label>
+            <label><input type="radio" name="modo" value="asistencias"><span>ASISTENCIAS</span></label>
+            <label><input type="radio" name="modo" value="valor"><span>VALOR €</span></label>
+            <label><input type="radio" name="modo" value="partidos"><span>PARTIDOS</span></label>
+        </p>
+        <div class="desc_modo">
+            <div class="texto">
+                <h4>GOLES</h4>
+                <p>Infiere entre dos jugadores para intentar adivinar cuál de los dos ha anotado más goles a lo largo de su carrera.</p>
+            </div>
+            <img src="img/modo_goles.png" alt="image">
+        </div>
+    </div>
 </body>
 </html>
