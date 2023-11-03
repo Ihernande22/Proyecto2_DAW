@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StatRivals</title>
+    <link rel="shortcut icon" href="img/favicon .jpg" type="image/x-icon">
+    <link rel="stylesheet" href="css/config_partida.css">
+</head>
+<body>
+    <!-- BARRA DE NAVEGACIÓN -->
+    <nav>
+        <div class="menu">
+            <a class="logo" href="index.html"><img src="img/logo.png" alt="image"></a>
+            <ul class="menu_lista">
+                <li class="item"><a href="logros.html">LOGROS</a></li>
+                <li class="item"><a href="rankings.html">RANKINGS</a></li>
+                <li class="login"><button>LOGIN</button></li>
+            </ul>
+        </div>
+    </nav>
+    <!-- CONTENEDOR PARA CONFIGURAR LA PARTIDA -->
+    <div class="principal">
+        <div class="ligas">
+            <h1>SELECCIONA UNA LIGA</h1>
+            <p id="liga">
+                <label><input type="radio" name="liga" value="laliga"><span><img src="img/ligas/laliga.png" alt="image"></span></label>
+                <label><input type="radio" name="liga" value="premier_league"><span><img src="img/ligas/premier_league.png" alt="image"></span></label>
+                <label><input type="radio" name="liga" value="bundesliga"><span><img src="img/ligas/bundesliga.png" alt="image"></span></label>
+                <label><input type="radio" name="liga" value="serieA"><span><img src="img/ligas/seriea.png" alt="image"></span></label>
+                <label><input type="radio" name="liga" value="aleatorio" checked><span><img src="img/ligas/aleatorio.png" alt="image"></span></label>
+            </p>
+        </div>
+        <div class="dificultades">
+            <h1>SELECCIONA UNA DIFICULTAD</h1>
+            <p id="dificultad">
+                <label><input type="radio" name="dificultad" value="normal" checked><span>NORMAL</span></label>
+                <label><input type="radio" name="dificultad" value="dificil"><span>DIFICIL</span></label>
+            </p>
+        </div>
+        <button onclick="">JUGAR</button>
+    </div>
+</body>
+</html>
