@@ -1,0 +1,27 @@
+@import url('colores.css');
+@import url('index.css');
+
+.paramRankings {
+    background-color: var(--color-secundario);
+    margin-left: 10%;
+    margin-right: 10%;
+    height: 40px;
+    display: flex;
+    justify-content: space-between;
+}
+
+h1 {
+    color: var(--color-secundario);
+    font-family: sans-serif;
+    text-align: center;
+    margin-top: 40px;
+}
+
+.paramRankings * {
+    background-color: transparent;
+    border: none;
+    color: var(--color-principal);
+    font-weight: bold;
+    font-family: sans-serif;
+    text-align: center;
+}

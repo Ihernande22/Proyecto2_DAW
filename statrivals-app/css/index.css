@@ -204,6 +204,10 @@ nav {
         margin: 0;
         margin-top: 40px;
     }
+    .desc_modo {
+        margin-left: 2%;
+        margin-right: 2%;
+    }
 }
 @media screen and (max-width: 550px) {
     #modo {
@@ -228,7 +232,7 @@ nav {
     -moz-border-radius: 10px;
     -ms-border-radius: 10px;
     -o-border-radius: 10px;
-    max-height: 600px;
+    height: 500px;
     overflow: hidden;
 }
 
@@ -249,52 +253,30 @@ nav {
     font-family: sans-serif;
 }
 
-.desc_modo img {
-    margin: auto;
-    height: 100%;
-    max-height: 500px;
+.imagen {
+    display: flex;
+}
+
+.imagen img {
+    height: auto;
 }
 
 
-/* Adaptar IMG */
-@media screen and (max-width: 900px) {
-    .desc_modo img {
-        max-height: 400px;
-    }
-}
-@media screen and (max-width: 770px) {
-    .desc_modo img {
-        max-height: 350px;
-    }
-}
-
-@media screen and (max-width: 700px) {
-    .desc_modo img {
-        max-height: 350px;
-    }
-    .desc_modo {
-        width: 90%;
-        margin: auto;
-        margin-top: 40px;
-    }
-}
-
+/* Adaptar a móvil */
 @media screen and (max-width: 650px) {
     .desc_modo {
         flex-direction: column;
-        padding-left: 2%;
+        padding: 0;
+        max-height: 800px;
+        height: max-content;
     }
     .desc_modo .texto {
+        padding-left: 2%;
         width: 100%;
         margin-right: 0;
     }
 }
 
-@media screen and (max-width: 400px) {
-    .desc_modo img {
-        max-height: 300px;
-    }
-}
 
 /* Boton de jugar */
 .boton_jugar {

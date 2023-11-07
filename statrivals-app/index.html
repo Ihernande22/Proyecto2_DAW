@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>StatRivals</title>
-    <link rel="shortcut icon" href="img/favicon .jpg" type="image/x-icon">
+    <link rel="shortcut icon" href="img/favicon.jpg" type="image/x-icon">
     <link rel="stylesheet" href="css/index.css">
 </head>
 <body>
@@ -23,20 +23,23 @@
 
     <!-- CONTENEDOR PARA SELECCIONAR EL MODO DE JUEGO -->
     <div class="container_modos">
-        <p id="modo">
-            <label><input type="radio" name="modo" value="goles" checked><span>GOLES</span></label>
-            <label><input type="radio" name="modo" value="asistencias"><span>ASISTENCIAS</span></label>
-            <label><input type="radio" name="modo" value="valor"><span>VALOR €</span></label>
-            <label><input type="radio" name="modo" value="partidos"><span>PARTIDOS</span></label>
+        <p id="modo" onchange="selectorModo()">
+            <label><input type="radio" name="modoSel" id="goles" value="goles" checked><span>GOLES</span></label>
+            <label><input type="radio" name="modoSel" id="asistencias" value="asistencias"><span>ASISTENCIAS</span></label>
+            <label><input type="radio" name="modoSel" id="valor" value="valor"><span>VALOR €</span></label>
+            <label><input type="radio" name="modoSel" id="partidos" value="partidos"><span>PARTIDOS</span></label>
         </p>
-        <div class="desc_modo">
-            <div class="texto">
-                <h4>GOLES</h4>
-                <p>Infiere entre dos jugadores para intentar adivinar cuál de los dos ha anotado más goles a lo largo de su carrera.</p>
+        <div id="desc_modo" class="desc_modo">
+            <div id="texto" class="texto">
+                <h4 id="modoTitulo">GOLES</h4>
+                <p id="modoDescripcion">Infiere entre dos jugadores para intentar adivinar cuál de los dos ha anotado más goles a lo largo de su carrera.</p>
             </div>
-            <img src="img/modo_goles.png" alt="image">
+            <div class="imagen" id="imagen">
+                <img src="img/modo_goles.png" alt="image" id="modoImagen">
+            </div>
         </div>
         <a href="config_partida.html" class="boton_jugar"><button>JUGAR</button></a>
     </div>
+    <script src="js/index.js"></script>
 </body>
 </html>
