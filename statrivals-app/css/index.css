@@ -135,7 +135,7 @@ nav {
 
 /* Selección de modo de juego*/
 .container_modos {
-    margin-top: 50px;
+    margin-top: 40px;
     margin-left: 10%;
     margin-right: 10%;
     display: flex;
@@ -185,60 +185,23 @@ nav {
     cursor: pointer;
 }
 
-/* Botones seleccionables móvil/tablet */
-@media screen and (max-width: 900px) {
-    #modo {
-        margin: 0;
-        padding: 0;
-    }
-}
-@media screen and (max-width: 700px) {
-    #modo {
-        margin: 0;
-        padding: 0;
-        flex-wrap: wrap;
-        padding-left: 2%;
-        padding-right: 2%;
-    }
-    .container_modos {
-        margin: 0;
-        margin-top: 40px;
-    }
-    .desc_modo {
-        margin-left: 2%;
-        margin-right: 2%;
-    }
-}
-@media screen and (max-width: 550px) {
-    #modo {
-        flex-direction: column;
-        margin: auto;
-    }
-    #modo span {
-        margin-bottom: 10px;
-    }
-
-}
-
-
 /* Contenido descriptivo del modo seleccionado */
 .desc_modo {
     display: flex;
     margin-top: 40px;
     border-radius: 10px;
     background-color: var(--color-principal);
-    padding-left: 10%;
+    justify-content: center;
     -webkit-border-radius: 10px;
     -moz-border-radius: 10px;
     -ms-border-radius: 10px;
     -o-border-radius: 10px;
     height: 500px;
-    overflow: hidden;
 }
 
 .desc_modo .texto {
     width: 40%;
-    margin-right: 30px;
+    padding-left: 10%;
 }
 
 .desc_modo .texto h4{
@@ -253,28 +216,18 @@ nav {
     font-family: sans-serif;
 }
 
-.imagen {
+.desc_modo .imagen {
+    overflow: hidden;
+    width: 60%;
     display: flex;
+    align-items: flex-end;
+    justify-content: center;
 }
 
 .imagen img {
+    max-width: 100%;
     height: auto;
-}
-
-
-/* Adaptar a móvil */
-@media screen and (max-width: 650px) {
-    .desc_modo {
-        flex-direction: column;
-        padding: 0;
-        max-height: 800px;
-        height: max-content;
-    }
-    .desc_modo .texto {
-        padding-left: 2%;
-        width: 100%;
-        margin-right: 0;
-    }
+    max-height: 100%;
 }
 
 
@@ -313,4 +266,34 @@ nav {
     -moz-transform: scale(1.2);
     -ms-transform: scale(1.2);
     -o-transform: scale(1.2);
+}
+
+
+/* Adaptar container_modos  */
+@media screen and (max-width: 900px) {
+    #modo {
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 30px;
+    }
+    .desc_modo {
+        flex-direction: column;
+        max-height: 600px;
+    }
+    .desc_modo .texto {
+        width: 100%;
+        padding: 0;
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+    .desc_modo .imagen {
+        width: 100%;
+    }
+}
+
+/* Ajuste margen boton jugar con el final */
+@media screen and (max-width: 453px) {
+    .boton_jugar {
+        margin-bottom: 50px;
+    }
 }
