@@ -1,13 +1,14 @@
-@import url('colores.css');
-@import url('index.css');
+@import 'colores.css';
+@import 'index.css';
 
 .paramRankings {
     background-color: var(--color-secundario);
     margin-left: 10%;
     margin-right: 10%;
-    height: 40px;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
 }
 
 h1 {
@@ -20,8 +21,74 @@ h1 {
 .paramRankings * {
     background-color: transparent;
     border: none;
-    color: var(--color-principal);
-    font-weight: bold;
     font-family: sans-serif;
     text-align: center;
+}
+
+
+/* Campos de selección */
+.seleccionMultiple, .seleccionUnica {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+}
+
+.selector { 
+    position: relative; 
+    display: flex;
+} 
+
+.selector select { 
+    width: 100%; 
+    font-weight: bold; 
+    color: white;
+    font-family: sans-serif;
+    font-size: 15px;
+    text-transform: uppercase;
+} 
+
+.selector:hover {
+    cursor: pointer;
+}
+
+.overSelect { 
+    position: absolute; 
+    left: 0; 
+    right: 0; 
+    top: 0; 
+    bottom: 0; 
+} 
+
+.CheckBoxes, .RadioButtons { 
+    display: none; 
+    background-color: var(--color-secundario);
+    color: var(--color-secundario);
+    width: 150px;
+    background-color: var(--color-principal);    
+    margin-top: 10px;
+    border-bottom: 1px solid white;
+} 
+
+.CheckBoxes label, .RadioButtons label { 
+    display: block;
+    padding: 4px; /* Ajusta el espaciado según sea necesario */
+    cursor: pointer;
+    text-transform: uppercase;
+    font-size: 12px;
+    font-family: sans-serif;
+    text-align: left;
+    border: 1px solid white;
+    border-bottom: 0px;
+    width: 100%;
+} 
+
+.CheckBoxes label, .RadioButtons label
+
+.CheckBoxes input, .RadioButtons input{
+    margin-right: 8px; /* Ajusta el margen derecho para separar el checkbox del texto */
+}
+
+input[type=checkbox]:checked + label{
+    font-weight: bold;
 }

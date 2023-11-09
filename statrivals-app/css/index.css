@@ -297,3 +297,22 @@ nav {
         margin-bottom: 50px;
     }
 }
+
+/* Quitar borde al seleccionar en las listas desplegables */
+/* Estilo para quitar el borde predeterminado en Firefox */
+select {
+    text-indent: 1px;
+    text-overflow: '';
+  }
+
+  /* Estilo para quitar el borde predeterminado en Chrome y Safari */
+  select::-ms-expand {
+    display: none;
+  }
+
+  /* Estilo para quitar el borde predeterminado en Chrome y Safari */
+  select:focus {
+    outline: none;
+    cursor: pointer;
+  }
+

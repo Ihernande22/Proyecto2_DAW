@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>StatRivals</title>
-    <link rel="shortcut icon" href="img/favicon .jpg" type="image/x-icon">
+    <link rel="shortcut icon" href="img/favicon.jpg" type="image/x-icon">
     <link rel="stylesheet" href="css/rankings.css">
 </head>
 <body>
@@ -23,23 +23,83 @@
     <h1>RANKINGS</h1>
     <!-- CONTENEDOR PARA SELECCIONAR LOS PARAMETROS DE LOS RANKING -->
     <div class="paramRankings">
-        <select name="seleccionarUsuarios" id="seleccionarUsuario">
-            <option value="personal">PERSONAL</option>
-            <option value="global" selected>GLOBAL</option>
-        </select>
-        <select name="seleccionarModo" id="selecccionarModo">
-            <option value="goles">GOLES</option>
-            <option value="asistencias">ASISTENCIAS</option>
-            <option value="partidos">PARTIDOS</option>
-            <option value="valor">VALOR</option>
-        </select>
-        <select name="seleccionarLiga" id="seleccionarLiga">
 
-        </select>
-        <select name="seleccionarTipoPuntuacion" id="seleccionarTipoPuntuacion">
-            <option value="acumulatorio">ACUMULATORIO</option>
-            <option value="porPartida">POR PARTIDA</option>
-        </select>
+        <!-- Seleccionar Modo de Juego -->
+        <div class="seleccionMultiple"> 
+            <div class="selector" onclick="showCheckBoxes('modo')"> 
+                <select> 
+                    <option>Modo de Juego</option> 
+                </select> 
+                <div class="overSelect"></div> 
+            </div> 
+            <div id="CheckBoxesModo" class="CheckBoxes"> 
+                <label for="rankings_modo_goles"><input type="checkbox" id="rankings_modo_goles"/>GOLES</label> 
+                <label for="rankings_modo_asistencias"><input type="checkbox" id="rankings_modo_asistencias"/>ASISTENCIAS</label> 
+                <label for="rankings_modo_partidos"><input type="checkbox" id="rankings_modo_partidos"/>PARTIDOS</label> 
+                <label for="rankings_modo_valor"><input type="checkbox" id="rankings_modo_valor"/>VALOR </label> 
+            </div> 
+        </div>
+
+        <!-- Seleccionar Liga -->
+        <div class="seleccionMultiple">
+            <div class="selector" onclick="showCheckBoxes('liga')">
+                <select>
+                    <option>Liga</option>
+                </select>
+                <div class="overSelect"></div>
+            </div>
+            <div id="CheckBoxesLiga" class="CheckBoxes">
+                <label for="rankings_liga_premier"><input type="checkbox" id="rankings_liga_premier">Premier League</label>
+                <label for="rankings_liga_laliga"><input type="checkbox" id="rankings_liga_laliga">LaLiga</label>
+                <label for="rankings_liga_bundesliga"><input type="checkbox" id="rankings_liga_bundesliga">Bundesliga</label>
+                <label for="rankings_liga_seriea"><input type="checkbox" id="rankings_liga_seriea">Serie A</label>
+                <label for="rankings_liga_aleatorio"><input type="checkbox" id="rankings_liga_aleatorio">Aleatorio</label>
+            </div>
+        </div>
+
+        <!-- Seleccionar Dificultad -->
+        <div class="seleccionMultiple">
+            <div class="selector" onclick="showCheckBoxes('dificultad')">
+                <select>
+                    <option>Dificultad</option>
+                </select>
+                <div class="overSelect"></div>
+            </div>
+            <div id="CheckBoxesDificultad" class="CheckBoxes">
+                <label for="rankings_dificultad_normal"><input type="checkbox" id="rankings_dificultad_normal">Normal</label>
+                <label for="rankings_dificultad_dificil"><input type="checkbox" id="rankings_dificultad_dificil">Dificil</label>
+            </div>
+        </div>
+
+        <!-- Seleccionar Usuario -->
+        <div class="seleccionUnica">
+            <div class="selector" onclick="showRadioButtons('usuarios')">
+                <select>
+                    <option>Usuarios</option>
+                </select>
+                <div class="overSelect"></div>
+            </div>
+            <div id="RadioButtonsUsuarios" class="RadioButtons">
+                <label for="rankigns_usuarios_personal"><input type="radio" id="rankigns_usuarios_personal" name="rankings_usuarios">Solo yo</label>
+                <label for="rankigns_usuarios_global"><input type="radio" id="rankigns_usuarios_global" name="rankings_usuarios">Todos</label>
+            </div>
+        </div>
+
+        <!-- Seleccionar Modo de Puntuación -->
+        <div class="seleccionUnica">
+            <div class="selector" onclick="showRadioButtons('modoPuntuacion')">
+                <select>
+                    <option>Modo Puntuacion</option>
+                </select>
+                <div class="overSelect"></div>
+            </div>
+            <div id="RadioButtonsModoPuntuacion" class="RadioButtons">
+                <label for="rankigns_modoPuntuacion_acumulatoria"><input type="radio" id="rankigns_modoPuntuacion_acumulatoria" name="rankings_modoPuntuacion">Acumulatorio</label>
+                <label for="rankigns_modoPuntuacion_porPartida"><input type="radio" id="rankigns_modoPuntuacion_porPartida" name="rankings_modoPuntuacion">Por partida</label>
+            </div>
+        </div>
+
     </div>
+    <script src="js/rankings.js"></script>
 </body>
 </html>
