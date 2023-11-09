@@ -1,0 +1,30 @@
+body{
+  background-color: black;
+}
+h1{
+  color: violet;
+  text-align: center;
+}
+.formulario{
+  text-align: center;
+}
+a{
+  color: white;
+  text-align: center;
+}
+.olvidoContraseña{
+  color: violet;
+}
+.Crear{
+  color: violet;
+}
+.Invitado{
+  color: violet;
+}
+.warnings{
+  width: 200px;
+  text-align: center;
+  margin: auto;
+  color: white;
+  padding-top: 20px;
+}
