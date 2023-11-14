@@ -46,29 +46,34 @@ h1 {
     font-family: sans-serif;
     font-size: 15px;
     text-transform: uppercase;
+    padding-right: 5px;
 } 
 
 .selector:hover {
     cursor: pointer;
 }
 
-.overSelect { 
-    position: absolute; 
-    left: 0; 
-    right: 0; 
-    top: 0; 
-    bottom: 0; 
+.overSelect {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
 } 
 
-.CheckBoxes, .RadioButtons { 
-    display: none; 
+.CheckBoxes, .RadioButtons {
+    display: none;
     background-color: var(--color-secundario);
     color: var(--color-secundario);
     width: 150px;
-    background-color: var(--color-principal);    
+    background-color: var(--color-principal);
     margin-top: 10px;
     border-bottom: 1px solid white;
 } 
+
+.CheckBoxes.visible, .RadioButtons.visible {
+    max-height: 200px; /* Altura máxima para mostrar el contenido */
+}
 
 .CheckBoxes label, .RadioButtons label { 
     display: block;
@@ -83,7 +88,7 @@ h1 {
     width: 100%;
 } 
 
-.CheckBoxes label, .RadioButtons label
+
 
 .CheckBoxes input, .RadioButtons input{
     margin-right: 8px; /* Ajusta el margen derecho para separar el checkbox del texto */

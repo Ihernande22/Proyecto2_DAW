@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StatRivals</title>
+    <link rel="shortcut icon" href="img/favicon.jpg" type="image/x-icon">
+    <link rel="stylesheet" href="css/logros.css">
+    <script src="js/logros.js" defer></script>
+</head>
+<body>
+    <!-- BARRA DE NAVEGACIÓN -->
+    <nav>
+        <div class="menu">
+            <a class="logo" href="index.html"><img src="img/logo.png" alt="image"></a>
+            <ul class="menu_lista">
+                <li class="item"><a href="logros.html">LOGROS</a></li>
+                <li class="item"><a href="rankings.html">RANKINGS</a></li>
+                <li class="login"><button>LOGIN</button></li>
+            </ul>
+        </div>
+    </nav>
+    <div class="Contenido">
+        <div class="parteSuperior">
+            <!-- BARRA CON PROGRESO -->
+            <div class="BarraProgresoLogros">
+                <h2>LOGROS:<span> 0%</span></h2>
+            </div>
+            <div class="Indicaciones">
+                <div class="Indicacion">
+                    <div class="Cuadrado"></div>
+                    <p>Completados</p>
+                </div>
+                <div class="Indicacion">
+                    <div class="Cuadrado"></div>
+                    <p>No Completados</p>
+                </div>
+            </div>
+        </div>
+        <div class="botonesFiltrar">
+            <p id="filtroLogros">
+                <label><input type="radio" name="filtroLogros" value="todos"><span>Todos</span></label>
+                <label><input type="radio" name="filtroLogros" value="completados"><span>Completado</span></label>
+                <label><input type="radio" name="filtroLogros" value="noCompletados"><span>No completados</span></label>
+            </p>
+        </div>
+    </div>
+</body>
+</html>
