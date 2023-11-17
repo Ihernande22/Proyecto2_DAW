@@ -17,11 +17,26 @@
             <ul class="menu_lista">
                 <li class="item"><a href="logros.html">LOGROS</a></li>
                 <li class="item"><a href="rankings.html">RANKINGS</a></li>
-                <li class="login"><button>LOGIN</button></li>
+                <li class="login"><button id="botonLogin" onclick="toggleLogin(true)">LOGIN</button>
+                    <div class="containerLogin" id="containerLogin">
+                        <form action="" method="post" id="formularioLogin">
+                            <label for="usuario">Nombre de usuario:</label>
+                            <input type="text" id="usuario" name="usuario" required>
+                
+                            <label for="password">Contraseña:</label>
+                            <input type="password" id="password" name="password" required>
+                
+                            <button type="submit">Iniciar Sesión</button>
+                            <a href="">Has olvidado tu Contraseña?</a>
+                            <a href="">No tienes un usuario creado?</a>
+                            <a href="">Jugar como invitado</a>
+                        </form>
+                        <a id="cerrarLogin" onclick="toggleLogin(false)">Cerrar</a>
+                    </div>
+                </li>
             </ul>
         </div>
     </nav>
-
     <!-- CONTENEDOR PARA SELECCIONAR EL MODO DE JUEGO -->
     <div class="container_modos">
         <p id="modo" onchange="selectorModo()">

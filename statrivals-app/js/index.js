@@ -52,3 +52,20 @@ function selectorModo() {
 }
 
 
+function toggleLogin(mostrarLogin) {
+    console.log(mostrarLogin);
+    var formulario = document.getElementById("formularioLogin");
+    var containerFormulario = document.getElementById("containerLogin");
+    if (!mostrarLogin) {
+        containerFormulario.style.display = "none";
+        formulario.style.display = "none";
+    }
+    else {
+        containerFormulario.style.display = "flex";
+        containerFormulario.style.flexDirection = "column";
+        formulario.style.display = "flex";
+        formulario.style.flexDirection = "column";
+    }
+}
+
+toggleLogin(false);

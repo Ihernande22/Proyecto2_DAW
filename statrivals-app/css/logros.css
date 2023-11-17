@@ -123,3 +123,54 @@
     }
 
 }
+
+/* Estilos de los logros */
+#containerLogros {
+    display: flex;
+    flex-wrap: wrap;;
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-top: 50px;
+    gap: 40px;
+}
+
+#logro {
+    background-color: var(--color-principal);
+    width: 200px;
+    height: 200px;
+    border-radius: 20px;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    -ms-border-radius: 20px;
+    -o-border-radius: 20px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#logro h5 {
+    text-align: center;
+    font-family: sans-serif;
+    font-size: 16px;
+    height: 40%;
+}
+
+#logro img {
+    max-width: 60%;
+    height: auto;
+    margin: auto;
+}
+
+@media screen and (max-width: 1046px) {
+    #containerLogros {
+        justify-content: center;
+    }
+}
+
+@media screen and (max-width: 550px) {
+    #containerLogros {
+        gap: 10px;
+    }
+}

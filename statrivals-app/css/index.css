@@ -316,3 +316,83 @@ select {
     cursor: pointer;
   }
 
+
+
+/* Login desplegable */
+#containerLogin {
+    display: none;
+    position: absolute;
+    top: 0;
+    background-color: var(--color-secundario);
+    color: white;
+    flex-direction: column;
+    width: 400px;
+    padding: 20px;
+    margin-right: -2px;
+    margin-top: 93px;
+
+}
+
+
+#containerLogin.mostrar {
+
+}
+
+
+#containerLogin button {
+    max-width: 200px;
+    font-size: 14px;
+    border-radius: 0px;
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+    -ms-border-radius: 0px;
+    -o-border-radius: 0px;
+}
+
+#formularioLogin {
+    display: flex;
+    flex-direction: column;
+}
+
+#formularioLogin input{
+    margin-bottom: 10px;
+}
+
+#formularioLogin button{
+    margin: auto;
+    margin-top: 10px;
+    margin-bottom: 30px;
+    width: 200px;
+    padding: 10px;
+    justify-content: center;
+}
+
+#formularioLogin a {
+    padding: 0;
+    margin: 0;
+    font-size: 14px;
+    margin-bottom: 15px;
+    text-align: center;
+    transition: 0.3s ease-in-out;
+    -webkit-transition: 0.3s ease-in-out;
+    -moz-transition: 0.3s ease-in-out;
+    -ms-transition: 0.3s ease-in-out;
+    -o-transition: 0.3s ease-in-out;
+}
+
+#formularioLogin a:hover {
+    cursor: pointer;
+    transform: scale(1.2);
+    -webkit-transform: scale(1.2);
+    -moz-transform: scale(1.2);
+    -ms-transform: scale(1.2);
+    -o-transform: scale(1.2);
+}
+
+#cerrarLogin {
+    color: white;
+    text-align: center;
+}
+#cerrarLogin:hover {
+    cursor: pointer;
+}
