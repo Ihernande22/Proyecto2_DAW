@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,7 +9,7 @@
 <body>
     <h1>Crea el usuario</h1>
 
-    <form>
+    <form method="post" action="mail.php">
         <label>Correo Electronico:</label>
         <input type ="email" name="correo"><br><br>
 
@@ -21,6 +22,7 @@
         <button type="submit" name="Insertar">Insertar</button>
 
     </form>
+  
     
 </body>
 </html>
