@@ -136,32 +136,42 @@
 
 #logro {
     background-color: var(--color-principal);
+    border-radius: 20px;
     width: 200px;
     height: 200px;
-    border-radius: 20px;
     -webkit-border-radius: 20px;
     -moz-border-radius: 20px;
     -ms-border-radius: 20px;
     -o-border-radius: 20px;
-    padding: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 }
 
-#logro h5 {
+#logro #logro-header {
     text-align: center;
     font-family: sans-serif;
     font-size: 16px;
-    height: 40%;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1px;
 }
 
-#logro img {
-    max-width: 60%;
-    height: auto;
-    margin: auto;
+#logro #logro-img {
+    display: flex;
+    margin-top: 10px;
+    align-items: center;
 }
+
+#logro #logro-img img{
+    max-height: 100px;
+    height: max-content;
+    width: auto;
+}
+
 
 @media screen and (max-width: 1046px) {
     #containerLogros {

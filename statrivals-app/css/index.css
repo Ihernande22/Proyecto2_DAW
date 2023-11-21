@@ -233,12 +233,8 @@ nav {
 
 /* Boton de jugar */
 .boton_jugar {
-    width: max-content;
     margin: auto;
     margin-top: 40px;
-}
-
-.boton_jugar button {
     background-color: var(--color-secundario);
     color: var(--color-principal);
     font-weight: bold;
@@ -389,4 +385,134 @@ select {
 }
 #cerrarLogin:hover {
     cursor: pointer;
+}
+
+/*Config partida*/
+/* Contenedor principal */
+.principal {
+    width: 100%;
+    margin-top: 50px;
+    text-align: center;
+}
+
+h1 {
+    text-align: center;
+    font-family: sans-serif;
+    word-wrap: break-word;
+}
+
+
+/* Contenedores con los botones */
+#liga, #dificultad{
+    margin: 40px;
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-bottom: 80px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 50px;
+}
+
+#liga span img {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+#liga input[type="radio"], #dificultad input[type="radio"] {
+    display: none;
+}
+  
+#liga span {
+    text-align: center;
+    padding: 10px;
+    display: inline-block;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+    width: 250px;
+    height: 200px;
+    transition: 0.3s;
+    overflow: hidden;
+    -webkit-transition: 0.3s;
+    -moz-transition: 0.3s;
+    -ms-transition: 0.3s;
+    -o-transition: 0.3s;
+}
+
+#dificultad span {
+    display: inline-block;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    text-transform: uppercase;
+    color: rgb(68, 68, 68);
+    border-radius: 10px;
+    text-align: center;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+    padding: 20px;
+    width: 200px;
+    font-size: 22px;
+    font-family: sans-serif;
+    transition: 0.3s;
+    -webkit-transition: 0.3s;
+    -moz-transition: 0.3s;
+    -ms-transition: 0.3s;
+    -o-transition: 0.3s;
+}
+
+  
+#liga input[type="radio"]:checked + span, #dificultad input[type="radio"]:checked + span {
+    background-color: var(--color-principal);
+    font-weight: bold;
+}
+
+#liga input[type="radio"]:hover + span, #dificultad input[type="radio"]:hover + span {
+    cursor: pointer;
+}
+
+/* Ajustar margen entre los botones */
+@media screen and (max-width: 687px) {
+    #liga, #dificultad {
+        gap: 30px;
+    }
+}
+
+
+/* Boton de jugar */
+
+
+.principal button {
+    margin-bottom: 30px;
+    background-color: var(--color-secundario);
+    color: var(--color-principal);
+    font-weight: bold;
+    font-family: sans-serif;
+    border: none;
+    padding: 10px;
+    width: 130px;
+    font-size: 22px;
+    border-radius: 20px;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    -ms-border-radius: 20px;
+    -o-border-radius: 20px;
+    transition: 0.5s;
+    -webkit-transition: 0.5s;
+    -moz-transition: 0.5s;
+    -ms-transition: 0.5s;
+    -o-transition: 0.5s;
+}
+
+.principal button:hover {
+    cursor: pointer;
+    transform: scale(1.2);
+    -webkit-transform: scale(1.2);
+    -moz-transform: scale(1.2);
+    -ms-transform: scale(1.2);
+    -o-transform: scale(1.2);
 }

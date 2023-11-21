@@ -38,7 +38,7 @@
         </div>
     </nav>
     <!-- CONTENEDOR PARA SELECCIONAR EL MODO DE JUEGO -->
-    <div class="container_modos">
+    <div class="container_modos" id="container_modos">
         <p id="modo" onchange="selectorModo()">
             <label><input type="radio" name="modoSel" id="goles" value="goles" checked><span>GOLES</span></label>
             <label><input type="radio" name="modoSel" id="asistencias" value="asistencias"><span>ASISTENCIAS</span></label>
@@ -54,7 +54,7 @@
                 <img src="img/modo_goles.png" alt="image" id="modoImagen">
             </div>
         </div>
-        <a href="config_partida.html" class="boton_jugar"><button>JUGAR</button></a>
+        <button class="boton_jugar" id="boton_jugar" onclick="crearInterfazConfigPartida()">JUGAR</button>
     </div>
 </body>
 </html>
