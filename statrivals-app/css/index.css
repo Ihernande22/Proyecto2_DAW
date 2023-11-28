@@ -416,6 +416,7 @@ h1 {
 
 .principal button {
     margin-bottom: 30px;
+    margin-top: -20px;
     background-color: var(--color-secundario);
     color: var(--color-principal);
     font-weight: bold;
@@ -447,7 +448,7 @@ h1 {
 
 /* Boton de volver atras */
 #volverAtras {
-    max-width: 100px;
+    max-width: 80px;
     padding-top: 50px;
     margin: auto;
 }
