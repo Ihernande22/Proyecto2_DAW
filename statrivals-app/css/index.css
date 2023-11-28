@@ -55,6 +55,8 @@ nav {
     width: 100%;
     display: flex;
     justify-content: end;
+    align-items: center;
+    max-height: 50px;
 }
 
 .menu_lista li a{
@@ -91,7 +93,7 @@ nav {
 }
 
 /*Barra de navegación en tablet/móvil*/
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 850px) {
     nav {
         background-color: white;
         padding: 0;
@@ -255,7 +257,7 @@ nav {
     -o-transition: 0.5s;
 }
 
-.boton_jugar button:hover {
+.boton_jugar:hover {
     cursor: pointer;
     transform: scale(1.2);
     -webkit-transform: scale(1.2);
@@ -312,80 +314,6 @@ select {
     cursor: pointer;
   }
 
-
-
-/* Login desplegable */
-#containerLogin {
-    display: none;
-    position: absolute;
-    top: 0;
-    background-color: var(--color-secundario);
-    color: white;
-    flex-direction: column;
-    width: 400px;
-    padding: 20px;
-    margin-right: -2px;
-    margin-top: 93px;
-
-}
-
-#containerLogin button {
-    max-width: 200px;
-    font-size: 14px;
-    border-radius: 0px;
-    -webkit-border-radius: 0px;
-    -moz-border-radius: 0px;
-    -ms-border-radius: 0px;
-    -o-border-radius: 0px;
-}
-
-#formularioLogin {
-    display: flex;
-    flex-direction: column;
-}
-
-#formularioLogin input{
-    margin-bottom: 10px;
-}
-
-#formularioLogin button{
-    margin: auto;
-    margin-top: 10px;
-    margin-bottom: 30px;
-    width: 200px;
-    padding: 10px;
-    justify-content: center;
-}
-
-#formularioLogin a {
-    padding: 0;
-    margin: 0;
-    font-size: 14px;
-    margin-bottom: 15px;
-    text-align: center;
-    transition: 0.3s ease-in-out;
-    -webkit-transition: 0.3s ease-in-out;
-    -moz-transition: 0.3s ease-in-out;
-    -ms-transition: 0.3s ease-in-out;
-    -o-transition: 0.3s ease-in-out;
-}
-
-#formularioLogin a:hover {
-    cursor: pointer;
-    transform: scale(1.2);
-    -webkit-transform: scale(1.2);
-    -moz-transform: scale(1.2);
-    -ms-transform: scale(1.2);
-    -o-transform: scale(1.2);
-}
-
-#cerrarLogin {
-    color: white;
-    text-align: center;
-}
-#cerrarLogin:hover {
-    cursor: pointer;
-}
 
 /*Config partida*/
 /* Contenedor principal */
@@ -509,6 +437,37 @@ h1 {
 }
 
 .principal button:hover {
+    cursor: pointer;
+    transform: scale(1.2);
+    -webkit-transform: scale(1.2);
+    -moz-transform: scale(1.2);
+    -ms-transform: scale(1.2);
+    -o-transform: scale(1.2);
+}
+
+/* Boton de volver atras */
+#volverAtras {
+    max-width: 100px;
+    padding-top: 50px;
+    margin: auto;
+}
+
+#volverAtras button {
+    background-color: transparent;
+    border: none;
+    transition: 0.5s;
+    -webkit-transition: 0.5s;
+    -moz-transition: 0.5s;
+    -ms-transition: 0.5s;
+    -o-transition: 0.5s;
+}
+
+#volverAtras button img{
+    width: 100%;
+    height: auto;
+}
+
+#volverAtras button:hover {
     cursor: pointer;
     transform: scale(1.2);
     -webkit-transform: scale(1.2);

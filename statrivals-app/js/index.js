@@ -76,6 +76,24 @@ function crearInterfazConfigPartida() {
     var containerModos = document.getElementById("container_modos");
     containerModos.parentNode.removeChild(containerModos);
 
+    //Crear boton para volver Atras
+    var volverAtras = document.createElement("div");
+    var volverAtrasBoton = document.createElement("button");
+    var volverAtrasImg = document.createElement("img");
+    volverAtras.setAttribute("id", "volverAtras");
+    volverAtrasImg.setAttribute("src","img/volverAtras.png")
+    volverAtrasImg.setAttribute("alt", "image");
+    volverAtrasBoton.appendChild(volverAtrasImg);
+    volverAtrasBoton.addEventListener("click", function() {
+        var containerEliminar = document.getElementById("principal");
+        if (containerEliminar) {
+            document.body.removeChild(containerEliminar);
+            document.body.removeChild(volverAtras);
+            document.body.appendChild(containerModos);
+        }
+    })
+    volverAtras.appendChild(volverAtrasBoton);
+
     //Crear Estructura HTML de la configuracion de liga y dificultad
     var Principal = document.createElement("div");
     Principal.setAttribute("class", "principal");
@@ -223,6 +241,7 @@ function crearInterfazConfigPartida() {
     Principal.appendChild(botonJugar);
 
     //Añadir contenido al body
+    document.body.appendChild(volverAtras);
     document.body.appendChild(Principal);
 
 }
