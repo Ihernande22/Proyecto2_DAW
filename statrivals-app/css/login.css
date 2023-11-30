@@ -1,50 +1,126 @@
 @import 'index.css';
 
-#ContenedorFormLogin {
-    background-color: var(--color-secundario);
-    max-width: 800px;
-    width: 100%;
-    border-radius: 10px;
-    padding: 80px;
-    margin: auto;
-    margin-top: 100px;
-    display: flex;
-    justify-content: center;
-    text-align: center;
+body {
+    margin: 0;
+    padding: 0;
+    background-image: url(../img/loginbg.jpg); 
+    background-size: cover; /* Cubre todo el contenido del contenedor */
+    background-repeat: no-repeat; /* Evita la repetición de la imagen */
+    background-attachment: fixed; /* Fija la imagen de fondo mientras se desplaza la página */
 }
 
-#ContenedorFormLogin p {
-    text-align: left;
-    color: white;
-    font-weight: bold;
-    font-family: sans-serif;
+.background {
+    backdrop-filter: blur(10px);
+}
+
+#logo {
+    margin-left: 4%;
+}
+
+#logo img {
+    max-width: 180px;
+    padding-top: 40px;
+}
+
+#ContenedorFormLogin {
+    padding: 64px;
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    justify-content: center;
+    background-color: white;
+    border-radius: 32px;
+    -webkit-border-radius: 32px;
+    -moz-border-radius: 32px;
+    -ms-border-radius: 32px;
+    -o-border-radius: 32px;
+    max-width: 488px;
+    width: 90%;
+    margin: auto;
+    margin-top: 50px;
+}
+
+#ContenedorFormLogin input {
+    border: 1px solid rgb(209, 209, 209);
+    margin-bottom: 15px;
+    width: 100%;
+    height: 48px;
+    border-radius: 8px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    -ms-border-radius: 8px;
+    -o-border-radius: 8px;
+}
+
+hr {
+    width: 100%;
+    height: 1px;
+    margin-top: 30px;
     margin-bottom: 30px;
+    background-color: rgb(209, 209, 209);
+    border: none
+}
+
+#ContenedorFormLogin a {
+    text-decoration: none;
+    color: var(--color-principal);
+    font-weight: bold;
+}
+
+#ContenedorFormLogin div {
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
 }
 
 #ContenedorFormLogin button {
-    background-color: white;
-    border: 2px solid var(--color-principal);
-    border-radius: 15px;
-    font-weight: bold;
-    font-size: 22px;
-    color: var(--color-principal);
-    padding: 10px;
-    width: 200px;
+    width: 100%;
+    height: 48px;
+    border: none;
+    border-radius: 8px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    -ms-border-radius: 8px;
+    -o-border-radius: 8px;
+    pointer-events: none;
+    background-color: var(--color-principal);
+    color: rgb(83, 83, 83);
+}
+button:hover {
+    cursor: pointer;
 }
 
-#opcionesLogin {
-    margin-top: 40px;
-    text-align: center;
+#OtrasOpciones {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 12px;
 }
 
-#opcionesLogin a {
-    color: var(--color-principal);
+
+footer {
+    position: absolute;
+    bottom: 0;
+    padding-bottom: 40px;
+    margin-left: 4%;
+}
+
+footer p, footer a {
+    line-height: 18px;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 13px;
+    margin: 0 0 4px;
+}
+
+footer a {
+    text-decoration: none;
+}
+
+
+@media screen and (max-width: 450px) {
+    #ContenedorFormLogin {
+        padding: 32px;
+    }
+}
+
+#correoPasswordOlvidada {
     font-weight: bold;
-    font-family: sans-serif;
 }

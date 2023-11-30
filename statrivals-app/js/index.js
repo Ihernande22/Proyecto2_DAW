@@ -5,24 +5,28 @@ function selectorModo() {
     let titulo;
     switch (modoSeleccionado) {
         case "goles":
+            localStorage.setItem("modo", "goles");
             titulo = "GOLES";
             descripcion = "Infiere entre dos jugadores para intentar adivinar cuál de los dos ha anotado más goles a lo largo de su carrera.";
             imagen = "img/modo_goles";
             break;
 
         case "asistencias":
+            localStorage.setItem("modo", "asistencias");
             titulo = "ASISTENCIAS";
             descripcion = "Infiere entre dos jugadores para intentar adivinar cuál de los dos ha dado más asistencias a lo largo de su carrera.";
             imagen = "img/modo_asistencias";
             break;
 
         case "valor":
+            localStorage.setItem("modo", "valor");
             titulo = "VALOR";
             descripcion = "Infiere entre dos jugadores para intentar adivinar cuál de los dos ha tenido un mayor valor de mercado.";
             imagen = "img/modo_valor";
             break;
         
         case "partidos":
+            localStorage.setItem("modo", "partidos");
             titulo = "PARTIDOS";
             descripcion = "Infiere entre dos jugadores para intentar adivinar cuál de los dos ha jugado más partidos a lo largo de su carrera.";
             imagen = "img/modo_partidos";
@@ -51,25 +55,8 @@ function selectorModo() {
     contenedor.appendChild(docImagen);    
 }
 
-
-function toggleLogin(mostrarLogin) {
-    var formulario = document.getElementById("formularioLogin");
-    var containerFormulario = document.getElementById("containerLogin");
-    if (!mostrarLogin) {
-        containerFormulario.style.display = "none";
-        formulario.style.display = "none";
-    }
-    else {
-        containerFormulario.style.display = "flex";
-        containerFormulario.style.flexDirection = "column";
-        formulario.style.display = "flex";
-        formulario.style.flexDirection = "column";
-    }
-}
-
-toggleLogin(false);
-
 function crearInterfazConfigPartida() {
+    localStorage.setItem("estado","config");
     let modoSeleccionado = document.querySelector('input[name="modoSel"]:checked').value;
 
     //Eliminar el container con el selector de modo
@@ -85,6 +72,9 @@ function crearInterfazConfigPartida() {
     volverAtrasImg.setAttribute("alt", "image");
     volverAtrasBoton.appendChild(volverAtrasImg);
     volverAtrasBoton.addEventListener("click", function() {
+        localStorage.setItem("estado", "inicio");
+        localStorage.removeItem("liga");
+        localStorage.removeItem("dificultad");
         var containerEliminar = document.getElementById("principal");
         if (containerEliminar) {
             document.body.removeChild(containerEliminar);
@@ -123,6 +113,7 @@ function crearInterfazConfigPartida() {
     var inputLiga1 = document.createElement("input");
     inputLiga1.setAttribute("type", "radio");
     inputLiga1.setAttribute("name", "liga");
+    inputLiga1.setAttribute("id", "laliga");
     inputLiga1.setAttribute("value", "laliga");
     var spanLiga1 = document.createElement("span");
     var imgLiga1 = document.createElement("img");
@@ -137,6 +128,7 @@ function crearInterfazConfigPartida() {
     var inputLiga2 = document.createElement("input");
     inputLiga2.setAttribute("type", "radio");
     inputLiga2.setAttribute("name", "liga");
+    inputLiga2.setAttribute("id", "premier");
     inputLiga2.setAttribute("value", "premier");
     var spanLiga2 = document.createElement("span");
     var imgLiga2 = document.createElement("img");
@@ -151,6 +143,7 @@ function crearInterfazConfigPartida() {
     var inputLiga3 = document.createElement("input");
     inputLiga3.setAttribute("type", "radio");
     inputLiga3.setAttribute("name", "liga");
+    inputLiga3.setAttribute("id", "bundesliga");
     inputLiga3.setAttribute("value", "bundesliga");
     var spanLiga3 = document.createElement("span");
     var imgLiga3 = document.createElement("img");
@@ -165,6 +158,7 @@ function crearInterfazConfigPartida() {
     var inputLiga4 = document.createElement("input");
     inputLiga4.setAttribute("type", "radio");
     inputLiga4.setAttribute("name", "liga");
+    inputLiga4.setAttribute("id", "serieA");
     inputLiga4.setAttribute("value", "serieA");
     var spanLiga4 = document.createElement("span");
     var imgLiga4 = document.createElement("img");
@@ -179,6 +173,7 @@ function crearInterfazConfigPartida() {
     var inputLiga5 = document.createElement("input");
     inputLiga5.setAttribute("type", "radio");
     inputLiga5.setAttribute("name", "liga");
+    inputLiga5.setAttribute("id", "aleatorio");
     inputLiga5.setAttribute("value", "aleatorio");
     var spanLiga5 = document.createElement("span");
     var imgLiga5 = document.createElement("img");
@@ -195,6 +190,12 @@ function crearInterfazConfigPartida() {
     SelectorLigas.appendChild(labelLiga4);
     SelectorLigas.appendChild(labelLiga5);
 
+    //Cambiar liga en el localstorage
+    SelectorLigas.addEventListener("change", function() {
+        let liga = document.querySelector('input[name="liga"]:checked').value;
+        localStorage.setItem("liga", liga);
+    })
+
     ContenedorLigas.appendChild(TituloLigas);
     ContenedorLigas.appendChild(SelectorLigas);
 
@@ -204,6 +205,7 @@ function crearInterfazConfigPartida() {
     var inputDif1 = document.createElement("input");
     inputDif1.setAttribute("type", "radio");
     inputDif1.setAttribute("name", "dificultad");
+    inputDif1.setAttribute("id", "normal");
     inputDif1.setAttribute("value", "normal");
     var spanDif1 = document.createElement("span");
     spanDif1.textContent = "NORMAL";
@@ -215,11 +217,18 @@ function crearInterfazConfigPartida() {
     var inputDif2 = document.createElement("input");
     inputDif2.setAttribute("type", "radio");
     inputDif2.setAttribute("name", "dificultad");
+    inputDif2.setAttribute("id", "dificil");
     inputDif2.setAttribute("value", "dificil");
     var spanDif2 = document.createElement("span");
     spanDif2.textContent = "DIFICIL";
     labelDif2.appendChild(inputDif2);
     labelDif2.appendChild(spanDif2);
+
+    //Cambiar dificultad en el localstorage
+    SelectorDificultades.addEventListener("change", function() {
+        let dificultad = document.querySelector('input[name="dificultad"]:checked').value;
+        localStorage.setItem("dificultad", dificultad);
+    })
 
     //Añadir elementos de dificultad a su contenedor
     SelectorDificultades.appendChild(labelDif1);
@@ -252,3 +261,44 @@ function Jugar(modo) {
     console.log("Parametros de la partida: Modo -> " + modo + "  |  Liga -> " + ligaSeleccionada + "  |  Dificultad -> " + dificultadSeleccionada);
 }   
 
+/*Cargar estado pagina inicio*/
+function cargarPaginaInicio() {
+    /* Recoge el estado en el que se encuentra el usuario y el modo seleccionado*/
+    let estado = localStorage.getItem("estado");
+    let modo = localStorage.getItem("modo"); 
+    
+    /* En caso de que el usuario se encuentre en el inicio recoge el ultimo valor checked y lo selecciona*/
+    if (estado) {
+        if (estado == "inicio") {
+            let modoPorDefecto = document.getElementById("goles");
+            let modoActual = document.getElementById(modo);
+            modoPorDefecto.checked = false;
+            modoActual.checked = true;
+            selectorModo(modoActual);
+        }
+        else {
+            /* En caso de no estar en el inicio recoge la liga y dificultad */
+            let liga = localStorage.getItem("liga");
+            let dificultad = localStorage.getItem("dificultad");
+            crearInterfazConfigPartida();
+            if (liga) {
+                let ligaSeleccionada = document.getElementById(liga);
+                ligaSeleccionada.checked = true;
+            }
+            if (dificultad) {
+                let dificultadSeleccionada = document.getElementById(dificultad);
+                dificultadSeleccionada.checked = true;
+            }
+        }
+    }
+    else {
+        localStorage.setItem("estado", "inicio");
+        let modoPorDefecto = document.getElementById("goles");
+        let modoActual = document.getElementById(modo);
+        modoPorDefecto.checked = false;
+        modoActual.checked = true;
+        selectorModo(modoActual);
+    }
+}
+
+cargarPaginaInicio();
