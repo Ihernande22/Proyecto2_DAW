@@ -82,7 +82,7 @@ hr {
     -ms-border-radius: 8px;
     -o-border-radius: 8px;
     background-color: var(--color-principal);
-    color: rgb(83, 83, 83);
+    color: black;
 }
 button:hover {
     cursor: pointer;
@@ -94,6 +94,11 @@ button:hover {
     gap: 12px;
 }
 
+@media screen and (max-width: 275px) {
+    #ContenedorFormLogin {
+        padding: 16px !important;
+    }
+}
 
 footer {
     position: absolute;
