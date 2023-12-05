@@ -81,7 +81,6 @@ hr {
     -moz-border-radius: 8px;
     -ms-border-radius: 8px;
     -o-border-radius: 8px;
-    pointer-events: none;
     background-color: var(--color-principal);
     color: rgb(83, 83, 83);
 }
@@ -123,4 +122,18 @@ footer a {
 
 #correoPasswordOlvidada {
     font-weight: bold;
+}
+
+/* Mensajes de error */
+.contError {
+    color: black;
+    background-color: #FFEBE9;
+    font-size: 14px;
+    border: 1px solid #FFC0C0;
+    padding: 8px;
+    border-radius: 6px;
+}
+
+.contError p {
+    text-align: center;
 }
