@@ -1,7 +1,7 @@
 <?php
     session_start();
     include "VerifyEmail.php";
-
+    include "conexion.php";
     function validarCorreoElectronico($correo) {
         // Expresión regular para validar el formato del correo electrónico
         $patron = '/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/';
@@ -56,13 +56,19 @@
             $validacionCorreo = validarCorreoElectronico($correo);
             if ($validacionCorreo == -1) {
                 //Verificacion de que el correo exista(falta)
-                //$correoExiste = verificarEmailExistente($correo);
+                $correoExiste = verificarCorreoElectronicoExistente($correo);
                 if ($correoExiste == -1) {
                     //Verificación de que el correo no este repetido en la BBDD
-                    $_SESSION['verificacion'] = "ta ok";
+                    $query = "select count(*) as contador from Usuario where Correo_Electronico like $correo;";
+                    if ($resultado = $conex->query($query)) {
+                        while ($fila = $resultado->fetch_assoc()) {
+                            $_SESSION['mensajeError'] = "Contador: ". $fila['contador'];
+                            header("location:registrar.php");
+                        }
+                    }
                 }
                 else {
-                    $_SESSION['mensajeError'] = $correoExiste;
+                    $_SESSION['mensajeError'] = "El correo introducido no existe.";
                     header("location:registrar.php");
                 }
             } 
