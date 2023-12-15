@@ -1,3 +1,13 @@
+<?php
+    session_start();
+
+    // Función para destruir la sesión y redirigir a la página de inicio
+    function cerrarSesion() {
+        session_destroy();
+        header("location: rankings.php");
+        exit();
+    }
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,11 +23,18 @@
     <!-- BARRA DE NAVEGACIÓN -->
     <nav>
         <div class="menu">
-            <a class="logo" href="index.html"><img src="img/logo.png" alt="image"></a>
+            <a class="logo" href="index.php"><img src="img/logo.png" alt="image"></a>
             <ul class="menu_lista">
-                <li class="item"><a href="logros.html">LOGROS</a></li>
-                <li class="item"><a href="rankings.html">RANKINGS</a></li>
-                <li class="login"><a href="login.html"><button>LOGIN</button></a></li>
+                <li class="item"><a href="logros.php">LOGROS</a></li>
+                <li class="item"><a href="rankings.php">RANKINGS</a></li>
+                <?php if ($_SESSION['logeado'] === TRUE): ?>
+                <?php echo "<li class='logeado' id='nombreUsuario'>".$_SESSION['usuario']."<span>▼</span></li>"?>
+                <li class="cerrarSesionContainer" id="cerrarSesionContainer">
+                    <a href="#">Cerrar Sesión</a>
+                </li>
+                <?php else: ?>
+                <li class="login"><a href="login.php"><button>LOGIN</button></a></li>
+                <?php endif; ?>         
             </ul>
         </div>
     </nav>

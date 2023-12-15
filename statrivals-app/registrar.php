@@ -13,7 +13,7 @@
 </head>
 <body>
     <?php 
-        if ($_SESSION['logeado']) {
+        if ($_SESSION['logeado'] === TRUE) {
             echo "<p class='logeadoYa'>Esta funcionalidad esta desactivada mientras la sesión esta iniciada</p>";
         }
         else {
@@ -29,10 +29,6 @@
                     echo "<p class='errorFormLogin'>".$_SESSION['mensajeError']."</p>";
                     echo "</div>";
                     $_SESSION['mensajeError'] = null;
-                }
-                else if (isset($_SESSION['verificacion'])) {
-                    echo $_SESSION['verificacion'];
-                    $_SESSION['verificacion'] = null;
                 }
             ?>
             <h2>Registrarse</h2>
