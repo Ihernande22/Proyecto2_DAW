@@ -1,12 +1,5 @@
 <?php
     session_start();
-
-    // Función para destruir la sesión y redirigir a la página de inicio
-    function cerrarSesion() {
-        session_destroy();
-        header("location: index.php");
-        exit();
-    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -22,17 +15,13 @@
 <body>
     <!-- BARRA DE NAVEGACIÓN -->
     <nav>
-        <div class="menu">
+    <div class="menu">
             <a class="logo" href="index.php"><img src="img/logo.png" alt="image"></a>
             <ul class="menu_lista">
                 <li class="item"><a href="logros.php">LOGROS</a></li>
                 <li class="item"><a href="rankings.php">RANKINGS</a></li>
-                <!-- Añade el desplegable para cerrar sesión si el usuario está logeado -->
                 <?php if ($_SESSION['logeado'] === TRUE): ?>
-                <?php echo "<li class='logeado' id='nombreUsuario'>".$_SESSION['usuario']."<span>▼</span></li>"?>
-                <li class="cerrarSesionContainer" id="cerrarSesionContainer">
-                    <a href="#">Cerrar Sesión</a>
-                </li>
+                <?php echo "<li class='logeado' id='nombreUsuario'>".$_SESSION['usuario']."</li>"?>
                 <?php else: ?>
                 <li class="login"><a href="login.php"><button>LOGIN</button></a></li>
                 <?php endif; ?>

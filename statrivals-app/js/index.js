@@ -81,6 +81,7 @@ function crearInterfazConfigPartida() {
             document.body.removeChild(volverAtras);
             document.body.appendChild(containerModos);
         }
+        cargarPaginaInicio();
     })
     volverAtras.appendChild(volverAtrasBoton);
 
@@ -252,7 +253,6 @@ function crearInterfazConfigPartida() {
     //Añadir contenido al body
     document.body.appendChild(volverAtras);
     document.body.appendChild(Principal);
-
 }
 
 function Jugar(modo) {
@@ -266,7 +266,6 @@ function cargarPaginaInicio() {
     /* Recoge el estado en el que se encuentra el usuario y el modo seleccionado*/
     let estado = localStorage.getItem("estado");
     let modo = localStorage.getItem("modo"); 
-    
     /* En caso de que el usuario se encuentre en el inicio recoge el ultimo valor checked y lo selecciona*/
     if (estado) {
         if (estado == "inicio") {
@@ -300,6 +299,5 @@ function cargarPaginaInicio() {
         selectorModo(modoActual);
     }
 }
-
 
 cargarPaginaInicio();

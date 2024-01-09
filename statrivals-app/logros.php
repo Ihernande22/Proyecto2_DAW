@@ -1,12 +1,6 @@
 <?php
     session_start();
-
-    // Función para destruir la sesión y redirigir a la página de inicio
-    function cerrarSesion() {
-        session_destroy();
-        header("location: logros.php");
-        exit();
-    }
+    session_destroy();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -28,10 +22,7 @@
                 <li class="item"><a href="logros.php">LOGROS</a></li>
                 <li class="item"><a href="rankings.php">RANKINGS</a></li>
                 <?php if ($_SESSION['logeado'] === TRUE): ?>
-                <?php echo "<li class='logeado' id='nombreUsuario'>".$_SESSION['usuario']."<span>▼</span></li>"?>
-                <li class="cerrarSesionContainer" id="cerrarSesionContainer">
-                    <a href="#">Cerrar Sesión</a>
-                </li>
+                <?php echo "<li class='logeado' id='nombreUsuario'>".$_SESSION['usuario']."</li>"?>
                 <?php else: ?>
                 <li class="login"><a href="login.php"><button>LOGIN</button></a></li>
                 <?php endif; ?>

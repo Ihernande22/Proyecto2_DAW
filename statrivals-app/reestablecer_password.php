@@ -1,3 +1,6 @@
+<?php
+    session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,8 +12,15 @@
     <link rel="stylesheet" href="css/login.css">
 </head>
 <body>
+<?php 
+        if ($_SESSION['logeado'] === TRUE) {
+            echo "<p class='logeadoYa'>Esta funcionalidad esta desactivada mientras la sesión esta iniciada</p>";
+            echo "<a href='index.php'>Volver</a>";
+        }
+        else {
+    ?>
     <!-- Logo -->
-    <a href="index.html" id="logo"><img src="img/logo.png" alt="image"></a>
+    <a href="index.php" id="logo"><img src="img/logo.png" alt="image"></a>
 
     <!-- FORMULARIO LOGIN -->
     <div id="ContenedorFormLogin">
@@ -20,7 +30,9 @@
             <button onclick="">Enviar</button>
         </form>
     </div>
-
+    <?php
+        }
+    ?>
     <footer>
         <p>© 2023 Izan Villaécija y Iker Hernández. Todos los derechos reservados.</p>
         <a href="">Política de privacidad</a>

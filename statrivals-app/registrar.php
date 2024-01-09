@@ -15,11 +15,12 @@
     <?php 
         if ($_SESSION['logeado'] === TRUE) {
             echo "<p class='logeadoYa'>Esta funcionalidad esta desactivada mientras la sesión esta iniciada</p>";
+            echo "<a href='index.php'>Volver</a>";
         }
         else {
     ?>
         <!-- Logo -->
-        <a href="index.html" id="logo"><img src="img/logo.png" alt="image"></a>
+        <a href="index.php" id="logo"><img src="img/logo.png" alt="image"></a>
 
         <!-- FORMULARIO LOGIN -->
         <div id="ContenedorFormLogin">
@@ -40,10 +41,10 @@
                 <hr>
                 <div id="OtrasOpciones">
                     <div id="sinUsuario">
-                        Ya tienes un usuario creado?&nbsp;<a href="login.html">Iniciar sesión</a>
+                        Ya tienes un usuario creado?&nbsp;<a href="login.php">Iniciar sesión</a>
                     </div>
                     <div id="JugarInvitado">
-                        <a href="index.html">Jugar como invitado</a>
+                        <a href="index.php">Jugar como invitado</a>
                     </div>
                 </div>
             </form>
