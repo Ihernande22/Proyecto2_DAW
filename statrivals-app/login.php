@@ -39,9 +39,6 @@
                 <button type="submit" name='iniciar_sesion'>Iniciar sesión</button>
                 <hr>
                 <div id="OtrasOpciones">
-                    <div id="passwordOlvidada">
-                        Has olvidado tu contraseña?&nbsp;<a href="reestablecer_password.php" onclick="">Reestablecer</a>
-                    </div>
                     <div id="sinUsuario">
                         No tienes un usuario creado?&nbsp;<a href="registrar.php">Crea uno</a>
                     </div>

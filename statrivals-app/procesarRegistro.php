@@ -1,6 +1,5 @@
 <?php
     session_start();
-    $_SESSION['logeado'] = FALSE;
     include "VerifyEmail.php";
     include "conexion.php";
     function validarCorreoElectronico($correo) {
@@ -109,80 +108,107 @@
         // Devolver -1 si no hay errores
         return -1;
     }
-    
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StatRivals</title>
+    <link rel="shortcut icon" href="img/favicon.jpg" type="image/x-icon">
+    <link rel="stylesheet" href="css/login.css">
+</head>
+<body>
+    <?php 
+        if ($_SESSION['logeado'] === TRUE) {
+            echo "<p class='logeadoYa'>Esta funcionalidad esta desactivada mientras la sesión esta iniciada</p>";
+            echo "<a href='index.php'>Volver</a>";
+        }
+        else {
+            if ($_SESSION['estadoLogin'] === "verificacion_correo") {
+                header("location:login.php");
+                exit;
+            }
+            else {
+                //Comprueba si se ha enviado el formulario
+                if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                    if (isset($_POST['registrar'])) {
+                        $_SESSION['logeado'] = FALSE;
+                        //Guarda los datos del formulario
+                        $correo = $_POST['correoElectronico'];
+                        $nUsuario = $_POST['nombreUsuario'];
+                        $password = $_POST['password'];
+                        
 
-    //Comprueba si se ha enviado el formulario
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        if (isset($_POST['registrar'])) {
-            //Guarda los datos del formulario
-            $correo = $_POST['correoElectronico'];
-            $nUsuario = $_POST['nombreUsuario'];
-            $password = $_POST['password'];
-            
-
-            //Validacion correo
-            $validacionCorreo = validarCorreoElectronico($correo);
-            if ($validacionCorreo == -1) {
-                //Verificacion de que el correo exista(falta)
-                $correoExiste = verificarCorreoElectronicoExistente($correo);
-                if ($correoExiste == -1) {
-                    //Verificación de que el correo no este repetido en la BBDD
-                    $query = "select count(*) as contador from Usuario where Correo_Electronico like '$correo';";
-                    if ($resultado = $conex->query($query)) {
-                        while ($fila = $resultado->fetch_assoc()) {
-                            if ($fila['contador'] > 0) {
-                                $_SESSION['mensajeError'] = "El correo introducido ya ha sido elegido por otro usuario.";
+                        //Validacion correo
+                        $validacionCorreo = validarCorreoElectronico($correo);
+                        if ($validacionCorreo == -1) {
+                            //Verificacion de que el correo exista(falta)
+                            $correoExiste = verificarCorreoElectronicoExistente($correo);
+                            if ($correoExiste == -1) {
+                                //Verificación de que el correo no este repetido en la BBDD
+                                $query = "select count(*) as contador from Usuario where Correo_Electronico like '$correo';";
+                                if ($resultado = $conex->query($query)) {
+                                    while ($fila = $resultado->fetch_assoc()) {
+                                        if ($fila['contador'] > 0) {
+                                            $_SESSION['mensajeError'] = "El correo introducido ya ha sido elegido por otro usuario.";
+                                            header("location:registrar.php");
+                                            exit;
+                                        }
+                                    }
+                                }
+                            }
+                            else {
+                                $_SESSION['mensajeError'] = "El correo introducido no existe.";
                                 header("location:registrar.php");
                                 exit;
                             }
+                        } 
+                        else {
+                            //No ha pasado la verificació, devuelve el mensaje de error
+                            $_SESSION['mensajeError'] = $validacionCorreo;
+                            header("location:registrar.php");
+                            exit;
+                        }
+
+                        // Validacion nombre de usuario
+                        $validacionUsuario = validarNombreUsuario($nUsuario, $conex);
+                        if ($validacionUsuario != -1) {
+                            // Ha habido un error en la validación del nombre de usuario
+                            $_SESSION['mensajeError'] = $validacionUsuario;
+                            header("location:registrar.php");
+                            exit;
+                        }
+
+                        // Validacion contraseña
+                        $validacionContrasena = validarContrasena($password);
+                        if ($validacionContrasena != -1) {
+                            // Ha habido un error en la validación de la contraseña
+                            $_SESSION['mensajeError'] = $validacionContrasena;
+                            header("location:registrar.php");         
+                            exit;
+                        }
+
+                        // Generar la contraseña cifrada
+                        $contrasenaCifrada = password_hash($password, PASSWORD_DEFAULT);
+
+                        // Insertar el usuario en la base de datos con la contraseña cifrada
+                        $queryInsert = "INSERT INTO Usuario (Correo_Electronico, Nombre_Usuario, Contraseña) VALUES ('$correo', '$nUsuario', '$contrasenaCifrada');";
+                        if ($conex->query($queryInsert)===TRUE) {
+                            echo "<div class='registroCorrecto'><p>Se ha registrado el usuario correctamente.</p><a href='index.php'>Volver</a></div>";
+                            $_SESSION['logeado'] = TRUE;
+                            $_SESSION['usuario'] = $nUsuario;
+                        } else {
+                            $_SESSION['mensajeError'] = "Error al registrar el usuario en la base de datos.";
+                            //header("location:registrar.php");
+                            exit;
                         }
                     }
                 }
                 else {
-                    $_SESSION['mensajeError'] = "El correo introducido no existe.";
                     header("location:registrar.php");
                     exit;
                 }
-            } 
-            else {
-                //No ha pasado la verificació, devuelve el mensaje de error
-                $_SESSION['mensajeError'] = $validacionCorreo;
-                header("location:registrar.php");
-                exit;
             }
-
-            // Validacion nombre de usuario
-            $validacionUsuario = validarNombreUsuario($nUsuario, $conex);
-            if ($validacionUsuario != -1) {
-                // Ha habido un error en la validación del nombre de usuario
-                $_SESSION['mensajeError'] = $validacionUsuario;
-                header("location:registrar.php");
-                exit;
-            }
-
-            // Validacion contraseña
-            $validacionContrasena = validarContrasena($password);
-            if ($validacionContrasena != -1) {
-                // Ha habido un error en la validación de la contraseña
-                $_SESSION['mensajeError'] = $validacionContrasena;
-                header("location:registrar.php");         
-                exit;
-            }
-
-            // Generar la contraseña cifrada
-            $contrasenaCifrada = password_hash($password, PASSWORD_DEFAULT);
-
-            // Insertar el usuario en la base de datos con la contraseña cifrada
-            $queryInsert = "INSERT INTO Usuario (Correo_Electronico, Nombre_Usuario, Contraseña) VALUES ('$correo', '$nUsuario', '$contrasenaCifrada');";
-            if ($conex->query($queryInsert)===TRUE) {
-                echo "<div class='registroCorrecto'><p>Se ha registrado el usuario correctamente.</p><a href='index.php'>Volver</a></div>";
-                $_SESSION['logeado'] = TRUE;
-                $_SESSION['usuario'] = $nUsuario;
-            } else {
-                $_SESSION['mensajeError'] = "Error al registrar el usuario en la base de datos.";
-                //header("location:registrar.php");
-                exit;
-            }
-        }
     }
-?>

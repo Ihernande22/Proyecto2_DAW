@@ -270,10 +270,16 @@ function cargarPaginaInicio() {
     if (estado) {
         if (estado == "inicio") {
             let modoPorDefecto = document.getElementById("goles");
-            let modoActual = document.getElementById(modo);
-            modoPorDefecto.checked = false;
-            modoActual.checked = true;
-            selectorModo(modoActual);
+            try {
+                let modoActual = document.getElementById(modo);
+                modoPorDefecto.checked = false;
+                modoActual.checked = true;
+                selectorModo();
+            } catch (error) {
+                modoPorDefecto.checked = true;
+                selectorModo();      
+                localStorage.setItem("modo", "goles");
+            }
         }
         else {
             /* En caso de no estar en el inicio recoge la liga y dificultad */
@@ -292,12 +298,12 @@ function cargarPaginaInicio() {
     }
     else {
         localStorage.setItem("estado", "inicio");
+        localStorage.setItem("modo", "goles");
         let modoPorDefecto = document.getElementById("goles");
-        let modoActual = document.getElementById(modo);
-        modoPorDefecto.checked = false;
-        modoActual.checked = true;
-        selectorModo(modoActual);
+        modoPorDefecto.checked = true;
+        selectorModo();
     }
 }
 
 cargarPaginaInicio();
+
