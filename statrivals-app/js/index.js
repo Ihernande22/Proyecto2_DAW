@@ -242,7 +242,7 @@ function crearInterfazConfigPartida() {
     var botonJugar = document.createElement("button");
     botonJugar.setAttribute("class", "boton_jugar");
     botonJugar.setAttribute("id", "boton_jugar2");
-    botonJugar.setAttribute("onclick", "Jugar('"+modoSeleccionado+"')");
+    botonJugar.setAttribute("onclick", "obtenerParametrosPartida('"+modoSeleccionado+"')");
     botonJugar.textContent = "Jugar";
 
     //Añadir contenedores al contenedor principal
@@ -255,10 +255,10 @@ function crearInterfazConfigPartida() {
     document.body.appendChild(Principal);
 }
 
-function Jugar(modo) {
+function obtenerParametrosPartida(modo) {
     var ligaSeleccionada = document.querySelector('input[name="liga"]:checked').value;
     var dificultadSeleccionada = document.querySelector('input[name="dificultad"]:checked').value;
-    console.log("Parametros de la partida: Modo -> " + modo + "  |  Liga -> " + ligaSeleccionada + "  |  Dificultad -> " + dificultadSeleccionada);
+    return [modo,ligaSeleccionada,dificultadSeleccionada];
 }   
 
 /*Cargar estado pagina inicio*/
