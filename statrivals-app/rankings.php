@@ -76,8 +76,8 @@
                 <div class="overSelect"></div>
             </div>
             <div id="CheckBoxesDificultad" class="CheckBoxes">
-                <label for="rankings_dificultad_normal"><input type="checkbox" id="rankings_dificultad_normal" name="dificultad[]" value="rankings_dificultad_normal">Normal</label>
-                <label for="rankings_dificultad_dificil"><input type="checkbox" id="rankings_dificultad_dificil" name="dificultad[]" value="rankings_dificultad_dificil">Dificil</label>
+                <label for="rankings_dificultad_normal"><input type="checkbox" id="rankings_dificultad_normal" name="dificultad[]" value="normal">Normal</label>
+                <label for="rankings_dificultad_dificil"><input type="checkbox" id="rankings_dificultad_dificil" name="dificultad[]" value="dificil">Dificil</label>
             </div>
         </div>
 
@@ -125,125 +125,194 @@
 
         }
         else {
-            /* Solo Modos */
-            if (!empty($_POST['modos']) && 
-                empty($_POST['ligas']) &&
-                empty($_POST['dificultad'])) {
-                $modos = $_POST["modos"];
-                $ligas = $_POST['ligas'];
-                $dificultad = $_POST['dificultad'];
-                $modoPuntuacion = $_POST['rankings_modoPuntuacion'];
-                $modoUsuario = $_POST['rankings_usuarios'];
+            $modos = $_POST["modos"];
+            $ligas = $_POST['ligas'];
+            $dificultad = $_POST['dificultad'];
+            $modoPuntuacion = $_POST['rankings_modoPuntuacion'];
+            $modoUsuario = $_POST['rankings_usuarios'];                   
+            $query = "SELECT u.Nombre_Usuario as Usuario";
+            $ejecutarQuery = TRUE;
+            if ($modoUsuario === "rankigns_usuarios_personal") {
+                if ($_SESSION['logeado'] === TRUE) { 
+                    $id_usuario = "select * from Usuario where Nombre_Usuario like '".$_SESSION['usuario']."';";
+                    if ($resultado = $conex->query($id_usuario)) {
+                        while ($fila = $resultado->fetch_assoc()) {
+                            $id_usuario = $fila['ID_Usuario'];
+                        }
+                    }
+                    if($modoPuntuacion === "rankigns_modoPuntuacion_acumulatoria"){
+                        $query = $query . ", (SELECT SUM(r.Puntuacion)FROM Registro_Partida r Where r.ID_Usuario = $id_usuario ";
+        
+                        if (count($modos) > 0) {
+                            $query = $query.' AND  r.ID_Modo IN(';
+                            for($i=0;$i<count($modos);$i++){
+                                $query = $query . $modos[$i];
+                                if($modos[$i+1]){
+                                    $query=$query . ", ";
+                                }
+                            }
+                            $query = $query . ") " ;
+                        }
+                                
+                        if(count($ligas)> 0){
+                            $query = $query . " and ID_Liga IN (";
+                            for($i=0;$i<count($ligas);$i++){
+                                $query = $query . $ligas[$i];
+                                if($ligas[$i+1]){
+                                    $query=$query . ", ";
+                                    }
+                                }
+                            $query = $query . ") " ;    
+                        }
 
+                        if(count($dificultad)> 0){
+                            $query = $query . " and Dificultad IN (";
+                            for($i=0;$i<count($dificultad);$i++){
+                                $query = $query . "'$dificultad[$i]'";
+                                if($dificultad[$i+1]){
+                                    $query=$query . ", ";
+                                }
+                            }
+                            $query = $query . ") " ;    
+                        }
+
+                        $query = $query . ") AS Puntuacion FROM Usuario u HAVING Puntuacion > 0;";
+                                
+
+                    }
+                    elseif ($modoPuntuacion === "rankigns_modoPuntuacion_porPartida") {
+                        $query = $query . ", (SELECT MAX(r.Puntuacion)FROM Registro_Partida r Where r.ID_Usuario = $id_usuario ";
+                                
+                        if (count($modos) > 0) {
+                            $query = $query.' AND  r.ID_Modo IN(';
+                            for($i=0;$i<count($modos);$i++){
+                                $query = $query . $modos[$i];
+                                if($modos[$i+1]){
+                                    $query=$query . ", ";
+                                }
+                            }
+                            $query = $query . ") " ;
+                        }
+                                    
+                        if(count($ligas)> 0){
+                            $query = $query . " and ID_Liga IN (";
+                            for($i=0;$i<count($ligas);$i++){
+                                $query = $query . $ligas[$i];
+                                if($ligas[$i+1]){
+                                    $query=$query . ", ";
+                                    }
+                                }
+                                $query = $query . ") " ;    
+                            }
+    
+                        if(count($dificultad)> 0){
+                            $query = $query . " and Dificultad IN (";
+                            for($i=0;$i<count($dificultad);$i++){
+                                $query = $query . "'$dificultad[$i]'";
+                                if($dificultad[$i+1]){
+                                    $query=$query . ", ";
+                                }
+                            }
+                            $query = $query . ") " ;    
+                        }
+    
+                        $query = $query . ") AS Puntuacion FROM Usuario u HAVING Puntuacion > 0;";            
+                    }
+                }
+                else {
+                    $ejecutarQuery = FALSE;
+                    echo "<p>Para usar esta funcionalidad necesitas estar logeado como usuario.</p>";
+                }
+            }
                 
-         
-                
-                $query = "SELECT u.Nombre_Usuario as Usuario u ";
-                $ejecutarQuery = TRUE;
-                if ($modoUsuario === "rankigns_usuarios_personal") {
-                        if ($_SESSION['logeado'] === TRUE) {
-                            if($modoPuntuacion === "rankigns_modoPuntuacion_acumulatoria"){
-                                $query = $query . ", (SELECT SUM(r.Puntuacion)FROM Registro_Partida r Where r.ID_Usuario = u.ID_Usuario AND  r.ID_Modo IN(";
-                                
-                                for($i=0;$i<count($modo);$i++){
-                                    $query = $query . $modo[$i];
-                                    if($modo[$i+1]){
-                                        $query=$query . ", ";
-                                    }
-                                }
-                                $query = $query . ") " ;
-                                
-                                if(count($ligas)> 0){
-                                    $query = $query . " and ID_Liga IN (";
-                                    for($i=0;$i<count($ligas);$i++){
-                                        $query = $query . $ligas[$i];
-                                        if($ligas[$i+1]){
-                                            $query=$query . ", ";
-                                        }
-                                    }
-                                    $query = $query . ") " ;    
-                                }
-
-                                if(count($dificultad)> 0){
-                                    //$query = $query . " and ID_Liga IN (";
-                                    for($i=0;$i<count($dificultad);$i++){
-                                        $query = $query . $dificultad[$i];
-                                        if($dificultad[$i+1]){
-                                            $query=$query . ", ";
-                                        }
-                                    }
-                                    $query = $query . ") " ;    
-                                }
-
-                                $query = $query . ") AS Puntuacion FROM Usuario u HAVING Puntuacion > 0;";
-                                
-
+            elseif ($modoUsuario === "rankigns_usuarios_global") {
+                if($modoPuntuacion === "rankigns_modoPuntuacion_acumulatoria"){
+                    $query = $query . ", (SELECT SUM(r.Puntuacion)FROM Registro_Partida r Where r.ID_Usuario = u.ID_Usuario ";
+    
+                    if (count($modos) > 0) {
+                        $query = $query.' AND  r.ID_Modo IN(';
+                        for($i=0;$i<count($modos);$i++){
+                            $query = $query . $modos[$i];
+                            if($modos[$i+1]){
+                                $query=$query . ", ";
                             }
                         }
-                        else {
-                            $ejecutarQuery = FALSE;
-                            echo "<p>Para usar esta funcionalidad necesitas estar logeado como usuario.";
+                        $query = $query . ") " ;
+                    }
+                            
+                    if(count($ligas)> 0){
+                        $query = $query . " and ID_Liga IN (";
+                        for($i=0;$i<count($ligas);$i++){
+                            $query = $query . $ligas[$i];
+                            if($ligas[$i+1]){
+                                $query=$query . ", ";
+                                }
+                            }
+                        $query = $query . ") " ;    
+                    }
+
+                    if(count($dificultad)> 0){
+                        $query = $query . " and Dificultad IN (";
+                        for($i=0;$i<count($dificultad);$i++){
+                            $query = $query . "'$dificultad[$i]'";
+                            if($dificultad[$i+1]){
+                                $query=$query . ", ";
+                            }
                         }
+                        $query = $query . ") " ;    
                     }
-                    if($ejecutarQuery === TRUE){
-                        echo $query;
-                    }
-                
-               
-                
-               
-            /* Solo ligas */    
-            }elseif(empty($_POST['modos']) &&
-                    !empty($_POST['ligas']) && 
-                    empty($_POST['dificultad'])){
-                    
-                    $ligas = $_POST['ligas'];
-                    foreach($ligas as $resultado){
-                        $ligas = $resultado;
-                    }
-                    $filtroLigas = implode("','", $ligas);
-                
-                    $resultado = $conex->query("SELECT *FROM Registro_Partida 
-                                                INNER JOIN Liga 
-                                                ON Registro_Partida.ID_Liga =Liga.ID_Liga 
-                                                AND Liga.ID_Liga = '$ligas' ");
-                foreach ($resultado as $fila) {
 
-                    echo 'Modo Ligas' . $fila['Nombre_Liga'] . '<br />';
+                    $query = $query . ") AS Puntuacion FROM Usuario u HAVING Puntuacion > 0;";
+                            
+
                 }
-            
-            
-             /* Solo Dificultad */
+                elseif ($modoPuntuacion === "rankigns_modoPuntuacion_porPartida") {
+                    $query = $query . ", (SELECT MAX(r.Puntuacion)FROM Registro_Partida r Where r.ID_Usuario = u.ID_Usuario ";
+                            
+                    if (count($modos) > 0) {
+                        $query = $query.' AND  r.ID_Modo IN(';
+                        for($i=0;$i<count($modos);$i++){
+                            $query = $query . $modos[$i];
+                            if($modos[$i+1]){
+                                $query=$query . ", ";
+                            }
+                        }
+                        $query = $query . ") " ;
+                    }
+                                
+                    if(count($ligas)> 0){
+                        $query = $query . " and ID_Liga IN (";
+                        for($i=0;$i<count($ligas);$i++){
+                            $query = $query . $ligas[$i];
+                            if($ligas[$i+1]){
+                                $query=$query . ", ";
+                                }
+                            }
+                            $query = $query . ") " ;    
+                        }
+
+                    if(count($dificultad)> 0){
+                        $query = $query . " and Dificultad IN (";
+                        for($i=0;$i<count($dificultad);$i++){
+                            $query = $query . "'$dificultad[$i]'";
+                            if($dificultad[$i+1]){
+                                $query=$query . ", ";
+                            }
+                        }
+                        $query = $query . ") " ;    
+                    }
+
+                    $query = $query . ") AS Puntuacion FROM Usuario u HAVING Puntuacion > 0;";            
+                }
+       
+            }
+            if ($ejecutarQuery === TRUE) {
+                echo $query;
             }
 
-
-        
-            
-            
-            /*if(isset($_POST['ligas'])){
-                $ligas = $_POST["ligas"];
-                foreach($ligas as $valor){
-                    echo "Valor selecionador: $valor <br>";
-                }
-            }
-            if(isset($_POST['dificultad'])){
-                $dificultad = $_POST["dificultad"];
-                foreach($dificultad as $valor){ 
-                    echo "Valor selecionado: $valor <br>";
-                }
-
-            }
-            $usuarios = $_POST['rankings_usuarios'];
-            echo "Valor selecionado: $usuarios <br>";
-            
-            $puntuacion = $_POST['rankings_modoPuntuacion'];
-            echo "Valor selecionado: $puntuacion";
-        */
-
-            
         }
         
-
+    
     }
 
     ?>
