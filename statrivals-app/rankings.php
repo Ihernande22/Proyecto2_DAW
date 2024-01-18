@@ -1,4 +1,6 @@
-
+<?php
+    session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,12 +15,16 @@
 <body>
     <!-- BARRA DE NAVEGACIÓN -->
     <nav>
-        <div class="menu">
-            <a class="logo" href="index.html"><img src="img/logo.png" alt="image"></a>
+    <div class="menu">
+            <a class="logo" href="index.php"><img src="img/logo.png" alt="image"></a>
             <ul class="menu_lista">
-                <li class="item"><a href="logros.html">LOGROS</a></li>
-                <li class="item"><a href="rankings.html">RANKINGS</a></li>
-                <li class="login"><a href="login.html"><button>LOGIN</button></a></li>
+                <li class="item"><a href="logros.php">LOGROS</a></li>
+                <li class="item"><a href="rankings.php">RANKINGS</a></li>
+                <?php if ($_SESSION['logeado'] === TRUE): ?>
+                <?php echo "<li class='logeado' id='nombreUsuario'>".$_SESSION['usuario']."</li>"?>
+                <?php else: ?>
+                <li class="login"><a href="login.php"><button>LOGIN</button></a></li>
+                <?php endif; ?>
             </ul>
         </div>
     </nav>
@@ -37,10 +43,10 @@
                 <div class="overSelect"></div>
             </div>
             <div id="CheckBoxesModo" class="CheckBoxes" name="CheckBoxesModo">
-                <label for="rankings_modo_goles"><input type="checkbox" id="rankings_modo_goles" name="modos[]" value="rankings_modo_goles"/>GOLES</label>
-                <label for="rankings_modo_asistencias"><input type="checkbox" id="rankings_modo_asistencias" name="modos[]" value="rankings_modo_asistencias"/>ASISTENCIAS</label>
-                <label for="rankings_modo_partidos"><input type="checkbox" id="rankings_modo_partidos" name="modos[]" value="rankings_modo_partidos"/>PARTIDOS</label>
-                <label for="rankings_modo_valor"><input type="checkbox" id="rankings_modo_valor" name="modos[]" value="rankings_modo_valor"/>VALOR </label>
+                <label for="rankings_modo_goles"><input type="checkbox" id="rankings_modo_goles" name="modos[]" value="1"/>GOLES</label>
+                <label for="rankings_modo_asistencias"><input type="checkbox" id="rankings_modo_asistencias" name="modos[]" value="2"/>ASISTENCIAS</label>
+                <label for="rankings_modo_partidos"><input type="checkbox" id="rankings_modo_partidos" name="modos[]" value="3"/>PARTIDOS</label>
+                <label for="rankings_modo_valor"><input type="checkbox" id="rankings_modo_valor" name="modos[]" value="4"/>VALOR </label>
             </div>
             </div>
      
@@ -53,11 +59,11 @@
                 <div class="overSelect"></div>
             </div>
             <div id="CheckBoxesLiga" class="CheckBoxes">
-                <label for="rankings_liga_premier"><input type="checkbox" id="rankings_liga_premier" name="ligas[]" value="rankings_liga_premier">Premier League</label>
-                <label for="rankings_liga_laliga"><input type="checkbox" id="rankings_liga_laliga" name="ligas[]" value="rankings_liga_laliga">LaLiga</label>
-                <label for="rankings_liga_bundesliga"><input type="checkbox" id="rankings_liga_bundesliga" name="ligas[]" value="rankings_liga_bundesliga">Bundesliga</label>
-                <label for="rankings_liga_seriea"><input type="checkbox" id="rankings_liga_seriea" name="ligas[]" value="rankings_liga_seriea">Serie A</label>
-                <label for="rankings_liga_aleatorio"><input type="checkbox" id="rankings_liga_aleatorio" name="ligas[]" value="rankings_liga_aleatorio">Aleatorio</label>
+                <label for="rankings_liga_premier"><input type="checkbox" id="rankings_liga_premier" name="ligas[]" value="1">Premier League</label>
+                <label for="rankings_liga_laliga"><input type="checkbox" id="rankings_liga_laliga" name="ligas[]" value="2">LaLiga</label>
+                <label for="rankings_liga_bundesliga"><input type="checkbox" id="rankings_liga_bundesliga" name="ligas[]" value="3">Bundesliga</label>
+                <label for="rankings_liga_seriea"><input type="checkbox" id="rankings_liga_seriea" name="ligas[]" value="4">Serie A</label>
+                <label for="rankings_liga_aleatorio"><input type="checkbox" id="rankings_liga_aleatorio" name="ligas[]" value="5">Aleatorio</label>
             </div>
         </div>
 
@@ -119,16 +125,102 @@
 
         }
         else {
-            if(isset($_POST['modos'])){
-            $modos = $_POST["modos"];
+            /* Solo Modos */
+            if (!empty($_POST['modos']) && 
+                empty($_POST['ligas']) &&
+                empty($_POST['dificultad'])) {
+                $modos = $_POST["modos"];
+                $ligas = $_POST['ligas'];
+                $dificultad = $_POST['dificultad'];
+                $modoPuntuacion = $_POST['rankings_modoPuntuacion'];
+                $modoUsuario = $_POST['rankings_usuarios'];
+
+                
          
-           /*$resultado = $conex->query("SELECT * FROM Registro_Partida");
-            foreach($resultado as $fila){
-                echo $fila['ID_Modo'] . '<br />';
+                
+                $query = "SELECT u.Nombre_Usuario as Usuario u ";
+                $ejecutarQuery = TRUE;
+                if ($modoUsuario === "rankigns_usuarios_personal") {
+                        if ($_SESSION['logeado'] === TRUE) {
+                            if($modoPuntuacion === "rankigns_modoPuntuacion_acumulatoria"){
+                                $query = $query . ", (SELECT SUM(r.Puntuacion)FROM Registro_Partida r Where r.ID_Usuario = u.ID_Usuario AND  r.ID_Modo IN(";
+                                
+                                for($i=0;$i<count($modo);$i++){
+                                    $query = $query . $modo[$i];
+                                    if($modo[$i+1]){
+                                        $query=$query . ", ";
+                                    }
+                                }
+                                $query = $query . ") " ;
+                                
+                                if(count($ligas)> 0){
+                                    $query = $query . " and ID_Liga IN (";
+                                    for($i=0;$i<count($ligas);$i++){
+                                        $query = $query . $ligas[$i];
+                                        if($ligas[$i+1]){
+                                            $query=$query . ", ";
+                                        }
+                                    }
+                                    $query = $query . ") " ;    
+                                }
+
+                                if(count($dificultad)> 0){
+                                    //$query = $query . " and ID_Liga IN (";
+                                    for($i=0;$i<count($dificultad);$i++){
+                                        $query = $query . $dificultad[$i];
+                                        if($dificultad[$i+1]){
+                                            $query=$query . ", ";
+                                        }
+                                    }
+                                    $query = $query . ") " ;    
+                                }
+
+                                $query = $query . ") AS Puntuacion FROM Usuario u HAVING Puntuacion > 0;";
+                                
+
+                            }
+                        }
+                        else {
+                            $ejecutarQuery = FALSE;
+                            echo "<p>Para usar esta funcionalidad necesitas estar logeado como usuario.";
+                        }
+                    }
+                    if($ejecutarQuery === TRUE){
+                        echo $query;
+                    }
+                
+               
+                
+               
+            /* Solo ligas */    
+            }elseif(empty($_POST['modos']) &&
+                    !empty($_POST['ligas']) && 
+                    empty($_POST['dificultad'])){
+                    
+                    $ligas = $_POST['ligas'];
+                    foreach($ligas as $resultado){
+                        $ligas = $resultado;
+                    }
+                    $filtroLigas = implode("','", $ligas);
+                
+                    $resultado = $conex->query("SELECT *FROM Registro_Partida 
+                                                INNER JOIN Liga 
+                                                ON Registro_Partida.ID_Liga =Liga.ID_Liga 
+                                                AND Liga.ID_Liga = '$ligas' ");
+                foreach ($resultado as $fila) {
+
+                    echo 'Modo Ligas' . $fila['Nombre_Liga'] . '<br />';
+                }
+            
+            
+             /* Solo Dificultad */
             }
-            */
-            }
-            if(isset($_POST['ligas'])){
+
+
+        
+            
+            
+            /*if(isset($_POST['ligas'])){
                 $ligas = $_POST["ligas"];
                 foreach($ligas as $valor){
                     echo "Valor selecionador: $valor <br>";
@@ -146,6 +238,7 @@
             
             $puntuacion = $_POST['rankings_modoPuntuacion'];
             echo "Valor selecionado: $puntuacion";
+        */
 
             
         }
