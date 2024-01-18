@@ -307,7 +307,42 @@
        
             }
             if ($ejecutarQuery === TRUE) {
-                echo $query;
+                $contador = 0;
+                $contadorQuery = str_replace(";","","select count(*) as contador from ($query) as subconsulta");
+                $contadorQuery = $contadorQuery.";";
+                if($resultado = $conex->query($contadorQuery)){
+                 while ($row = $resultado->fetch_assoc()) {
+                    $contador = $row['contador']; 
+                 }
+                }
+                if ($contador > 0) {
+                    if($resultado = $conex->query($query)){
+
+                        ?>
+                        <table id="tabla" border="1">
+                        <tr>
+                            <th>Usuario</th>
+                            <th>Puntuacion</th>
+                            
+                        </tr>
+        
+                        <?php
+                        while ($row = $resultado->fetch_assoc()) {
+
+                                    echo "<tr>";
+                                    echo "<td>" . $row["Usuario"] . "</td>";
+                                    echo "<td>" . $row["Puntuacion"] . "</td>";
+                                    echo "</tr>";
+                        }
+                       }
+                }
+                else {
+                    echo "<p>No se han encontrado resultados</p>";
+                }
+                ?>
+                </table>
+                <?php
+               
             }
 
         }
