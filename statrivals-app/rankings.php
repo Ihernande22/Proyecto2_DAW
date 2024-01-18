@@ -1,6 +1,4 @@
-<?php
-    session_start();
-?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,16 +13,12 @@
 <body>
     <!-- BARRA DE NAVEGACIÓN -->
     <nav>
-    <div class="menu">
-            <a class="logo" href="index.php"><img src="img/logo.png" alt="image"></a>
+        <div class="menu">
+            <a class="logo" href="index.html"><img src="img/logo.png" alt="image"></a>
             <ul class="menu_lista">
-                <li class="item"><a href="logros.php">LOGROS</a></li>
-                <li class="item"><a href="rankings.php">RANKINGS</a></li>
-                <?php if ($_SESSION['logeado'] === TRUE): ?>
-                <?php echo "<li class='logeado' id='nombreUsuario'>".$_SESSION['usuario']."</li>"?>
-                <?php else: ?>
-                <li class="login"><a href="login.php"><button>LOGIN</button></a></li>
-                <?php endif; ?>
+                <li class="item"><a href="logros.html">LOGROS</a></li>
+                <li class="item"><a href="rankings.html">RANKINGS</a></li>
+                <li class="login"><a href="login.html"><button>LOGIN</button></a></li>
             </ul>
         </div>
     </nav>
