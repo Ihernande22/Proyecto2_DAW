@@ -122,8 +122,10 @@
 <body>
     <?php 
         if ($_SESSION['logeado'] === TRUE) {
+            echo "<div class='registroCorrecto'>";
             echo "<p class='logeadoYa'>Esta funcionalidad esta desactivada mientras la sesión esta iniciada</p>";
             echo "<a href='index.php'>Volver</a>";
+            echo "</div>";
         }
         else {
             if ($_SESSION['estadoLogin'] === "verificacion_correo") {
