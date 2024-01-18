@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -37,10 +36,10 @@
                 <div class="overSelect"></div>
             </div>
             <div id="CheckBoxesModo" class="CheckBoxes" name="CheckBoxesModo">
-                <label for="rankings_modo_goles"><input type="checkbox" id="rankings_modo_goles" name="modos[]" value="rankings_modo_goles"/>GOLES</label>
-                <label for="rankings_modo_asistencias"><input type="checkbox" id="rankings_modo_asistencias" name="modos[]" value="rankings_modo_asistencias"/>ASISTENCIAS</label>
-                <label for="rankings_modo_partidos"><input type="checkbox" id="rankings_modo_partidos" name="modos[]" value="rankings_modo_partidos"/>PARTIDOS</label>
-                <label for="rankings_modo_valor"><input type="checkbox" id="rankings_modo_valor" name="modos[]" value="rankings_modo_valor"/>VALOR </label>
+                <label for="rankings_modo_goles"><input type="checkbox" id="rankings_modo_goles" name="modos[]" value="1"/>GOLES</label>
+                <label for="rankings_modo_asistencias"><input type="checkbox" id="rankings_modo_asistencias" name="modos[]" value="2"/>ASISTENCIAS</label>
+                <label for="rankings_modo_partidos"><input type="checkbox" id="rankings_modo_partidos" name="modos[]" value="3"/>PARTIDOS</label>
+                <label for="rankings_modo_valor"><input type="checkbox" id="rankings_modo_valor" name="modos[]" value="4"/>VALOR </label>
             </div>
             </div>
      
@@ -53,11 +52,11 @@
                 <div class="overSelect"></div>
             </div>
             <div id="CheckBoxesLiga" class="CheckBoxes">
-                <label for="rankings_liga_premier"><input type="checkbox" id="rankings_liga_premier" name="ligas[]" value="rankings_liga_premier">Premier League</label>
-                <label for="rankings_liga_laliga"><input type="checkbox" id="rankings_liga_laliga" name="ligas[]" value="rankings_liga_laliga">LaLiga</label>
-                <label for="rankings_liga_bundesliga"><input type="checkbox" id="rankings_liga_bundesliga" name="ligas[]" value="rankings_liga_bundesliga">Bundesliga</label>
-                <label for="rankings_liga_seriea"><input type="checkbox" id="rankings_liga_seriea" name="ligas[]" value="rankings_liga_seriea">Serie A</label>
-                <label for="rankings_liga_aleatorio"><input type="checkbox" id="rankings_liga_aleatorio" name="ligas[]" value="rankings_liga_aleatorio">Aleatorio</label>
+                <label for="rankings_liga_premier"><input type="checkbox" id="rankings_liga_premier" name="ligas[]" value="1">Premier League</label>
+                <label for="rankings_liga_laliga"><input type="checkbox" id="rankings_liga_laliga" name="ligas[]" value="2">LaLiga</label>
+                <label for="rankings_liga_bundesliga"><input type="checkbox" id="rankings_liga_bundesliga" name="ligas[]" value="3">Bundesliga</label>
+                <label for="rankings_liga_seriea"><input type="checkbox" id="rankings_liga_seriea" name="ligas[]" value="4">Serie A</label>
+                <label for="rankings_liga_aleatorio"><input type="checkbox" id="rankings_liga_aleatorio" name="ligas[]" value="5">Aleatorio</label>
             </div>
         </div>
 
@@ -119,16 +118,57 @@
 
         }
         else {
-            if(isset($_POST['modos'])){
-            $modos = $_POST["modos"];
-         
-           /*$resultado = $conex->query("SELECT * FROM Registro_Partida");
-            foreach($resultado as $fila){
-                echo $fila['ID_Modo'] . '<br />';
+            /* Solo Modos */
+            if (!empty($_POST['modos']) && 
+                empty($_POST['ligas']) &&
+                empty($_POST['dificultad'])) {
+                $modos = $_POST["modos"];
+          
+                    
+                $filtroModos = implode("','", $modos);
+                echo $filtroModos . '<br>';
+             
+                $resultado = $conex->query("SELECT *
+                                            FROM Registro_Partida r 
+                                            JOIN Modo_De_Juego m 
+                                            ON r.ID_Modo = m.ID_Modo 
+                                            WHERE m.ID_Modo
+                                            IN (' $filtroModos ') ");
+             
+                
+                foreach ($resultado as $fila) {
+                    echo 'Modo de Juego ' . $fila['Nombre_Modo'] . '<br />';
+                    echo 'DIficultad ' . $fila['Dificultad'] . '<br />';
+                }
+                echo $filtroModos;
+            /* Solo ligas */    
+            }elseif(empty($_POST['modos']) &&
+                    !empty($_POST['ligas']) && 
+                    empty($_POST['dificultad'])){
+                    
+                    $ligas = $_POST['ligas'];
+                    foreach($ligas as $resultado){
+                        $ligas = $resultado;
+                    }
+                
+                    $resultado = $conex->query("SELECT *FROM Registro_Partida 
+                                                INNER JOIN Liga 
+                                                ON Registro_Partida.ID_Liga =Liga.ID_Liga 
+                                                AND Liga.ID_Liga = '$ligas' ");
+                foreach ($resultado as $fila) {
+
+                    echo 'Modo Ligas' . $fila['Nombre_Liga'] . '<br />';
+                }
+            
+            
+             /* Solo Dificultad */
             }
-            */
-            }
-            if(isset($_POST['ligas'])){
+
+
+        
+            
+            
+            /*if(isset($_POST['ligas'])){
                 $ligas = $_POST["ligas"];
                 foreach($ligas as $valor){
                     echo "Valor selecionador: $valor <br>";
@@ -146,6 +186,7 @@
             
             $puntuacion = $_POST['rankings_modoPuntuacion'];
             echo "Valor selecionado: $puntuacion";
+        */
 
             
         }
