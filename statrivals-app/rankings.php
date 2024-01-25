@@ -182,7 +182,7 @@
                     }
                     elseif ($modoPuntuacion === "rankigns_modoPuntuacion_porPartida") {
                         //AQUI
-                        $query = $query . ", (SELECT MAX(rp2.Puntuacion)FROM Registro_Partida rp2 Where rp2.ID_Usuario = $id_usuario ";
+                        $query = $query . ", (SELECT MAX(rp2.Puntuacion)FROM Registro_Partida rp2 Where rp2.ID_Usuario = u.ID_Usuario ";
                                 
                         if (count($modos) > 0) {
                             $query = $query.' AND  rp2.ID_Modo IN(';
@@ -218,7 +218,7 @@
                         }
                         //ESTOY AQUI
                         $query = $query . ") AS Puntuacion, ( SELECT rp2.Dificultad 
-                        FROM Registro_Partida rp2 WHERE rp2.ID_Usuario = $id_usuario";
+                        FROM Registro_Partida rp2 WHERE rp2.ID_Usuario = u.ID_Usuario";
                         
 
 
@@ -255,7 +255,7 @@
                         }
     
                         //ESTOY AQUI
-                        $query = $query . "ORDER BY rp2.Puntuacion DESC LIMIT 1) AS Dificultad FROM Usuario u HAVING Puntuacion > 0";
+                        $query = $query . "ORDER BY rp2.Puntuacion DESC LIMIT 1) AS Dificultad FROM Usuario u WHERE u.ID_Usuario = $id_usuario HAVING Puntuacion > 0";
                     }
                 }
                 else {
