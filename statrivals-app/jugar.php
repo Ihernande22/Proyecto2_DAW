@@ -4,26 +4,11 @@ include "conexion.php";
 include "Jugador.php";
 session_start();
 
-function crearPartida($modo, $liga, $dificultad) {
+
+function crearPartida($liga, $dificultad) {
     global $conex;
 
-    //Transformar parametros en IDs
-    switch($modo) {
-        case "goles":
-            $IDmodo = 1;
-            break;
-        case "asistencias":
-            $IDmodo = 2;
-            break;
-        case "partidos":
-            $IDmodo = 3;
-            break;
-        case "valor":
-            $IDmodo = 4;
-            break;
-        default:
-            $IDmodo = 0;
-    }   
+    //Transformar Liga en ID
     switch($liga) {
         case "laliga":
             $IDliga = 1;
@@ -43,7 +28,6 @@ function crearPartida($modo, $liga, $dificultad) {
         default:
             $IDliga = 0;
     }
-
     // Comprueba si el usuario está logeado.
     if ($_SESSION['logeado'] === TRUE) {
         $id_usuario = obtenerIdUsuario($_SESSION['usuario']);
@@ -102,17 +86,19 @@ function crearArrayJugadores($IDliga, $dificultad) {
 
     // Construir la consulta SQL
     if ($IDliga !== "aleatorio") {
-        $query = "SELECT * FROM Jugador WHERE ID_Liga = $IDliga AND Popularidad = ";
+        $query = "SELECT * FROM Jugador WHERE ID_Liga = $IDliga AND Popularidad ";
     } else {
-        $query = "SELECT * FROM Jugador WHERE Popularidad = ";
+        $query = "SELECT * FROM Jugador WHERE Popularidad ";
     }
 
     // Añadir la condición de dificultad a la consulta
     if ($dificultad === "normal") {
-        $query .= "'alta';";
+        $query .= "LIKE '%alta%'";
     } elseif ($dificultad === "dificil") {
-        $query .= "'media';";
+        $query .= "LIKE '%media%'";
     }
+    $query .= ";";
+
 
     // Ejecutar la consulta
     $result = $conex->query($query);
@@ -135,12 +121,160 @@ function crearArrayJugadores($IDliga, $dificultad) {
             // Agregar el objeto Jugador al array
             $arrayJugadores[] = $jugador;
         }
+
+        // Ordenar el array de forma aleatoria
+        shuffle($arrayJugadores);
+    } else {
+        echo "No se encontraron jugadores.";
     }
 
     return $arrayJugadores;
 }
 
 
+// Función para cargar la partida (de la BBDD, similar a crearPartida)
+function cargarPartida($liga, $dificultad) {
+    global $conex;
 
-crearPartida("goles", "laliga", "normal");
+    // Transformar Liga en ID
+    switch ($liga) {
+        case "laliga":
+            $IDliga = 1;
+            break;
+        case "premier":
+            $IDliga = 2;
+            break;
+        case "bundesliga":
+            $IDliga = 3;
+            break;
+        case "serieA":
+            $IDliga = 4;
+            break;
+        case "aleatorio":
+            $IDliga = "aleatorio";
+            break;
+        default:
+            $IDliga = 0;
+    }
+
+    // Comprueba si el usuario está logeado.
+    if ($_SESSION['logeado'] === TRUE) {
+        $id_usuario = obtenerIdUsuario($_SESSION['usuario']);
+
+        // Consulta para verificar si hay algo en la tabla estado_partida
+        $consulta_estado_partida = "SELECT * FROM estado_partida WHERE ID_Usuario = $id_usuario";
+        $resultado_estado_partida = $conex->query($consulta_estado_partida);
+
+        if ($resultado_estado_partida->num_rows > 0) {
+            // Si hay algo en la tabla estado_partida, muestra un comentario
+            echo "La partida está en progreso. Puedes continuar desde aquí.";
+        } else {
+            // Si no hay nada, crea una nueva partida y muestra la lista de jugadores
+            $jugadores = crearArrayJugadores($IDliga, $dificultad);
+            return $jugadores;
+        }
+    }
+}
+
+
+
+// Función con la lógica del juego
+function jugarPartida($listaJugadores, $modo, $liga, $dificultad) {
+    global $conex;
+
+    // Transformar Liga en ID
+    switch ($liga) {
+        case "laliga":
+            $IDliga = 1;
+            break;
+        case "premier":
+            $IDliga = 2;
+            break;
+        case "bundesliga":
+            $IDliga = 3;
+            break;
+        case "serieA":
+            $IDliga = 4;
+            break;
+        case "aleatorio":
+            $IDliga = "aleatorio";
+            break;
+        default:
+            $IDliga = 0;
+    }
+
+    // Transformar Modo en ID
+    switch ($modo) {
+        case "goles":
+            $IDmodo = 1;
+            break;
+        case "asistencias":
+            $IDmodo = 2;
+            break;
+        case "partidos":
+            $IDmodo = 3;
+            break;
+        case "valor":
+            $IDmodo = 4;
+            break;
+        default:
+            $IDmodo = 0;
+    }
+
+    $puntuacion = 0;
+
+}
+
+
+
+//Comprueba si un usuario esta en partida
+function comprobarEnPartida($nombreUsuario) {
+    global $conex;
+
+    // Obtener el ID del usuario
+    $idUsuario = obtenerIdUsuario($nombreUsuario);
+
+    // Consultar el estado del usuario
+    $consultaEstado = "SELECT EnPartida FROM Estado WHERE ID_Usuario = $idUsuario";
+    $resultadoEstado = $conex->query($consultaEstado);
+
+    if ($resultadoEstado->num_rows > 0) {
+        $filaEstado = $resultadoEstado->fetch_assoc();
+        return $filaEstado['EnPartida'] === '1'; // Retorna true si EnPartida es 1, false si es 0
+    }
+
+    return false; // Por defecto, el usuario no está en partida
+}
+
+
+
+//funcion para jugar una partida
+function jugar($liga, $modo, $dificultad) {
+    //Comprueba si el usuario esta logeado
+    if(isset($_SESSION['logeado']) && $_SESSION['logeado'] === TRUE) {
+        echo "Usuario: ".$_SESSION['usuario']."<br>";
+        // Comprobar si el usuario está en partida
+        if (comprobarEnPartida($_SESSION['usuario'])) {
+            // El usuario está en partida
+            // cargarPartida();  
+            $jugadores = cargarPartida($liga, $dificultad);
+        } 
+        
+        else {
+            // El usuario no está en partida
+            // Crea una nueva partida y juega
+            $jugadores = crearPartida($liga, $dificultad);
+        }
+
+        //Jugar
+        jugarPartida($jugadores, $modo, $dificultad);
+
+    }
+    else {
+        echo "Invitado";
+    }
+}
+
+
+echo jugar("laliga", "asistencias", "normal");
 ?>
