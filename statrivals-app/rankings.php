@@ -176,13 +176,14 @@
                             $query = $query . ") " ;    
                         }
 
-                        $query = $query . ") AS Puntuacion FROM Usuario u HAVING Puntuacion > 0;";
+                        $query = $query . ") AS Puntuacion FROM Usuario u  WHERE u.ID_Usuario = $id_usuario HAVING Puntuacion > 0;";
                                 
 
                     }
                     elseif ($modoPuntuacion === "rankigns_modoPuntuacion_porPartida") {
                         //AQUI
-                        $query = $query . ", (SELECT MAX(rp2.Puntuacion)FROM Registro_Partida rp2 Where rp2.ID_Usuario = u.ID_Usuario ";
+                        $query = $query . ", (SELECT m.Nombre_Modo FROM Registro_Partida rp2 JOIN Modo_De_Juego m ON rp2.ID_Modo
+                        = m.ID_Modo Where rp2.ID_Usuario = u.ID_Usuario";
                                 
                         if (count($modos) > 0) {
                             $query = $query.' AND  rp2.ID_Modo IN(';
@@ -196,7 +197,7 @@
                         }
                                     
                         if(count($ligas)> 0){
-                            $query = $query . " and rp2.ID_Liga IN (";
+                            $query = $query . " AND rp2.ID_Liga IN (";
                             for($i=0;$i<count($ligas);$i++){
                                 $query = $query . $ligas[$i];
                                 if($ligas[$i+1]){
@@ -207,7 +208,7 @@
                             }
     
                         if(count($dificultad)> 0){
-                            $query = $query . " and rp2.Dificultad IN (";
+                            $query = $query . " AND rp2.Dificultad IN (";
                             for($i=0;$i<count($dificultad);$i++){
                                 $query = $query . "'$dificultad[$i]'";
                                 if($dificultad[$i+1]){
@@ -217,8 +218,8 @@
                             $query = $query . ") " ;    
                         }
                         //ESTOY AQUI
-                        $query = $query . ") AS Puntuacion, ( SELECT rp2.Dificultad 
-                        FROM Registro_Partida rp2 WHERE rp2.ID_Usuario = u.ID_Usuario";
+                        $query = $query . "ORDER BY rp2.Puntuacion DESC LIMIT 1) AS Nombre_Modo, ( SELECT l.Nombre_Liga FROM Registro_Partida rp2
+                        JOIN Liga l ON rp2.ID_Modo = l.ID_LIGA WHERE rp2.ID_Usuario = u.ID_Usuario";
                         
 
 
@@ -244,7 +245,7 @@
                                 $query = $query . ") " ;    
                             }
                         if(count($dificultad)> 0){
-                            $query = $query . " and rp2.Dificultad IN (";
+                            $query = $query . " AND rp2.Dificultad IN (";
                             for($i=0;$i<count($dificultad);$i++){
                                 $query = $query . "'$dificultad[$i]'";
                                 if($dificultad[$i+1]){
@@ -255,7 +256,84 @@
                         }
     
                         //ESTOY AQUI
-                        $query = $query . "ORDER BY rp2.Puntuacion DESC LIMIT 1) AS Dificultad FROM Usuario u WHERE u.ID_Usuario = $id_usuario HAVING Puntuacion > 0";
+                        $query = $query . "ORDER BY rp2.Puntuacion DESC LIMIT 1)AS Liga, ( SELECT rp2.Dificultad FROM Registro_Partida rp2
+                        WHERE rp2.ID_Usuario = u.ID_Usuario";
+
+
+                        if(count($modos) > 0){
+                            $query = $query . " AND rp2.ID_Modo IN (";
+                            for($i=0;$i<count($modos);$i++){
+                                $query = $query . "'$modos[$i]'";
+                                if($modos[$i+1]){
+                                    $query=$query . ", ";
+                                }
+                            }
+                            $query = $query . ") " ;
+                           
+                            }
+                        if(count($ligas)> 0){
+                            $query = $query . " AND rp2.ID_Liga IN (";
+                            for($i=0;$i<count($ligas);$i++){
+                                $query = $query . $ligas[$i];
+                                if($ligas[$i+1]){
+                                    $query=$query . ", ";
+                                    }
+                                }
+                                $query = $query . ") " ;    
+                            }
+                        if(count($dificultad)> 0){
+                            $query = $query . " AND rp2.Dificultad IN (";
+                            for($i=0;$i<count($dificultad);$i++){
+                                $query = $query . "'$dificultad[$i]'";
+                                if($dificultad[$i+1]){
+                                    $query=$query . ", ";
+                                }
+                            }
+                            $query = $query . ") " ;    
+                        }
+
+                         //ESTOY AQUI
+                         $query = $query . "ORDER BY rp2.Puntuacion DESC LIMIT 1 ) AS Dificultad,
+                         (SELECT MAX(rp2.Puntuacion) FROM Registro_Partida rp2 WHERE rp2.ID_Usuario = u.ID_Usuario";
+                        
+
+
+
+                        if(count($modos) > 0){
+                            $query = $query . " AND rp2.ID_Modo IN (";
+                            for($i=0;$i<count($modos);$i++){
+                                $query = $query . "'$modos[$i]'";
+                                if($modos[$i+1]){
+                                    $query=$query . ", ";
+                                }
+                            }
+                            $query = $query . ") " ;
+                           
+                            }
+                        if(count($ligas)> 0){
+                            $query = $query . " AND rp2.ID_Liga IN (";
+                            for($i=0;$i<count($ligas);$i++){
+                                $query = $query . $ligas[$i];
+                                if($ligas[$i+1]){
+                                    $query=$query . ", ";
+                                    }
+                                }
+                                $query = $query . ") " ;    
+                            }
+                        if(count($dificultad)> 0){
+                            $query = $query . " AND rp2.Dificultad IN (";
+                            for($i=0;$i<count($dificultad);$i++){
+                                $query = $query . "'$dificultad[$i]'";
+                                if($dificultad[$i+1]){
+                                    $query=$query . ", ";
+                                }
+                            }
+                            $query = $query . ") " ;    
+                        }
+
+                        $query = $query . ")AS Puntuacion FROM Usuario u  WHERE u.ID_Usuario = $id_usuario HAVING Puntuacion > 0";
+                        
+    
                     }
                 }
                 else {
@@ -305,10 +383,12 @@
                             
 
                 }
+                //Aqui
                 elseif ($modoPuntuacion === "rankigns_modoPuntuacion_porPartida") {
                     //AQUI
                     $query = $query . ", 
-                        (SELECT MAX(rp2.Puntuacion)FROM Registro_Partida rp2 Where rp2.ID_Usuario = u.ID_Usuario ";
+                        (SELECT m.Nombre_Modo FROM Registro_Partida rp2 JOIN Modo_De_Juego m ON rp2.ID_Modo = m.ID_Modo
+                        WHERE rp2.ID_Usuario = u.ID_Usuario ";
                             
                     if (count($modos) > 0) {
                         $query = $query.' AND  rp2.ID_Modo IN(';
@@ -322,7 +402,7 @@
                     }
                                 
                     if(count($ligas)> 0){
-                        $query = $query . " and rp2.ID_Liga IN (";
+                        $query = $query . " AND rp2.ID_Liga IN (";
                         for($i=0;$i<count($ligas);$i++){
                             $query = $query . $ligas[$i];
                             if($ligas[$i+1]){
@@ -333,7 +413,7 @@
                         }
 
                     if(count($dificultad)> 0){
-                        $query = $query . " and rp2.Dificultad IN (";
+                        $query = $query . " AND rp2.Dificultad IN (";
                         for($i=0;$i<count($dificultad);$i++){
                             $query = $query . "'$dificultad[$i]'";
                             if($dificultad[$i+1]){
@@ -343,7 +423,9 @@
                         $query = $query . ") " ;    
                     }
 
-                    $query = $query . ") AS Puntuacion, ( SELECT rp2.Dificultad FROM Registro_Partida rp2 WHERE rp2.ID_Usuario = u.ID_Usuario"; 
+                    $query = $query . "ORDER BY rp2.Puntuacion DESC LIMIT 1 ) AS Nombre_Modo,
+                    ( SELECT l.Nombre_Liga FROM Registro_Partida rp2 JOIN Liga l ON rp2.ID_Modo = l.ID_Liga
+                    WHERE rp2.ID_Usuario = u.ID_Usuario"; 
                     
                     if(count($modos) > 0){
                         $query = $query . " AND rp2.ID_Modo IN (";
@@ -367,7 +449,7 @@
                             $query = $query . ") " ;    
                         }
                     if(count($dificultad)> 0){
-                        $query = $query . " and rp2.Dificultad IN (";
+                        $query = $query . " AND rp2.Dificultad IN (";
                         for($i=0;$i<count($dificultad);$i++){
                             $query = $query . "'$dificultad[$i]'";
                             if($dificultad[$i+1]){
@@ -378,15 +460,85 @@
                     }
 
                     //ESTOY AQUI
-                    $query = $query . "ORDER BY rp2.Puntuacion DESC LIMIT 1) AS Dificultad FROM Usuario u HAVING Puntuacion > 0";
+                    $query = $query . "ORDER BY rp2.Puntuacion DESC LIMIT 1) AS Liga, ( SELECT rp2.Dificultad FROM
+                    Registro_Partida rp2 WHERE rp2.ID_Usuario = u.ID_Usuario";
+
+                    if(count($modos) > 0){
+                        $query = $query . " AND rp2.ID_Modo IN (";
+                        for($i=0;$i<count($modos);$i++){
+                            $query = $query . "'$modos[$i]'";
+                            if($modos[$i+1]){
+                                $query=$query . ", ";
+                            }
+                        }
+                        $query = $query . ") " ;
+                       
+                        }
+                    if(count($ligas)> 0){
+                        $query = $query . " AND rp2.ID_Liga IN (";
+                        for($i=0;$i<count($ligas);$i++){
+                            $query = $query . $ligas[$i];
+                            if($ligas[$i+1]){
+                                $query=$query . ", ";
+                                }
+                            }
+                            $query = $query . ") " ;    
+                        }
+                    if(count($dificultad)> 0){
+                        $query = $query . " AND rp2.Dificultad IN (";
+                        for($i=0;$i<count($dificultad);$i++){
+                            $query = $query . "'$dificultad[$i]'";
+                            if($dificultad[$i+1]){
+                                $query=$query . ", ";
+                            }
+                        }
+                        $query = $query . ") " ;    
+                    }
+                       //ESTOY AQUI
+                       $query = $query . "ORDER BY rp2.Puntuacion DESC LIMIT 1) AS Dificultad, ( SELECT MAX(rp2.Puntuacion) FROM Registro_Partida rp2
+                       WHERE rp2.ID_Usuario = u.ID_Usuario";
+
+                       if(count($modos) > 0){
+                        $query = $query . " AND rp2.ID_Modo IN (";
+                        for($i=0;$i<count($modos);$i++){
+                            $query = $query . "'$modos[$i]'";
+                            if($modos[$i+1]){
+                                $query=$query . ", ";
+                            }
+                        }
+                        $query = $query . ") " ;
+                       
+                        }
+                    if(count($ligas)> 0){
+                        $query = $query . " AND rp2.ID_Liga IN (";
+                        for($i=0;$i<count($ligas);$i++){
+                            $query = $query . $ligas[$i];
+                            if($ligas[$i+1]){
+                                $query=$query . ", ";
+                                }
+                            }
+                            $query = $query . ") " ;    
+                        }
+                    if(count($dificultad)> 0){
+                        $query = $query . " AND rp2.Dificultad IN (";
+                        for($i=0;$i<count($dificultad);$i++){
+                            $query = $query . "'$dificultad[$i]'";
+                            if($dificultad[$i+1]){
+                                $query=$query . ", ";
+                            }
+                        }
+                        $query = $query . ") " ;    
+                    }
+                       //ESTOY AQUI
+                       $query = $query . ") AS  Puntuacion FROM Usuario u HAVING Puntuacion >0";
+                    
                     
                     }
                 }
        
             }
             if ($ejecutarQuery === TRUE) {
-                echo $query;
-                /*
+               
                 $contador = 0;
                 $contadorQuery = str_replace(";","","select count(*) as contador from ($query) as subconsulta");
                 $contadorQuery = $contadorQuery.";";
@@ -402,6 +554,9 @@
                         <table id="tabla" border="1">
                         <tr>
                             <th>Usuario</th>
+                            <th>Modo de Juego</th>
+                            <th>Liga</th>
+                            <th>Dificultad</th>
                             <th>Puntuacion</th>
                             
                         </tr>
@@ -411,10 +566,13 @@
 
                                     echo "<tr>";
                                     echo "<td>" . $row["Usuario"] . "</td>";
+                                    echo "<td>" . $row["Nombre_Modo"] . "</td>";
+                                    echo "<td>" . $row["Liga"] . "</td>";
+                                    echo "<td>" . $row["Dificultad"] . "</td>";
                                     echo "<td>" . $row["Puntuacion"] . "</td>";
                                     echo "</tr>";
                         }
-                       }
+                       }    
                 }
                 else {
                     echo "<p>No se han encontrado resultados</p>";
@@ -422,7 +580,7 @@
                 ?>
                 </table>
                 <?php
-                */
+                
                
             }
 
