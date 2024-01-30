@@ -56,6 +56,11 @@ function selectorModo() {
 }
 
 function crearInterfazConfigPartida() {
+    //Recargar la pagina para que se vuelva a ejecutar el evento oncharge
+    if (!localStorage.getItem("recargar")) {
+        localStorage.setItem("recargar", "true");
+        location.reload();
+    }
     localStorage.setItem("estado","config");
     let modoSeleccionado = document.querySelector('input[name="modoSel"]:checked').value;
 
@@ -75,6 +80,7 @@ function crearInterfazConfigPartida() {
         localStorage.setItem("estado", "inicio");
         localStorage.removeItem("liga");
         localStorage.removeItem("dificultad");
+        localStorage.removeItem("recargar");
         var containerEliminar = document.getElementById("principal");
         if (containerEliminar) {
             document.body.removeChild(containerEliminar);
@@ -242,7 +248,6 @@ function crearInterfazConfigPartida() {
     var botonJugar = document.createElement("button");
     botonJugar.setAttribute("class", "boton_jugar");
     botonJugar.setAttribute("id", "boton_jugar2");
-    botonJugar.setAttribute("onclick", "obtenerParametrosPartida('"+modoSeleccionado+"')");
     botonJugar.textContent = "Jugar";
 
     //Añadir contenedores al contenedor principal
@@ -254,12 +259,6 @@ function crearInterfazConfigPartida() {
     document.body.appendChild(volverAtras);
     document.body.appendChild(Principal);
 }
-
-function obtenerParametrosPartida(modo) {
-    var ligaSeleccionada = document.querySelector('input[name="liga"]:checked').value;
-    var dificultadSeleccionada = document.querySelector('input[name="dificultad"]:checked').value;
-    return [modo,ligaSeleccionada,dificultadSeleccionada];
-}   
 
 /*Cargar estado pagina inicio*/
 function cargarPaginaInicio() {
@@ -306,4 +305,81 @@ function cargarPaginaInicio() {
 }
 
 cargarPaginaInicio();
+
+function redirigirAlJuego() {
+    // Obtén la URL del juego, asumiendo que está en la misma carpeta que el index.php
+    let urlJuego = "game.php";
+
+    // Redirige al usuario a la página del juego
+    window.location.href = urlJuego;
+
+    // Borra las configuraciones almacenadas en localStorage
+    localStorage.removeItem("modo");
+    localStorage.removeItem("liga");
+    localStorage.removeItem("dificultad");
+    localStorage.removeItem("estado");
+    localStorage.removeItem("recargar");
+}
+
+
+function enviarConfiguracionesAJAX(modo, liga, dificultad) {
+    // Crear un objeto FormData para enviar los datos
+    var formData = new FormData();
+    formData.append("modo", modo);
+    formData.append("liga", liga);
+    formData.append("dificultad", dificultad);
+
+    // Configurar la solicitud usando fetch
+    fetch("game.php", {
+        method: "POST",
+        body: formData
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error("Error en la solicitud AJAX. Código de estado: " + response.status);
+        }
+        return response.text(); // Devolver el texto de la respuesta
+    })
+    .then(data => {
+        // La respuesta se ha recibido correctamente
+        console.log("Respuesta recibida:", data);
+
+        // Aquí es donde puedes redirigir después de recibir la respuesta
+        redirigirAlJuego();
+    })
+    .catch(error => {
+        // Manejar errores durante la solicitud AJAX
+        console.error("Error en la solicitud AJAX:", error.message);
+    });
+}
+
+
+document.addEventListener("DOMContentLoaded", function() {
+    let botonJugar = document.getElementById("boton_jugar2");
+
+    if (botonJugar) {
+        botonJugar.addEventListener("click", function() {
+            let modoSeleccionado = localStorage.getItem("modo");
+            let ligaSeleccionada = localStorage.getItem("liga");
+            let dificultadSeleccionada = localStorage.getItem("dificultad");
+
+            console.log("Modo seleccionado:", modoSeleccionado);
+            console.log("Liga seleccionada:", ligaSeleccionada);
+            console.log("Dificultad seleccionada:", dificultadSeleccionada);
+
+            if (modoSeleccionado && ligaSeleccionada && dificultadSeleccionada) {
+                // Enviar configuraciones mediante AJAX
+                enviarConfiguracionesAJAX(modoSeleccionado, ligaSeleccionada, dificultadSeleccionada);
+            } else {
+                // Mostrar un mensaje de alerta indicando los parámetros faltantes
+                let mensaje = "Falta(n) el/los parámetro(s): ";
+                if (!modoSeleccionado) mensaje += "modo ";
+                if (!ligaSeleccionada) mensaje += "liga ";
+                if (!dificultadSeleccionada) mensaje += "dificultad ";
+                
+                alert(mensaje);
+            }
+        });
+    }
+});
 
