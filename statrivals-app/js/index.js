@@ -306,12 +306,50 @@ function cargarPaginaInicio() {
 
 cargarPaginaInicio();
 
-function redirigirAlJuego() {
-    // Obtén la URL del juego, asumiendo que está en la misma carpeta que el index.php
-    let urlJuego = "game.php";
+/*function enviarConfiguraciones(confModo, confLiga, confDificultad) {
+    //Redirecciona a game.php pasando los parametros de la partida
+    window.location.href = "game.php?modo=" + confModo + "&liga=" + confLiga + "&dificultad=" + confDificultad;
 
-    // Redirige al usuario a la página del juego
-    window.location.href = urlJuego;
+
+    // Borra las configuraciones almacenadas en localStorage
+    localStorage.removeItem("modo");
+    localStorage.removeItem("liga");
+    localStorage.removeItem("dificultad");
+    localStorage.removeItem("estado");
+    localStorage.removeItem("recargar");
+};*/
+
+function enviarConfiguraciones(confModo, confLiga, confDificultad) {
+    // Crear un formulario dinámicamente
+    var form = document.createElement("form");
+    form.setAttribute("method", "post");
+    form.setAttribute("action", "game.php");
+
+    // Crear input para cada configuración y agregarlos al formulario
+    var modoInput = document.createElement("input");
+    modoInput.setAttribute("type", "hidden");
+    modoInput.setAttribute("name", "modo");
+    modoInput.setAttribute("value", confModo);
+    form.appendChild(modoInput);
+
+    var ligaInput = document.createElement("input");
+    ligaInput.setAttribute("type", "hidden");
+    ligaInput.setAttribute("name", "liga");
+    ligaInput.setAttribute("value", confLiga);
+    form.appendChild(ligaInput);
+
+    var dificultadInput = document.createElement("input");
+    dificultadInput.setAttribute("type", "hidden");
+    dificultadInput.setAttribute("name", "dificultad");
+    dificultadInput.setAttribute("value", confDificultad);
+    form.appendChild(dificultadInput);
+
+    // Agregar el formulario al body y enviarlo
+    document.body.appendChild(form);
+    form.submit();
+
+    // Eliminar el formulario después de enviarlo
+    document.body.removeChild(form);
 
     // Borra las configuraciones almacenadas en localStorage
     localStorage.removeItem("modo");
@@ -321,37 +359,6 @@ function redirigirAlJuego() {
     localStorage.removeItem("recargar");
 }
 
-
-function enviarConfiguracionesAJAX(modo, liga, dificultad) {
-    // Crear un objeto FormData para enviar los datos
-    var formData = new FormData();
-    formData.append("modo", modo);
-    formData.append("liga", liga);
-    formData.append("dificultad", dificultad);
-
-    // Configurar la solicitud usando fetch
-    fetch("game.php", {
-        method: "POST",
-        body: formData
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error("Error en la solicitud AJAX. Código de estado: " + response.status);
-        }
-        return response.text(); // Devolver el texto de la respuesta
-    })
-    .then(data => {
-        // La respuesta se ha recibido correctamente
-        console.log("Respuesta recibida:", data);
-
-        // Aquí es donde puedes redirigir después de recibir la respuesta
-        redirigirAlJuego();
-    })
-    .catch(error => {
-        // Manejar errores durante la solicitud AJAX
-        console.error("Error en la solicitud AJAX:", error.message);
-    });
-}
 
 
 document.addEventListener("DOMContentLoaded", function() {
@@ -368,8 +375,8 @@ document.addEventListener("DOMContentLoaded", function() {
             console.log("Dificultad seleccionada:", dificultadSeleccionada);
 
             if (modoSeleccionado && ligaSeleccionada && dificultadSeleccionada) {
-                // Enviar configuraciones mediante AJAX
-                enviarConfiguracionesAJAX(modoSeleccionado, ligaSeleccionada, dificultadSeleccionada);
+                // Enviar configuraciones a game.php
+                enviarConfiguraciones(modoSeleccionado, ligaSeleccionada, dificultadSeleccionada);
             } else {
                 // Mostrar un mensaje de alerta indicando los parámetros faltantes
                 let mensaje = "Falta(n) el/los parámetro(s): ";
