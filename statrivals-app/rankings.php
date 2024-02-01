@@ -9,6 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>StatRivals</title>
     <link rel="shortcut icon" href="img/favicon.jpg" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
     <link rel="stylesheet" href="css/rankings.css">
     <script src="js/rankings.js" defer></script>
 </head>
@@ -111,7 +112,12 @@
 
     </div>
     <br><br>
-    <button type="submit" name="submit" value="submit">Enviar</button>
+
+    <div style="text-align: right;" class="contenedorBoton">
+    <button type="submit" name="submit" value="submit" id="boton" class="btn btn-success ">Buscar</button>
+</div>
+    
+    
 
 
     <?php
@@ -176,7 +182,7 @@
                             $query = $query . ") " ;    
                         }
 
-                        $query = $query . ") AS Puntuacion FROM Usuario u  WHERE u.ID_Usuario = $id_usuario HAVING Puntuacion > 0;";
+                        $query = $query . ") AS Puntuacion FROM Usuario u  WHERE u.ID_Usuario = $id_usuario HAVING Puntuacion > 0 LIMIT 5;";
                                 
 
                     }
@@ -331,7 +337,7 @@
                             $query = $query . ") " ;    
                         }
 
-                        $query = $query . ")AS Puntuacion FROM Usuario u  WHERE u.ID_Usuario = $id_usuario HAVING Puntuacion > 0";
+                        $query = $query . ")AS Puntuacion FROM Usuario u  WHERE u.ID_Usuario = $id_usuario HAVING Puntuacion > 0 LIMIT 5";
                         
     
                     }
@@ -379,7 +385,7 @@
                         $query = $query . ") " ;    
                     }
 
-                    $query = $query . ") AS Puntuacion FROM Usuario u HAVING Puntuacion > 0;";
+                    $query = $query . ") AS Puntuacion FROM Usuario u HAVING Puntuacion > 0 LIMIT 5;";
                             
 
                 }
@@ -530,7 +536,7 @@
                         $query = $query . ") " ;    
                     }
                        //ESTOY AQUI
-                       $query = $query . ") AS  Puntuacion FROM Usuario u HAVING Puntuacion >0";
+                       $query = $query . ") AS  Puntuacion FROM Usuario u HAVING Puntuacion >0 LIMIT 5";
                     
                     
                     }
@@ -548,38 +554,45 @@
                  }
                 }
                 if ($contador > 0) {
-                    if($resultado = $conex->query($query)){
-
+                    if ($resultado = $conex->query($query)) {
                         ?>
                         <table id="tabla" border="1">
-                        <tr>
-                            <th>Usuario</th>
-                            <th>Modo de Juego</th>
-                            <th>Liga</th>
-                            <th>Dificultad</th>
-                            <th>Puntuacion</th>
-                            
-                        </tr>
-        
+                            <tr>
+                                <th>Usuario</th>
+                                <?php if ($modoPuntuacion === "rankigns_modoPuntuacion_acumulatoria"): ?>
+                                    <th>Puntuacion</th>
+                                <?php else: ?>
+                                    <th>Modo de Juego</th>
+                                    <th>Liga</th>
+                                    <th>Dificultad</th>
+                                    <th>Puntuacion</th>
+                                <?php endif; ?>
+                            </tr>
+                
                         <?php
                         while ($row = $resultado->fetch_assoc()) {
-
-                                    echo "<tr>";
-                                    echo "<td>" . $row["Usuario"] . "</td>";
-                                    echo "<td>" . $row["Nombre_Modo"] . "</td>";
-                                    echo "<td>" . $row["Liga"] . "</td>";
-                                    echo "<td>" . $row["Dificultad"] . "</td>";
-                                    echo "<td>" . $row["Puntuacion"] . "</td>";
-                                    echo "</tr>";
+                            echo "<tr>";
+                            echo "<td>" . $row["Usuario"] . "</td>";
+                            
+                            if ($modoPuntuacion === "rankigns_modoPuntuacion_acumulatoria") {
+                                echo "<td>" . $row["Puntuacion"] . "</td>";
+                            } else {
+                                echo "<td>" . $row["Nombre_Modo"] . "</td>";
+                                echo "<td>" . $row["Liga"] . "</td>";
+                                echo "<td>" . $row["Dificultad"] . "</td>";
+                                echo "<td>" . $row["Puntuacion"] . "</td>";
+                            }
+                            
+                            echo "</tr>";
                         }
-                       }    
-                }
-                else {
+                    }
+                    ?>
+                    </table>
+                    <?php
+                } else {
                     echo "<p>No se han encontrado resultados</p>";
                 }
-                ?>
-                </table>
-                <?php
+            
                 
                
             }
