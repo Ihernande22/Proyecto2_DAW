@@ -1,4 +1,3 @@
-
 <?php
 include "conexion.php";
 include "Jugador.php";
@@ -33,7 +32,6 @@ function recogerDatos($modo, $liga, $dificultad) {
         return -1;
     }
 }
-
 
 function crearPartida($liga, $dificultad) {
     global $conex;
@@ -116,7 +114,7 @@ function actualizarEstadoUsuario($idUsuario, $enPartida) {
     }
 }
 
-//Funcion para crear una array de jugadores
+// Funcion para crear una array de jugadores
 function crearArrayJugadores($IDliga, $dificultad) {
     global $conex;
     $arrayJugadores = [];
@@ -135,7 +133,6 @@ function crearArrayJugadores($IDliga, $dificultad) {
         $query .= "LIKE '%media%'";
     }
     $query .= ";";
-
 
     // Ejecutar la consulta
     $result = $conex->query($query);
@@ -168,9 +165,7 @@ function crearArrayJugadores($IDliga, $dificultad) {
     return $arrayJugadores;
 }
 
-
-
-//Comprueba si un usuario esta en partida
+// Comprueba si un usuario está en partida
 function comprobarEnPartida($nombreUsuario) {
     global $conex;
 
@@ -188,8 +183,6 @@ function comprobarEnPartida($nombreUsuario) {
 
     return false; // Por defecto, el usuario no está en partida
 }
-
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -199,29 +192,30 @@ function comprobarEnPartida($nombreUsuario) {
     <title>StatRivals</title>
     <link rel="stylesheet" href="css/index.css">
     <link rel="shortcut icon" href="img/favicon.jpg" type="image/x-icon">
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script src="js/Jugador.js" defer></script>
+    <script src="js/game.js" defer></script>
 </head>
 <body>
-    <?php
+    <?php  
         $datos = recogerDatos($_POST['modo'], $_POST['liga'], $_POST['dificultad']);
         if ($datos === -1) {
             echo "<p class='datosIncorrectos'>No has configurado ninguna partida, la puedes configurar <a href='index.php'>aquí</a>.</p>";
         }
         else {
-            //JUGAR
+            // JUGAR
             $modo = $datos[0];
             $liga = $datos[1];
             $dificultad = $datos[2];
-            echo "Modo: $modo<br><br>";
-            echo "Liga: $liga<br><br>";
-            echo "Dificultad: $dificultad<br><br>";
+            // Array de jugadores
             $jugadores = crearPartida($liga, $dificultad);
-            echo "Jugadores: [";
-            foreach ($jugadores as $j) {
-                echo $j->getNombre()."  /  ";
-            }
-            echo "]<br><br>";
+
+            ?>
+            <script>
+            var jugadores = <?php echo json_encode($jugadores); ?>;
+            </script>
+            <?php
         }
     ?>
-    
 </body>
 </html>
