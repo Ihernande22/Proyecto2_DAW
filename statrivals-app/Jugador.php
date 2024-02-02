@@ -1,5 +1,6 @@
 <?php
-class Jugador {
+
+class Jugador implements JsonSerializable {
     // Propiedades de la clase Jugador
     private $id;
     private $nombre;
@@ -93,6 +94,18 @@ class Jugador {
     public function setImagen($imagen) {
         $this->imagen = $imagen;
     }
-}
 
-?>
+    // Implementa el método jsonSerialize
+    public function jsonSerialize() {
+        return [
+            'id' => $this->id,
+            'nombre' => $this->nombre,
+            'goles' => $this->goles,
+            'asistencias' => $this->asistencias,
+            'valor' => $this->valor,
+            'partidosJugados' => $this->partidosJugados,
+            'popularidad' => $this->popularidad,
+            'imagen' => $this->imagen
+        ];
+    }
+}
