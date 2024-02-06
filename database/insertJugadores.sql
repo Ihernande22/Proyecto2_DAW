@@ -13,7 +13,7 @@ INSERT INTO `Jugador` (`ID_Jugador`, `ID_LIGA`, `Nombre_Jugador`, `Goles`, `Asis
 INSERT INTO `Jugador` (`ID_Jugador`, `ID_LIGA`, `Nombre_Jugador`, `Goles`, `Asistencias`, `Valor`, `Partidos_Jugados`, `Popularidad`, `Imagen`) VALUES ('81', '1', 'Vitor Roque', '36', '13', '40', '108', 'media', 'vitor.jpeg');
 
 
-INSERT INTO `Jugador` (`ID_Jugador`, `ID_LIGA`, `Nombre_Jugador`, `Goles`, `Asistencias`, `Valor`, `Partidos_Jugados`, `Popularidad`, `Imagen`) VALUES ('82', '1', 'Arda Güller', '23', '25', '15', '84', 'media', 'Güller.jpeg');
+INSERT INTO `Jugador` (`ID_Jugador`, `ID_LIGA`, `Nombre_Jugador`, `Goles`, `Asistencias`, `Valor`, `Partidos_Jugados`, `Popularidad`, `Imagen`) VALUES ('82', '1', 'Arda Güler', '23', '25', '15', '84', 'media', 'Güller.jpeg');
 
 
 INSERT INTO `Jugador` (`ID_Jugador`, `ID_LIGA`, `Nombre_Jugador`, `Goles`, `Asistencias`, `Valor`, `Partidos_Jugados`, `Popularidad`, `Imagen`) VALUES ('83', '1', 'Hector Fort', '1', '2', '1', '16', 'media', 'Fort.jpeg');
@@ -21,13 +21,13 @@ INSERT INTO `Jugador` (`ID_Jugador`, `ID_LIGA`, `Nombre_Jugador`, `Goles`, `Asis
 INSERT INTO `Jugador` (`ID_Jugador`, `ID_LIGA`, `Nombre_Jugador`, `Goles`, `Asistencias`, `Valor`, `Partidos_Jugados`, `Popularidad`, `Imagen`) VALUES ('100', '1', 'Miguel Gutierrez', '11', '20', '20', '119', 'media', 'MiguelGutierrez.jpeg');
 
 
-INSERT INTO `Jugador` (`ID_Jugador`, `ID_LIGA`, `Nombre_Jugador`, `Goles`, `Asistencias`, `Valor`, `Partidos_Jugados`, `Popularidad`, `Imagen`) VALUES ('101', '1', 'Aleix Garcia', '17', '25', '20', '241', 'media', 'AleixGarcia.jpeg');
+INSERT INTO `Jugador` (`ID_Jugador`, `ID_LIGA`, `Nombre_Jugador`, `Goles`, `Asistencias`, `Valor`, `Partidos_Jugados`, `Popularidad`, `Imagen`) VALUES ('101', '1', 'Aleix García', '17', '25', '20', '241', 'media', 'AleixGarcia.jpeg');
 
-INSERT INTO `Jugador` (`ID_Jugador`, `ID_LIGA`, `Nombre_Jugador`, `Goles`, `Asistencias`, `Valor`, `Partidos_Jugados`, `Popularidad`, `Imagen`) VALUES ('102', '1', 'Ivan Martin', '11', '17', '10', '174', 'media', 'IvanMartin.jpeg');
+INSERT INTO `Jugador` (`ID_Jugador`, `ID_LIGA`, `Nombre_Jugador`, `Goles`, `Asistencias`, `Valor`, `Partidos_Jugados`, `Popularidad`, `Imagen`) VALUES ('102', '1', 'Iván Martín', '11', '17', '10', '174', 'media', 'IvanMartin.jpeg');
 
-INSERT INTO `Jugador` (`ID_Jugador`, `ID_LIGA`, `Nombre_Jugador`, `Goles`, `Asistencias`, `Valor`, `Partidos_Jugados`, `Popularidad`, `Imagen`) VALUES ('103', '1', 'Savio', '11', '11', '30', '78', 'media', 'Savio.jpeg');
+INSERT INTO `Jugador` (`ID_Jugador`, `ID_LIGA`, `Nombre_Jugador`, `Goles`, `Asistencias`, `Valor`, `Partidos_Jugados`, `Popularidad`, `Imagen`) VALUES ('103', '1', 'Sávio', '11', '11', '30', '78', 'media', 'Savio.jpeg');
 
-INSERT INTO `Jugador` (`ID_Jugador`, `ID_LIGA`, `Nombre_Jugador`, `Goles`, `Asistencias`, `Valor`, `Partidos_Jugados`, `Popularidad`, `Imagen`) VALUES ('104', '1', 'Artem Dovyk', '92', '25', '28', '197', 'media', 'Dovyk.jpeg');
+INSERT INTO `Jugador` (`ID_Jugador`, `ID_LIGA`, `Nombre_Jugador`, `Goles`, `Asistencias`, `Valor`, `Partidos_Jugados`, `Popularidad`, `Imagen`) VALUES ('104', '1', 'Artem Dovbyk', '92', '25', '28', '197', 'media', 'Dovyk.jpeg');
 
 
 /*PREMIER LEAGUE*/
@@ -36,16 +36,16 @@ INSERT INTO `Jugador` (`ID_Jugador`, `ID_LIGA`, `Nombre_Jugador`, `Goles`, `Asis
 
 
 
-INSERT INTO `Jugador` (`ID_Jugador`, `ID_LIGA`, `Nombre_Jugador`, `Goles`, `Asistencias`, `Valor`, `Partidos_Jugados`, `Popularidad`, `Imagen`) VALUES ('22', '2', 'Erling Halland', '206', '49', '180', '256', 'alta', 'halland.jpeg');
+INSERT INTO `Jugador` (`ID_Jugador`, `ID_LIGA`, `Nombre_Jugador`, `Goles`, `Asistencias`, `Valor`, `Partidos_Jugados`, `Popularidad`, `Imagen`) VALUES ('22', '2', 'Erling Haland', '206', '49', '180', '256', 'alta', 'halland.jpeg');
 
 
 INSERT INTO `Jugador` (`ID_Jugador`, `ID_LIGA`, `Nombre_Jugador`, `Goles`, `Asistencias`, `Valor`, `Partidos_Jugados`, `Popularidad`, `Imagen`) VALUES ('23', '2', 'Bernardo Silva', '93', '88', '80', '509', 'alta', 'bernardo.jpeg');
 
 
 
-INSERT INTO `Jugador` (`ID_Jugador`, `ID_LIGA`, `Nombre_Jugador`, `Goles`, `Asistencias`, `Valor`, `Partidos_Jugados`, `Popularidad`, `Imagen`) VALUES ('24', '2', 'Rodrigo Hernandez', '28', '29', '100', '397', 'alta', 'rodri.jpeg');
+INSERT INTO `Jugador` (`ID_Jugador`, `ID_LIGA`, `Nombre_Jugador`, `Goles`, `Asistencias`, `Valor`, `Partidos_Jugados`, `Popularidad`, `Imagen`) VALUES ('24', '2', 'Rodri Hernández', '28', '29', '100', '397', 'alta', 'rodri.jpeg');
 
-INSERT INTO `Jugador` (`ID_Jugador`, `ID_LIGA`, `Nombre_Jugador`, `Goles`, `Asistencias`, `Valor`, `Partidos_Jugados`, `Popularidad`, `Imagen`) VALUES ('25', '2', 'Ruben Dias', '16', '13', '80', '356', 'alta', 'rubendias.jpeg');
+INSERT INTO `Jugador` (`ID_Jugador`, `ID_LIGA`, `Nombre_Jugador`, `Goles`, `Asistencias`, `Valor`, `Partidos_Jugados`, `Popularidad`, `Imagen`) VALUES ('25', '2', 'Rúben Dias', '16', '13', '80', '356', 'alta', 'rubendias.jpeg');
 
 
 INSERT INTO `Jugador` (`ID_Jugador`, `ID_LIGA`, `Nombre_Jugador`, `Goles`, `Asistencias`, `Valor`, `Partidos_Jugados`, `Popularidad`, `Imagen`) VALUES ('26', '2', 'Marcus Rashford', '130', '72', '75', '390', 'alta', 'rashford.jpeg');
@@ -56,7 +56,7 @@ INSERT INTO `Jugador` (`ID_Jugador`, `ID_LIGA`, `Nombre_Jugador`, `Goles`, `Asis
 
 INSERT INTO `Jugador` (`ID_Jugador`, `ID_LIGA`, `Nombre_Jugador`, `Goles`, `Asistencias`, `Valor`, `Partidos_Jugados`, `Popularidad`, `Imagen`) VALUES ('28', '2', 'Virgil Van Dijk', '49', '26', '35', '499', 'alta', 'vanDijk.jpeg');
 
-INSERT INTO `Jugador` (`ID_Jugador`, `ID_LIGA`, `Nombre_Jugador`, `Goles`, `Asistencias`, `Valor`, `Partidos_Jugados`, `Popularidad`, `Imagen`) VALUES ('29', '2', 'Josko Gvardiol', '9', '8', '80', '169', 'media', 'gvardiol.jpeg');
+INSERT INTO `Jugador` (`ID_Jugador`, `ID_LIGA`, `Nombre_Jugador`, `Goles`, `Asistencias`, `Valor`, `Partidos_Jugados`, `Popularidad`, `Imagen`) VALUES ('29', '2', 'Joško Gvardiol', '9', '8', '80', '169', 'media', 'gvardiol.jpeg');
 
 
 INSERT INTO `Jugador` (`ID_Jugador`, `ID_LIGA`, `Nombre_Jugador`, `Goles`, `Asistencias`, `Valor`, `Partidos_Jugados`, `Popularidad`, `Imagen`) VALUES ('30', '2', 'Ansu Fati', '37', '14', '35', '135', 'media', 'ansu.jpeg');
@@ -75,7 +75,7 @@ INSERT INTO `Jugador` (`ID_Jugador`, `ID_LIGA`, `Nombre_Jugador`, `Goles`, `Asis
 
 INSERT INTO `Jugador` (`ID_Jugador`, `ID_LIGA`, `Nombre_Jugador`, `Goles`, `Asistencias`, `Valor`, `Partidos_Jugados`, `Popularidad`, `Imagen`) VALUES ('36', '2', 'Anthony Gordon', '38', '23', '45', '185', 'media', 'Gordon.jpeg');
 
-INSERT INTO `Jugador` (`ID_Jugador`, `ID_LIGA`, `Nombre_Jugador`, `Goles`, `Asistencias`, `Valor`, `Partidos_Jugados`, `Popularidad`, `Imagen`) VALUES ('37', '2', 'Ncolas Jackson', '28', '15', '35', '106', 'media', 'NicolasJackson.jpeg');
+INSERT INTO `Jugador` (`ID_Jugador`, `ID_LIGA`, `Nombre_Jugador`, `Goles`, `Asistencias`, `Valor`, `Partidos_Jugados`, `Popularidad`, `Imagen`) VALUES ('37', '2', 'Nicolas Jackson', '28', '15', '35', '106', 'media', 'NicolasJackson.jpeg');
 
 INSERT INTO `Jugador` (`ID_Jugador`, `ID_LIGA`, `Nombre_Jugador`, `Goles`, `Asistencias`, `Valor`, `Partidos_Jugados`, `Popularidad`, `Imagen`) VALUES ('38', '2', 'Bukayo Saka', '68', '68', '120', '252', 'alta', 'saka.jpeg');
 
@@ -85,13 +85,13 @@ INSERT INTO `Jugador` (`ID_Jugador`, `ID_LIGA`, `Nombre_Jugador`, `Goles`, `Asis
 INSERT INTO `Jugador` (`ID_Jugador`, `ID_LIGA`, `Nombre_Jugador`, `Goles`, `Asistencias`, `Valor`, `Partidos_Jugados`, `Popularidad`, `Imagen`) VALUES ('84', '2', 'Thiago Alcantara', '48', '63', '10', '486', 'media', 'Thiago.jpeg');
 
 
-INSERT INTO `Jugador` (`ID_Jugador`, `ID_LIGA`, `Nombre_Jugador`, `Goles`, `Asistencias`, `Valor`, `Partidos_Jugados`, `Popularidad`, `Imagen`) VALUES ('85', '2', 'Luis Diaz', '83', '40', '75', '350', 'media', 'LuisDiaz.jpeg');
+INSERT INTO `Jugador` (`ID_Jugador`, `ID_LIGA`, `Nombre_Jugador`, `Goles`, `Asistencias`, `Valor`, `Partidos_Jugados`, `Popularidad`, `Imagen`) VALUES ('85', '2', 'Luis Díaz', '83', '40', '75', '350', 'media', 'LuisDiaz.jpeg');
 INSERT INTO `Jugador` (`ID_Jugador`, `ID_LIGA`, `Nombre_Jugador`, `Goles`, `Asistencias`, `Valor`, `Partidos_Jugados`, `Popularidad`, `Imagen`) VALUES ('86', '2', 'Rico Lewis', '7', '7', '38', '87', 'media', 'RicoLewis.jpeg');
 
 INSERT INTO `Jugador` (`ID_Jugador`, `ID_LIGA`, `Nombre_Jugador`, `Goles`, `Asistencias`, `Valor`, `Partidos_Jugados`, `Popularidad`, `Imagen`) VALUES ('87', '2', 'Julio Enciso', '28', '14', '22', '101', 'media', 'Enciso.jpeg');
 
 
-INSERT INTO `Jugador` (`ID_Jugador`, `ID_LIGA`, `Nombre_Jugador`, `Goles`, `Asistencias`, `Valor`, `Partidos_Jugados`, `Popularidad`, `Imagen`) VALUES ('88', '2', 'Julian Alvarez', '86', '46', '90', '203', 'alta', 'Julian.jpeg');
+INSERT INTO `Jugador` (`ID_Jugador`, `ID_LIGA`, `Nombre_Jugador`, `Goles`, `Asistencias`, `Valor`, `Partidos_Jugados`, `Popularidad`, `Imagen`) VALUES ('88', '2', 'Julián Álvarez', '86', '46', '90', '203', 'alta', 'Julian.jpeg');
 
 
 INSERT INTO `Jugador` (`ID_Jugador`, `ID_LIGA`, `Nombre_Jugador`, `Goles`, `Asistencias`, `Valor`, `Partidos_Jugados`, `Popularidad`, `Imagen`) VALUES ('89', '2', 'Pedro Neto', '16', '24', '42', '147', 'media', 'neto.jpeg');
@@ -137,9 +137,9 @@ INSERT INTO `Jugador` (`ID_Jugador`, `ID_LIGA`, `Nombre_Jugador`, `Goles`, `Asis
 
 INSERT INTO `Jugador` (`ID_Jugador`, `ID_LIGA`, `Nombre_Jugador`, `Goles`, `Asistencias`, `Valor`, `Partidos_Jugados`, `Popularidad`, `Imagen`) VALUES ('57', '3', 'Serhou Guirassy', '96', '15', '40', '272', 'media', 'Guirassy.jpeg');
 
-INSERT INTO `Jugador` (`ID_Jugador`, `ID_LIGA`, `Nombre_Jugador`, `Goles`, `Asistencias`, `Valor`, `Partidos_Jugados`, `Popularidad`, `Imagen`) VALUES ('58', '3', ' Victor Boniface', '52', '26', '40', '135', 'media', 'Boniface.jpeg');
+INSERT INTO `Jugador` (`ID_Jugador`, `ID_LIGA`, `Nombre_Jugador`, `Goles`, `Asistencias`, `Valor`, `Partidos_Jugados`, `Popularidad`, `Imagen`) VALUES ('58', '3', 'Victor Boniface', '52', '26', '40', '135', 'media', 'Boniface.jpeg');
 
-INSERT INTO `Jugador` (`ID_Jugador`, `ID_LIGA`, `Nombre_Jugador`, `Goles`, `Asistencias`, `Valor`, `Partidos_Jugados`, `Popularidad`, `Imagen`) VALUES ('59', '3', ' Karim Adeyemi', '81', '52', '35', '212', 'media', 'Adeyemi.jpeg');
+INSERT INTO `Jugador` (`ID_Jugador`, `ID_LIGA`, `Nombre_Jugador`, `Goles`, `Asistencias`, `Valor`, `Partidos_Jugados`, `Popularidad`, `Imagen`) VALUES ('59', '3', 'Karim Adeyemi', '81', '52', '35', '212', 'media', 'Adeyemi.jpeg');
 
 INSERT INTO `Jugador` (`ID_Jugador`, `ID_LIGA`, `Nombre_Jugador`, `Goles`, `Asistencias`, `Valor`, `Partidos_Jugados`, `Popularidad`, `Imagen`) VALUES ('60', '3', 'Niklas Süle', '21', '14', '30', '392', 'media', 'Süle.jpeg');
 INSERT INTO `Jugador` (`ID_Jugador`, `ID_LIGA`, `Nombre_Jugador`, `Goles`, `Asistencias`, `Valor`, `Partidos_Jugados`, `Popularidad`, `Imagen`) VALUES ('90', '3', 'Borja Iglesias', '174', '23', '8', '418', 'media', 'panda.jpeg');
@@ -149,12 +149,12 @@ INSERT INTO `Jugador` (`ID_Jugador`, `ID_LIGA`, `Nombre_Jugador`, `Goles`, `Asis
 
 INSERT INTO `Jugador` (`ID_Jugador`, `ID_LIGA`, `Nombre_Jugador`, `Goles`, `Asistencias`, `Valor`, `Partidos_Jugados`, `Popularidad`, `Imagen`) VALUES ('92', '3', 'Sacha Boey', '7','3', '22', '151', 'media', 'boey.jpeg');
 
-INSERT INTO `Jugador` (`ID_Jugador`, `ID_LIGA`, `Nombre_Jugador`, `Goles`, `Asistencias`, `Valor`, `Partidos_Jugados`, `Popularidad`, `Imagen`) VALUES ('93', '3', 'Attali Szalai', '17', '13', '10', '278', 'media', 'Szalai.jpeg');
+INSERT INTO `Jugador` (`ID_Jugador`, `ID_LIGA`, `Nombre_Jugador`, `Goles`, `Asistencias`, `Valor`, `Partidos_Jugados`, `Popularidad`, `Imagen`) VALUES ('93', '3', 'Attila Szalai', '17', '13', '10', '278', 'media', 'Szalai.jpeg');
 
 INSERT INTO `Jugador` (`ID_Jugador`, `ID_LIGA`, `Nombre_Jugador`, `Goles`, `Asistencias`, `Valor`, `Partidos_Jugados`, `Popularidad`, `Imagen`) VALUES ('94', '3', 'Deniz Undav', '136', '56', '17', '281', 'media', 'Undav.jpeg');
 
 
-INSERT INTO `Jugador` (`ID_Jugador`, `ID_LIGA`, `Nombre_Jugador`, `Goles`, `Asistencias`, `Valor`, `Partidos_Jugados`, `Popularidad`, `Imagen`) VALUES ('95', '3', 'Amadau Haidara', '29','32', '17', '283', 'media', 'Haidara.jpeg');
+INSERT INTO `Jugador` (`ID_Jugador`, `ID_LIGA`, `Nombre_Jugador`, `Goles`, `Asistencias`, `Valor`, `Partidos_Jugados`, `Popularidad`, `Imagen`) VALUES ('95', '3', 'Amadou Haidara', '29','32', '17', '283', 'media', 'Haidara.jpeg');
 
 
   
@@ -168,7 +168,7 @@ INSERT INTO `Jugador` (`ID_Jugador`, `ID_LIGA`, `Nombre_Jugador`, `Goles`, `Asis
 
 INSERT INTO `Jugador` (`ID_Jugador`, `ID_LIGA`, `Nombre_Jugador`, `Goles`, `Asistencias`, `Valor`, `Partidos_Jugados`, `Popularidad`, `Imagen`) VALUES ('62', '4', 'Lautaro Martínez', '144', '44', '100', '317', 'media', 'Lautaro.jpeg');
 
-INSERT INTO `Jugador` (`ID_Jugador`, `ID_LIGA`, `Nombre_Jugador`, `Goles`, `Asistencias`, `Valor`, `Partidos_Jugados`, `Popularidad`, `Imagen`) VALUES ('63', '4', ' Rafael Leão', '70', '47', '90', '233', 'alta', 'Leão.jpeg');
+INSERT INTO `Jugador` (`ID_Jugador`, `ID_LIGA`, `Nombre_Jugador`, `Goles`, `Asistencias`, `Valor`, `Partidos_Jugados`, `Popularidad`, `Imagen`) VALUES ('63', '4', 'Rafael Leão', '70', '47', '90', '233', 'alta', 'Leão.jpeg');
 
 INSERT INTO `Jugador` (`ID_Jugador`, `ID_LIGA`, `Nombre_Jugador`, `Goles`, `Asistencias`, `Valor`, `Partidos_Jugados`, `Popularidad`, `Imagen`) VALUES ('64', '4', 'Khvicha Kvaratskhelia', '40', '46', '85', '177', 'media', 'Kvaratskhelia.jpeg');
 
