@@ -190,7 +190,7 @@ function comprobarEnPartida($nombreUsuario) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>StatRivals</title>
-    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/game.css">
     <link rel="shortcut icon" href="img/favicon.jpg" type="image/x-icon">
     <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
     <script src="js/Jugador.js" defer></script>
@@ -204,16 +204,18 @@ function comprobarEnPartida($nombreUsuario) {
         }
         else {
             // JUGAR
+            // FALTA CONTROLAR SI EL USUARIO ESTA EN PARTIDA, DE MOMENTO SOLO LA CREA
             $modo = $datos[0];
             $liga = $datos[1];
             $dificultad = $datos[2];
             // Array de jugadores
             $jugadores = crearPartida($liga, $dificultad);
-
             ?>
             <script>
             var jugadores = <?php echo json_encode($jugadores); ?>;
+            var estadistica = <?php echo json_encode($modo)?>
             </script>
+
             <?php
         }
     ?>
