@@ -1,4 +1,4 @@
-//LIGA ESPAÑOLA
+/*LIGA ESPAÑOLA*/
 
 INSERT INTO `Jugador` (`ID_Jugador`, `ID_LIGA`, `Nombre_Jugador`, `Goles`, `Asistencias`, `Valor`, `Partidos_Jugados`, `Popularidad`, `Imagen`) VALUES ('16', '1', 'Toni Kroos', '73', '160', '15', '723', 'alta', 'kroos.jpeg');
 
@@ -30,7 +30,7 @@ INSERT INTO `Jugador` (`ID_Jugador`, `ID_LIGA`, `Nombre_Jugador`, `Goles`, `Asis
 INSERT INTO `Jugador` (`ID_Jugador`, `ID_LIGA`, `Nombre_Jugador`, `Goles`, `Asistencias`, `Valor`, `Partidos_Jugados`, `Popularidad`, `Imagen`) VALUES ('104', '1', 'Artem Dovyk', '92', '25', '28', '197', 'media', 'Dovyk.jpeg');
 
 
-//PREMIER LEAGUE
+/*PREMIER LEAGUE*/
 
 INSERT INTO `Jugador` (`ID_Jugador`, `ID_LIGA`, `Nombre_Jugador`, `Goles`, `Asistencias`, `Valor`, `Partidos_Jugados`, `Popularidad`, `Imagen`) VALUES ('21', '2', 'Kevin De Bruyne', '143', '237', '70', '587', 'alta', 'debruyne.jpeg');
 
@@ -98,7 +98,7 @@ INSERT INTO `Jugador` (`ID_Jugador`, `ID_LIGA`, `Nombre_Jugador`, `Goles`, `Asis
 
 
 
-//BUNDESLIGA
+/*BUNDESLIGA*/
 
 INSERT INTO `Jugador` (`ID_Jugador`, `ID_LIGA`, `Nombre_Jugador`, `Goles`, `Asistencias`, `Valor`, `Partidos_Jugados`, `Popularidad`, `Imagen`) VALUES ('41', '3', 'Harry Kane', '329', '87', '110', '532', 'alta', 'kane.jpeg');
 
@@ -151,14 +151,14 @@ INSERT INTO `Jugador` (`ID_Jugador`, `ID_LIGA`, `Nombre_Jugador`, `Goles`, `Asis
 
 INSERT INTO `Jugador` (`ID_Jugador`, `ID_LIGA`, `Nombre_Jugador`, `Goles`, `Asistencias`, `Valor`, `Partidos_Jugados`, `Popularidad`, `Imagen`) VALUES ('93', '3', 'Attali Szalai', '17', '13', '10', '278', 'media', 'Szalai.jpeg');
 
-INSERT INTO `Jugador` (`ID_Jugador`, `ID_LIGA`, `Nombre_Jugador`, `Goles`, `Asistencias`, `Valor`, `Partidos_Jugados`, `Popularidad`, `Imagen`) VALUES ('94', '3', 'Deniz Undav', '136', ‘56', '17', '281', 'media', 'Undav.jpeg');
+INSERT INTO `Jugador` (`ID_Jugador`, `ID_LIGA`, `Nombre_Jugador`, `Goles`, `Asistencias`, `Valor`, `Partidos_Jugados`, `Popularidad`, `Imagen`) VALUES ('94', '3', 'Deniz Undav', '136', '56', '17', '281', 'media', 'Undav.jpeg');
 
 
 INSERT INTO `Jugador` (`ID_Jugador`, `ID_LIGA`, `Nombre_Jugador`, `Goles`, `Asistencias`, `Valor`, `Partidos_Jugados`, `Popularidad`, `Imagen`) VALUES ('95', '3', 'Amadau Haidara', '29','32', '17', '283', 'media', 'Haidara.jpeg');
 
 
   
-//LIGA ITALIANA
+/*LIGA ITALIANA*/
 
 
   
