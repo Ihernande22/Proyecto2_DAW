@@ -1,0 +1,56 @@
+@import 'index.css';
+
+body {
+    background-color: var(--color-principal);
+}
+
+#principal {
+    border: 4px solid white;
+    border-radius: 15px;
+    max-width: 1200px;
+    width: 100%;
+    margin: auto;
+    margin-top: 50px;
+    padding: 30px;
+    background-color: var(--color-secundario);
+}
+
+#jugadores {
+    display: flex;
+    position: relative;
+}
+
+#jugador1, #jugador2 {
+    max-width: 50%;
+    position: relative;
+}
+
+#jugadores img {
+    max-width: 100%;
+    filter: grayscale(100%);
+}
+
+#estadisticas {
+    color: white;
+}
+
+#explicacion {
+    color: white;
+    font-weight: bold;
+    position: absolute;
+    padding: 20px;
+    text-align: center;
+    background-color: var(--color-principal);
+    border-top-right-radius: 10px;
+    margin-left: -10px;
+    max-width: 40%;
+    margin: auto;
+    font-size: 14px;
+    color: white;
+    bottom: 0.7%;
+    z-index: 1;
+}
+
+#estadisticaj1, #estadisticaj2 {
+    position: absolute;
+}
