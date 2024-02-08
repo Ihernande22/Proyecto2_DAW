@@ -212,7 +212,14 @@ function comprobarEnPartida($nombreUsuario) {
             $jugadores = crearPartida($liga, $dificultad);
             ?>
             <script>
-            var jugadores = <?php echo json_encode($jugadores); ?>;
+            var jugadores = <?php echo json_encode(array_map(function($jugador) {
+                return array(
+                    'id' => $jugador->getID(),
+                    'nombre' => $jugador->getNombre(),
+                    'imagen' => $jugador->getImagen()
+                    // Puedes agregar más campos aquí si son necesarios para la interfaz
+                );
+            }, $jugadores)); ?>;
             var estadistica = <?php echo json_encode($modo)?>
             </script>
 
