@@ -27,6 +27,7 @@ INSERT INTO `Jugador` (`ID_Jugador`, `ID_LIGA`, `Nombre_Jugador`, `Goles`, `Asis
 
 INSERT INTO `Jugador` (`ID_Jugador`, `ID_LIGA`, `Nombre_Jugador`, `Goles`, `Asistencias`, `Valor`, `Partidos_Jugados`, `Popularidad`, `Imagen`) VALUES ('13', '1', ' Robert Lewandowski', '556', '150', '20', '753', 'alta', 'Lewandowski.jpg');
 
+INSERT INTO `Jugador` (`ID_Jugador`, `ID_LIGA`, `Nombre_Jugador`, `Goles`, `Asistencias`, `Valor`, `Partidos_Jugados`, `Popularidad`, `Imagen`) VALUES ('14', '1', '  Raphinha', '76', '57', '50', '316', 'alta', ' Raphinha.jpg');
 INSERT INTO `Jugador` (`ID_Jugador`, `ID_LIGA`, `Nombre_Jugador`, `Goles`, `Asistencias`, `Valor`, `Partidos_Jugados`, `Popularidad`, `Imagen`) VALUES ('16', '1', 'Toni Kroos', '73', '160', '15', '723', 'alta', 'kroos.jpg');
 
 INSERT INTO `Jugador` (`ID_Jugador`, `ID_LIGA`, `Nombre_Jugador`, `Goles`, `Asistencias`, `Valor`, `Partidos_Jugados`, `Popularidad`, `Imagen`) VALUES ('17', '1', 'Antonio Rudiger', '26', '14', '32', '497', 'alta', 'rudiger.jpg');
