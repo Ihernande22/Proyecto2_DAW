@@ -217,7 +217,6 @@ function comprobarEnPartida($nombreUsuario) {
                     'id' => $jugador->getID(),
                     'nombre' => $jugador->getNombre(),
                     'imagen' => $jugador->getImagen()
-                    // Puedes agregar más campos aquí si son necesarios para la interfaz
                 );
             }, $jugadores)); ?>;
             var estadistica = <?php echo json_encode($modo)?>

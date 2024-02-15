@@ -390,3 +390,6 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 });
 
+
+
+// Hacer peticion ajax a PHP para recibir estadistica

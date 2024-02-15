@@ -28,6 +28,7 @@ function crearInterfaz(j) {
     //CONTENEDORES
     let principal = document.createElement("div");
     let superior = document.createElement("div");
+    let centralPadre = document.createElement("div"); // Nuevo contenedor padre
     let central = document.createElement("div");
     let inferior = document.createElement("div");
     let jugador1 = document.createElement("div");
@@ -50,6 +51,7 @@ function crearInterfaz(j) {
     // IDs
     principal.setAttribute("id", "principal");
     superior.setAttribute("id", "superior");
+    centralPadre.setAttribute("id", "centralPadre"); // Nuevo contenedor padre
     central.setAttribute("id", "central");
     inferior.setAttribute("id", "inferior");
     jugador1.setAttribute("id", "jugador1");
@@ -60,7 +62,7 @@ function crearInterfaz(j) {
 
     // Textos
     puntuacion.textContent = "Puntuación: " + puntos;
-    textoExplicativo.textContent = "Crees que " + j[0].nombre + " tiene más " + estadistica + " que " + j[1].nombre + "?";
+    textoExplicativo.textContent = "Crees que " + j[1].nombre + " tiene más " + estadistica + " que " + j[0].nombre + "?";
 
     // APPEND CHILDS
     jugador1.appendChild(imgJ1);
@@ -69,13 +71,22 @@ function crearInterfaz(j) {
     central.appendChild(jugador1);
     central.appendChild(jugador2);
     central.appendChild(jugador3);
+    centralPadre.appendChild(central); // Añadir el contenedor central al contenedor padre
     superior.appendChild(textoExplicativo);
     inferior.appendChild(puntuacion);
     principal.appendChild(superior);
-    principal.appendChild(central);
+    principal.appendChild(centralPadre); // Añadir el contenedor padre al principal
     principal.appendChild(inferior);
     document.body.appendChild(principal);
 }
+
+function eliminarBotonesRespuesta() {
+    let botonesRespuesta = document.getElementById("botonesRespuesta");
+    if (botonesRespuesta) {
+        botonesRespuesta.parentNode.removeChild(botonesRespuesta);
+    }
+}
+
 
 function añadirBotones() {
     let jugador2 = document.getElementById("jugador2");
@@ -98,39 +109,165 @@ function añadirBotones() {
     jugador2.appendChild(botones);
 }
 
-function respuestaSi() {
-    // Eliminar el primer jugador de la matriz de jugadores
-    jugadores.shift();
+function actualizarInterfaz() {
+    // Eliminar texto explicativo
+    let explicacion = document.getElementById("explicacion");
+    explicacion.textContent = "";
+
+    // Eliminar los botones de respuesta
+    eliminarBotonesRespuesta();
+
+    // Recoger el contenedor
+    var central = document.getElementById("central");
+
+    //Añadir transicion
+    $("#central").css("transition", "transform 3s ease");
+
+    // Mueve el contenedor a la izquierda
+    $("#central").css("transform", "translateX(-33.3%)");
+
+    //Recoge el jugador 1 para que no haya conflictos con el ID            
+    var jugador1 = document.getElementById('jugador1');
+
+    // Escucha el evento transitionend para detectar el final de la transición
+    central.addEventListener('transitionend', function() {
+
+        // Elimina el jugador del principio
+        jugador1.parentNode.removeChild(jugador1);
+
+        // Cambia los IDs
+        document.getElementById('jugador2').id = 'jugador1';
+        document.getElementById('jugador3').id = 'jugador2';
+
+        // Añade el nuevo jugador
+        var nuevoJugador = document.createElement('div');
+        nuevoJugador.id = 'jugador3';
+        var imgNuevoJugador = document.createElement('img');
+        imgNuevoJugador.src = './img/jugadores/' + jugadores[2].imagen;
+        nuevoJugador.appendChild(imgNuevoJugador);
+        central.appendChild(nuevoJugador);
     
-    // Actualizar la interfaz con el nuevo jugador
-    actualizarInterfaz();
+        // Eliminar transicion
+        $("#central").css("transition", "");
+
+        // Reestablece la posicion del contenedor
+        $("#central").css("transform", "translateX(0%)");
+
+        // Actualizar texto explicativo con los jugadores actuales
+        explicacion.textContent = "Crees que " + jugadores[0].nombre + " tiene más " + estadistica + " que " + jugadores[1].nombre + "?";
+        
+        // Sumar y actualizar puntuación
+        puntos += 1;
+        document.getElementById("puntuacion").textContent = "Puntuación: " + puntos;
+
+        // Añadir botones de respuesta
+        añadirBotones();
+
+    }, {once: true});
+}
+
+function actualizarInterfazVertical() {
+    // Eliminar texto explicativo
+    let explicacion = document.getElementById("explicacion");
+    explicacion.textContent = "";
+
+    // Eliminar los botones de respuesta
+    eliminarBotonesRespuesta();
+    
+    // Recoger el contenedor
+    var central = document.getElementById("central");
+
+    //Añadir transicion
+    $("#central").css("transition", "transform 3s ease");
+
+    // Mueve el contenedor a la izquierda
+    $("#central").css("transform", "translateY(-33.3%)");
+
+    //Recoge el jugador 1 para que no haya conflictos con el ID            
+    var jugador1 = document.getElementById('jugador1');
+
+    // Escucha el evento transitionend para detectar el final de la transición
+    central.addEventListener('transitionend', function() {
+
+        // Elimina el jugador del principio
+        jugador1.parentNode.removeChild(jugador1);
+
+        // Cambia los IDs
+        document.getElementById('jugador2').id = 'jugador1';
+        document.getElementById('jugador3').id = 'jugador2';
+
+        // Añade el nuevo jugador
+        var nuevoJugador = document.createElement('div');
+        nuevoJugador.id = 'jugador3';
+        var imgNuevoJugador = document.createElement('img');
+        imgNuevoJugador.src = './img/jugadores/' + jugadores[2].imagen;
+        nuevoJugador.appendChild(imgNuevoJugador);
+        central.appendChild(nuevoJugador);
+    
+        //Eliminar transicion
+        $("#central").css("transition", "");
+
+        // Reestablece la posicion del contenedor
+        $("#central").css("transform", "translateY(0%)");
+
+        // Actualizar texto explicativo con los jugadores actuales
+        explicacion.textContent = "Crees que " + jugadores[0].nombre + " tiene más " + estadistica + " que " + jugadores[1].nombre + "?";
+
+        // Sumar y actualizar puntuación
+        puntos += 1;
+        document.getElementById("puntuacion").textContent = "Puntuación: " + puntos;
+
+        //Añadir botones de respuesta
+        añadirBotones();
+
+    }, {once: true});
+}
+
+
+function recogerEstadistica(IDJugador, Modo) {
+
+}
+
+function respuestaSi() {
+    /*estadisticaJ1 = recogerEstadistica(jugadores[0].getId(), estadistica);
+    estadisticaJ2 = recogerEstadistica(jugadores[1].getId(), estadistica);
+    if (estadisticaJ1 <= estadisticaJ2) {*/
+        // Eliminar el primer jugador de la matriz de jugadores
+        jugadores.shift();
+        
+        if (window.innerWidth > 700) {
+            // Actualizar la interfaz con el nuevo jugador
+            actualizarInterfaz();
+        } else {
+            // Actualizar la interfaz vertical con el nuevo jugador
+            actualizarInterfazVertical();
+        }
+    /*}
+    else {
+        gameOver();
+    }*/
 }
 
 function respuestaNo() {
-    console.log("Ha pulsado no");
+    /*estadisticaJ1 = recogerEstadistica(jugadores[0].getId(), estadistica);
+    estadisticaJ2 = recogerEstadistica(jugadores[1].getId(), estadistica);
+    if (estadisticaJ1 >= estadisticaJ2) {*/
+        // Eliminar el primer jugador de la matriz de jugadores
+        jugadores.shift();
+        
+        if (window.innerWidth > 700) {
+            // Actualizar la interfaz con el nuevo jugador
+            actualizarInterfaz();
+        } else {
+            // Actualizar la interfaz vertical con el nuevo jugador
+            actualizarInterfazVertical();
+        }
+    /*}
+    else {
+        gameOver();
+    }*/
 }
 
-function actualizarInterfaz() {
-    // Eliminar el contenedor "eliminarJugador"
-    var central = document.getElementById("central");
-
-    central.style.marginLeft = "-50%";
-
-    var jugador1 = document.getElementById('jugador1');
-
-    document.getElementById('jugador2').id = 'jugador1';
-    document.getElementById('jugador3').id = 'jugador2';
-
-    var nuevoJugador = document.createElement('div');
-    nuevoJugador.id = 'jugador3';
-
-    var imgNuevoJugador = document.createElement('img');
-    imgNuevoJugador.src = './img/jugadores/' + jugadores[2].imagen;
-
-    nuevoJugador.appendChild(imgNuevoJugador);
-    central.appendChild(nuevoJugador);
-
-    jugador1.parentNode.removeChild(jugador1);
-    central.style.marginLeft = "0%";
-
+function gameOver() {
+    console.log("Has perdido");
 }

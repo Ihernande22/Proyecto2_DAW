@@ -13,25 +13,18 @@ body {
 #principal {
     margin: auto;
     margin-top: 60px;
-    max-width: 1200px;
-    width: 100%;
+    width: 1200px;
+    max-width: 90%;
     overflow: hidden;
 }
 
 #superior {
     background-color: white;
     padding: 10px;
-    border-top-right-radius: 10px;
     font-weight: bold;
     text-align: center;
     font-size: 20px;
     color: var(--color-secundario);
-}
-
-#central {
-    display: flex;
-    width: 150%; /* Ancho máximo del contenedor */
-    transition: all 5s ease; /* Transición del margen para el efecto de slider */
 }
 
 #inferior {
@@ -42,25 +35,7 @@ body {
     font-size: 24px;
 }
 
-#eliminarJugador {
-    width: 0;
-    height: 0;
-    overflow: hidden;
-    background-color: red;
-    width: 50%;
-    height: auto;
-}
 
-#jugador1, #jugador2, #jugador3, #eliminarJugador {
-    flex: 1; /* Ambos jugadores ocupan el mismo espacio */
-    max-width: 50%; /* Cada jugador ocupa la mitad del contenedor */
-}
-
-#jugador1 img, #jugador2 img, #jugador3 img, #eliminarJugador img {
-    width: 100%; /* Ambas imágenes ocupan el ancho completo de su contenedor */
-    height: auto; /* La altura se ajusta automáticamente para mantener la proporción */
-    display: block; /* Elimina cualquier espacio extra por la alineación en línea */
-}
 
 #jugador2 {
     position: relative;
@@ -101,4 +76,66 @@ body {
     border-color: #336699; /* Cambia el color del borde */
 }
 
+@media screen and (min-width: 701px) {
+    #central {
+        display: flex;
+        width: 150%; /* Ancho máximo del contenedor */
+    }
+    #jugador1, #jugador2, #jugador3, #eliminarJugador {
+        flex: 1; /* Ambos jugadores ocupan el mismo espacio */
+        max-width: 50%; /* Cada jugador ocupa la mitad del contenedor */
+    }
+    
+    #jugador1 img, #jugador2 img, #jugador3 img, #eliminarJugador img {
+        width: 100%; /* Ambas imágenes ocupan el ancho completo de su contenedor */
+        height: auto; /* La altura se ajusta automáticamente para mantener la proporción */
+        display: block; /* Elimina cualquier espacio extra por la alineación en línea */
+    }
+}
 
+@media screen and (max-width: 700px) {
+    #principal {
+        margin: auto;
+        margin-top: 10px;
+        width: 450px;
+        max-width: 90%;
+        overflow-y: hidden; /* Cambiar a overflow-y */
+    }
+
+    #superior {
+        background-color: white;
+        padding: 10px;
+        font-weight: bold;
+        text-align: center;
+        font-size: 20px;
+        color: var(--color-secundario);
+        position: relative; /* Asegura que el z-index tenga efecto */
+        z-index: 2; /* Ajusta el z-index para que esté por encima del contenedor */
+    }
+    
+    #central {
+        position: relative; /* Asegura que el z-index tenga efecto */
+        z-index: 1; /* Asegura que el contenedor esté detrás de #superior */
+    }
+
+    #jugador1, #jugador2, #jugador3, #eliminarJugador {
+        flex: 1; /* Ambos jugadores ocupan el mismo espacio */
+        max-height: 50%; /* Cada jugador ocupa la mitad del contenedor */;
+    }
+
+    #jugador1 img, #jugador2 img, #jugador3 img, #eliminarJugador img {
+        width: 100%; /* Ambas imágenes ocupan el ancho completo de su contenedor */
+        height: auto; /* La altura se ajusta automáticamente para mantener la proporción */
+        display: block; /* Elimina cualquier espacio extra por la alineación en línea */
+    }
+    #principal {
+        overflow-y: hidden; /* Cambiar a overflow-y para dispositivos verticales */
+    }
+
+    #centralPadre {
+        height: 900px;
+        max-height: 100%;
+        overflow: hidden;
+    }
+
+}
