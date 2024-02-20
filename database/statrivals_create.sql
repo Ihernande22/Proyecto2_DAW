@@ -76,3 +76,12 @@ CREATE TABLE Estado_Partida (
     FOREIGN KEY (ID_Usuario) REFERENCES Usuario(ID_Usuario)
 );
 
+insert into Modo_De_Juego values (1,'Goles','Inferir con los goles anotados a lo largo de su carrera','goles.jpg');
+insert into Modo_De_Juego values (2,'Asistencias','Inferir con las asistencias dadas a lo largo de su carrera','asistencias.jpg');
+insert into Modo_De_Juego values (3,'Partidos Jugados','Inferir con los partidos jugados a lo largo de su carrera','partidos.jpg');
+insert into Modo_De_Juego values (4,'Valor de Mercado','Inferir con el máximo valor de mercado alcanzado a lo largo de su carrera','valor.jpg');
+insert into Liga values (1, 'Liga EA Sports', 'LigaEASports.jpg');
+insert into Liga values (2, 'Premier League', 'PremierLeague.jpg');
+insert into Liga values (3, 'Bundesliga', 'Bundesliga.jpg');
+insert into Liga values (4, 'Serie A', 'SerieA.jpg');
+insert into Liga values (5, 'Aleatorio', 'Aleatorio.jpg');
