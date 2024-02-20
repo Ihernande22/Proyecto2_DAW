@@ -1,3 +1,4 @@
+drop database if exists statrivals;
 create database statrivals;
 use statrivals;
 
