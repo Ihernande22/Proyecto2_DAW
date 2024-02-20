@@ -224,11 +224,10 @@ function actualizarInterfazVertical() {
 }
 
 
-function recogerEstadistica(IDJugador, Modo) {
 
-}
 
 function respuestaSi() {
+
     /*estadisticaJ1 = recogerEstadistica(jugadores[0].getId(), estadistica);
     estadisticaJ2 = recogerEstadistica(jugadores[1].getId(), estadistica);
     if (estadisticaJ1 <= estadisticaJ2) {*/
@@ -246,6 +245,9 @@ function respuestaSi() {
     else {
         gameOver();
     }*/
+    var Id_Jugador= jugadores[0].id;
+    var Modo='Goles'; // no se de donde viene este parametro
+    recogerEstadistica(Id_Jugador, Modo) 
 }
 
 function respuestaNo() {
@@ -270,4 +272,24 @@ function respuestaNo() {
 
 function gameOver() {
     console.log("Has perdido");
+}
+
+function recogerEstadistica(IDJugador, Modo) {
+
+$.post({
+ url: './enviarEstadistica.php',
+ data: {ID_Jugador:IDJugador, Nombre_Modo:Modo},
+ success:resposta,
+ dataType: 'html'
+
+});
+
+
+function resposta(dades){
+  
+console.log(dades); //resposta consulta php
+
+
+}
+
 }
