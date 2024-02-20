@@ -1,19 +1,7 @@
 use statrivals;
-delete from Registro_Partida;
-delete from Modo_De_Juego;
-delete from Liga;
-delete from Usuario;
+
 insert into Usuario values (1,'Izanvm','izanvillaecija1@gmail.com','112312412314');
 insert into Usuario values (2,'Izanvm2','i2@hotmail.es','asdasd12e');
-insert into Modo_De_Juego values (1,'Goles','Inferir con los goles anotados a lo largo de su carrera','goles.jpg');
-insert into Modo_De_Juego values (2,'Asistencias','Inferir con las asistencias dadas a lo largo de su carrera','asistencias.jpg');
-insert into Modo_De_Juego values (3,'Partidos Jugados','Inferir con los partidos jugados a lo largo de su carrera','partidos.jpg');
-insert into Modo_De_Juego values (4,'Valor de Mercado','Inferir con el máximo valor de mercado alcanzado a lo largo de su carrera','valor.jpg');
-insert into Liga values (1, 'Liga EA Sports', 'LigaEASports.jpg');
-insert into Liga values (2, 'Premier League', 'PremierLeague.jpg');
-insert into Liga values (3, 'Bundesliga', 'Bundesliga.jpg');
-insert into Liga values (4, 'Serie A', 'SerieA.jpg');
-insert into Liga values (5, 'Aleatorio', 'Aleatorio.jpg');
 insert into Registro_Partida values (1, 1, 1, 1, 'dificil', 12, '2023-10-20 17:52:00');
 insert into Registro_Partida values (2, 2, 2, 2, 'normal', 3, '2023-10-01 17:52:00');
 insert into Registro_Partida values (3, 1, 3, 3, 'normal', 40, '2023-10-24 13:52:00');
