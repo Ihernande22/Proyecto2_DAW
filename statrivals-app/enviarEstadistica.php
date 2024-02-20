@@ -10,6 +10,7 @@ if (!isset($_POST['ID_Jugador']) || !isset($_POST['Nombre_Modo'])) {
 $id = $_POST['ID_Jugador']; 
 $modo = $_POST['Nombre_Modo']; 
 
+//echo $id;
 
 
 if ($conex->connect_error) {

@@ -75,15 +75,12 @@ CREATE TABLE Estado_Partida (
     ID_Usuario INT NOT NULL,
     ID_Modo INT NOT NULL,
     ID_Liga INT NOT NULL,
-    Dificultad VARCHAR(50) NOT NULL,
-    Puntuacion INT NOT NULL,
     ID_Jugador1 INT NOT NULL,
     ID_Jugador2 INT NOT NULL,
     Lista_Jugadores TEXT,
     FOREIGN KEY (ID_Usuario) REFERENCES Usuario(ID_Usuario),
     FOREIGN KEY (ID_Modo) REFERENCES Modo_De_Juego(ID_Modo),
     FOREIGN KEY (ID_Liga) REFERENCES Liga(ID_Liga),
-    FOREIGN KEY (ID_Jugador1) REFERENCES Jugador(ID_Jugador),
-    FOREIGN KEY (ID_Jugador2) REFERENCES Jugador(ID_Jugador)
+  
 );
 

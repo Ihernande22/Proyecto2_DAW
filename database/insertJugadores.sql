@@ -204,7 +204,7 @@ INSERT INTO `Jugador` (`ID_Jugador`, `ID_LIGA`, `Nombre_Jugador`, `Goles`, `Asis
 
 INSERT INTO `Jugador` (`ID_Jugador`, `ID_LIGA`, `Nombre_Jugador`, `Goles`, `Asistencias`, `Valor`, `Partidos_Jugados`, `Popularidad`, `Imagen`) VALUES ('65', '4', 'Nicolò Barella', '31', '52', '75', '374', 'alta', 'Barella.jpg');
 
-INSERT INTO `Jugador` (`ID_Jugador`, `ID_LIGA`, `Nombre_Jugador`, `Goles`, `Asistencias`, `Valor`, `Partidos_Jugados`, `Popularidad`, `Imagen`) VALUES ('66', '4', 'Dušan Vlahović', '100', '17', '70', '232', 'alta', 'Vlahović.jpg');
+INSERT INTO `Jugador` (`ID_Jugador`, `ID_LIGA`, `Nombre_Jugador`, `Goles`, `Asistencias`, `Valor`, `Partidos_Jugados`, `Popularidad`, `Imagen`) VALUES ('66', '4', 'Dušan Vlahovic', '100', '17', '70', '232', 'alta', 'Vlahović.jpg');
 
 INSERT INTO `Jugador` (`ID_Jugador`, `ID_LIGA`, `Nombre_Jugador`, `Goles`, `Asistencias`, `Valor`, `Partidos_Jugados`, `Popularidad`, `Imagen`) VALUES ('67', '4', 'Theo Hernández', '31', '40', '60', '283', 'alta', 'Theo.jpg');
 
