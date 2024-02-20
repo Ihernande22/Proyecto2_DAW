@@ -75,8 +75,6 @@ CREATE TABLE Estado_Partida (
     ID_Usuario INT NOT NULL,
     ID_Modo INT NOT NULL,
     ID_Liga INT NOT NULL,
-    Dificultad VARCHAR(50) NOT NULL,
-    Puntuacion INT NOT NULL,
     ID_Jugador1 INT NOT NULL,
     ID_Jugador2 INT NOT NULL,
     Lista_Jugadores TEXT,
