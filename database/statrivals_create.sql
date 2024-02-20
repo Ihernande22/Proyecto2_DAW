@@ -81,7 +81,6 @@ CREATE TABLE Estado_Partida (
     FOREIGN KEY (ID_Usuario) REFERENCES Usuario(ID_Usuario),
     FOREIGN KEY (ID_Modo) REFERENCES Modo_De_Juego(ID_Modo),
     FOREIGN KEY (ID_Liga) REFERENCES Liga(ID_Liga),
-    FOREIGN KEY (ID_Jugador1) REFERENCES Jugador(ID_Jugador),
-    FOREIGN KEY (ID_Jugador2) REFERENCES Jugador(ID_Jugador)
+  
 );
 
