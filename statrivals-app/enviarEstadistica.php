@@ -3,29 +3,29 @@
 // Conexión a la base de datos
 include "conexion.php";
 
-if (!isset($_POST['ID_Jugador']) && !isset($_POST['Modo_De_Juego'])) {
+if (!isset($_POST['ID_Jugador']) || !isset($_POST['Nombre_Modo'])) {
     die("No se han proporcionado los datos necesarios.");
 }
 
 $id = $_POST['ID_Jugador']; 
-$modo = $_POST['Modo_De_Juego']; 
+$modo = $_POST['Nombre_Modo']; 
 
 
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+
+if ($conex->connect_error) {
+    die("Connection failed: " . $conex->connect_error);
 }
 
-if ($modo == "goles") {
+if ($modo == "Goles") {
     $stmt = $conex->prepare("SELECT Goles FROM Jugador Where ID_Jugador = ?");
     $stmt->bind_param("i", $id);
-   
-} elseif($modo ==  "asistencias") {
+} elseif($modo ==  "Asistencias") {
     $stmt = $conex->prepare("SELECT Asistencias from Jugador where ID_Jugador = ?");
     $stmt->bind_param("i", $id);
-} elseif($modo == "partidos") {
+} elseif($modo == "Partidos") {
     $stmt = $conex->prepare("SELECT Partidos_Jugados FROM Jugador Where ID_Jugador = ?");
     $stmt->bind_param("i", $id);
-} elseif($modo == "valor") {
+} elseif($modo == "Valor") {
     $stmt = $conex->prepare("SELECT Valor FROM Jugador Where ID_Jugador = ?");
     $stmt->bind_param("i", $id);
 }
@@ -36,15 +36,14 @@ $stmt->execute();
 
 $result = $stmt->get_result();
 while ($row = $result->fetch_assoc()) {
-  
-    if ($modo == "goles") {
-        echo "Goles: " . $row['Goles'] . "<br>";
-    } elseif($modo ==  "asistencias") {
-        echo "Asistencias: " . $row['Asistencias'] . "<br>";
-    } elseif($modo == "partidos") {
-        echo "Partidos Jugados: " . $row['Partidos_Jugados'] . "<br>";
-    } elseif($modo == "valor") {
-        echo "Valor De Mercado: " . $row['Valor'] . "<br>";
+    if ($modo == "Goles") {
+        echo $row['Goles'];
+    } elseif($modo ==  "Asistencias") {
+        echo $row['Asistencias'];
+    } elseif($modo == "Partidos") {
+        echo $row['Partidos_Jugados'];
+    } elseif($modo == "Valor") {
+        echo $row['Valor'];
     }
 }
 
@@ -52,16 +51,3 @@ $stmt->close();
 $conex->close();
 
 ?>
-
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width= , initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    
-</body>
-</html>

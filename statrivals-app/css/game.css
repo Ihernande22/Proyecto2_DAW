@@ -37,7 +37,7 @@ body {
 
 
 
-#jugador2 {
+#jugador1, #jugador2 {
     position: relative;
 }
 
@@ -138,4 +138,27 @@ body {
         overflow: hidden;
     }
 
+}
+
+
+#estadisticaJ1, #estadisticaJ2 {
+    display: flex;
+    flex-direction: column;
+    color: white;
+    font-size: 30px;
+    border-radius: 50%;
+    position: absolute;
+    border: 4px solid white;
+    width: max-content;
+    padding: 20px;
+    font-weight: bold;
+    text-transform: uppercase;
+    top: 20%;
+    text-align: center;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Centra el elemento */
+}
+
+#central img {
+    filter: grayscale(100%);
 }

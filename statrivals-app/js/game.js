@@ -1,5 +1,9 @@
 var puntos = 0;
 
+function capitalize(str) {
+    return str.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join(' ');
+  }
+
 addEventListener("DOMContentLoaded", function() {
     // Verificar si la variable jugadores está definida y no es nula    
     if (typeof jugadores !== 'undefined' && jugadores !== null) {
@@ -64,6 +68,7 @@ function crearInterfaz(j) {
     puntuacion.textContent = "Puntuación: " + puntos;
     textoExplicativo.textContent = "Crees que " + j[1].nombre + " tiene más " + estadistica + " que " + j[0].nombre + "?";
 
+
     // APPEND CHILDS
     jugador1.appendChild(imgJ1);
     jugador2.appendChild(imgJ2);
@@ -71,6 +76,7 @@ function crearInterfaz(j) {
     central.appendChild(jugador1);
     central.appendChild(jugador2);
     central.appendChild(jugador3);
+    mostrarEstadisticaJugador1();
     centralPadre.appendChild(central); // Añadir el contenedor central al contenedor padre
     superior.appendChild(textoExplicativo);
     inferior.appendChild(puntuacion);
@@ -110,9 +116,16 @@ function añadirBotones() {
 }
 
 function actualizarInterfaz() {
+    // Mostrar estadistica J2
+    mostrarEstadisticaJugador2();
+
     // Eliminar texto explicativo
     let explicacion = document.getElementById("explicacion");
     explicacion.textContent = "";
+
+    // EliminarEstadistica J1
+    eliminarEstadisticaJ1();
+
 
     // Eliminar los botones de respuesta
     eliminarBotonesRespuesta();
@@ -162,14 +175,21 @@ function actualizarInterfaz() {
 
         // Añadir botones de respuesta
         añadirBotones();
+        actualizarIDEstadisticaJugadores();
 
     }, {once: true});
 }
 
 function actualizarInterfazVertical() {
+    // Mostrar estadistica J2
+    mostrarEstadisticaJugador2();
+    
     // Eliminar texto explicativo
     let explicacion = document.getElementById("explicacion");
     explicacion.textContent = "";
+
+    // EliminarEstadistica J1
+    eliminarEstadisticaJ1();
 
     // Eliminar los botones de respuesta
     eliminarBotonesRespuesta();
@@ -219,77 +239,159 @@ function actualizarInterfazVertical() {
 
         //Añadir botones de respuesta
         añadirBotones();
+        actualizarIDEstadisticaJugadores();
 
     }, {once: true});
 }
 
 
-
-
-function respuestaSi() {
-
-    /*estadisticaJ1 = recogerEstadistica(jugadores[0].getId(), estadistica);
-    estadisticaJ2 = recogerEstadistica(jugadores[1].getId(), estadistica);
-    if (estadisticaJ1 <= estadisticaJ2) {*/
-        // Eliminar el primer jugador de la matriz de jugadores
-        jugadores.shift();
-        
-        if (window.innerWidth > 700) {
-            // Actualizar la interfaz con el nuevo jugador
-            actualizarInterfaz();
+async function respuestaSi() {
+    try {
+        let resultado = await compararEstadisticas();
+        console.log("Respuesta si ->", resultado);
+        if (resultado == 2 || resultado == 0) {
+            // Eliminar el primer jugador de la matriz de jugadores
+            jugadores.shift();
+            
+            if (window.innerWidth > 700) {
+                // Actualizar la interfaz con el nuevo jugador
+                actualizarInterfaz();
+            } else {
+                // Actualizar la interfaz vertical con el nuevo jugador
+                actualizarInterfazVertical();
+            }
         } else {
-            // Actualizar la interfaz vertical con el nuevo jugador
-            actualizarInterfazVertical();
+            gameOver();
         }
-    /*}
-    else {
-        gameOver();
-    }*/
-    var Id_Jugador= jugadores[0].id;
-    var Modo='Goles'; // no se de donde viene este parametro
-    recogerEstadistica(Id_Jugador, Modo) 
+    } catch (error) {
+        console.error("Error al obtener la comparación de estadísticas:", error);
+    }
 }
 
-function respuestaNo() {
-    /*estadisticaJ1 = recogerEstadistica(jugadores[0].getId(), estadistica);
-    estadisticaJ2 = recogerEstadistica(jugadores[1].getId(), estadistica);
-    if (estadisticaJ1 >= estadisticaJ2) {*/
-        // Eliminar el primer jugador de la matriz de jugadores
-        jugadores.shift();
-        
-        if (window.innerWidth > 700) {
-            // Actualizar la interfaz con el nuevo jugador
-            actualizarInterfaz();
+
+async function respuestaNo() {
+    try {
+        let resultado = await compararEstadisticas();
+        console.log("Respuesta no ->", resultado);
+        if (resultado == 1 || resultado == 0) {
+            // Eliminar el primer jugador de la matriz de jugadores
+            jugadores.shift();
+            
+            if (window.innerWidth > 700) {
+                // Actualizar la interfaz con el nuevo jugador
+                actualizarInterfaz();
+            } else {
+                // Actualizar la interfaz vertical con el nuevo jugador
+                actualizarInterfazVertical();
+            }
         } else {
-            // Actualizar la interfaz vertical con el nuevo jugador
-            actualizarInterfazVertical();
+            gameOver();
         }
-    /*}
-    else {
-        gameOver();
-    }*/
+    } catch (error) {
+        console.error("Error al obtener la comparación de estadísticas:", error);
+    }
 }
+
 
 function gameOver() {
     console.log("Has perdido");
 }
 
 function recogerEstadistica(IDJugador, Modo) {
-
-$.post({
- url: './enviarEstadistica.php',
- data: {ID_Jugador:IDJugador, Nombre_Modo:Modo},
- success:resposta,
- dataType: 'html'
-
-});
+    return new Promise(function(resolve, reject) {
+        $.post({
+            url: './enviarEstadistica.php',
+            data: {ID_Jugador: IDJugador, Nombre_Modo: Modo},
+            success: function(dades) {
+                resolve(dades); // Resuelve la promesa con los datos de la consulta PHP
+            },
+            error: function(error) {
+                reject(error); // Rechaza la promesa con el error
+            },
+            dataType: 'html'
+        });
+    });
+}
 
 
 function resposta(dades){
   
-console.log(dades); //resposta consulta php
+return dades; //resposta consulta php
 
 
 }
 
+
+function mostrarEstadisticaJugador1() {
+    //Estadistica Jugador 1
+    let parrafoEstadisticaJ1 = document.createElement("p");
+    let span1 = document.createElement("span");
+    let span2 = document.createElement("span");
+    parrafoEstadisticaJ1.setAttribute("id", "estadisticaJ1");
+    recogerEstadistica(jugadores[0].id, capitalize(estadistica))
+    .then(function(stat) {
+        // Mostrar los goles en el párrafo
+        span1.textContent = capitalize(estadistica) ;
+        span2.textContent = stat;
+        parrafoEstadisticaJ1.appendChild(span1);
+        parrafoEstadisticaJ1.appendChild(span2);        
+        document.getElementById("jugador1").appendChild(parrafoEstadisticaJ1);
+    })
+    .catch(function(error) {
+        console.error("Error al recoger las estadísticas:", error);
+    });
+}
+
+function mostrarEstadisticaJugador2() {
+    //Estadistica Jugador 2
+    let parrafoEstadisticaJ2 = document.createElement("p");
+    let span1 = document.createElement("span");
+    let span2 = document.createElement("span");
+    parrafoEstadisticaJ2.setAttribute("id", "estadisticaJ2");
+    recogerEstadistica(jugadores[0].id, capitalize(estadistica))
+    .then(function(stat) {
+        // Mostrar los goles en el párrafo
+        span1.textContent = capitalize(estadistica) ;
+        span2.textContent = stat;
+        parrafoEstadisticaJ2.appendChild(span1);
+        parrafoEstadisticaJ2.appendChild(span2);        
+        document.getElementById("jugador2").appendChild(parrafoEstadisticaJ2);
+    })
+    .catch(function(error) {
+        console.error("Error al recoger las estadísticas:", error);
+    });
+}
+
+function eliminarEstadisticaJ1() {
+    let estadisticaJ1 = document.getElementById("estadisticaJ1");
+    if (estadisticaJ1) {
+        estadisticaJ1.parentNode.removeChild(estadisticaJ1);
+    }
+}
+
+function actualizarIDEstadisticaJugadores() {
+    let estadisticaJ2 = document.getElementById("estadisticaJ2");
+    if (estadisticaJ2) {
+        estadisticaJ2.id = "estadisticaJ1";
+        console.log("e1 -> e2");
+    }
+}
+
+async function compararEstadisticas() {
+    let e1 = await recogerEstadistica(jugadores[0].id, capitalize(estadistica));
+    let e2 = await recogerEstadistica(jugadores[1].id, capitalize(estadistica));
+    if (e1 > e2) {
+        return 1;
+    }
+    else if (e2 > e1) {
+        return 2;
+    }
+    else if (e1 == e2) {
+        return 0;
+    }
+}
+
+
+function gameOver() {
+    console.log("Has perdido");
 }
