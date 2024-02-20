@@ -64,23 +64,15 @@ create table Registro_Partida (
 );
 
 CREATE TABLE Estado (
-    ID_Estado INT AUTO_INCREMENT PRIMARY KEY,
     ID_Usuario INT NOT NULL,
     EnPartida BOOLEAN NOT NULL,
     FOREIGN KEY (ID_Usuario) REFERENCES Usuario(ID_Usuario)
 );
 
 CREATE TABLE Estado_Partida (
-    ID_Estado_Partida INT AUTO_INCREMENT PRIMARY KEY,
     ID_Usuario INT NOT NULL,
-    ID_Modo INT NOT NULL,
-    ID_Liga INT NOT NULL,
-    ID_Jugador1 INT NOT NULL,
-    ID_Jugador2 INT NOT NULL,
+    Puntuacion INT NOT NULL,
     Lista_Jugadores TEXT,
-    FOREIGN KEY (ID_Usuario) REFERENCES Usuario(ID_Usuario),
-    FOREIGN KEY (ID_Modo) REFERENCES Modo_De_Juego(ID_Modo),
-    FOREIGN KEY (ID_Liga) REFERENCES Liga(ID_Liga),
-  
+    FOREIGN KEY (ID_Usuario) REFERENCES Usuario(ID_Usuario)
 );
 
