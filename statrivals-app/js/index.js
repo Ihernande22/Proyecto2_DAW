@@ -357,6 +357,9 @@ function enviarConfiguraciones(confModo, confLiga, confDificultad) {
     localStorage.removeItem("dificultad");
     localStorage.removeItem("estado");
     localStorage.removeItem("recargar");
+
+    localStorage.setItem("enPartida", "yes");
+    localStorage.setItem("configEnviada", "yes");
 }
 
 

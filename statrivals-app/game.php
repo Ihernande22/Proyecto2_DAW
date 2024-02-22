@@ -1,4 +1,4 @@
-<?php
+<?php  
 include "conexion.php";
 include "Jugador.php";
 
@@ -36,20 +36,6 @@ function recogerDatos($modo, $liga, $dificultad) {
 function crearPartida($liga, $dificultad) {
     global $conex;
 
-    // Comprueba si el usuario está logeado.
-    if ($_SESSION['logeado'] === TRUE) {
-        // Comprobar si el usuario está en partida
-        if (comprobarEnPartida($_SESSION['usuario'])) {
-            // El usuario ya está en partida, devolver -1
-            return -1;
-        } else {
-            $id_usuario = obtenerIdUsuario($_SESSION['usuario']);
-
-            // Actualiza o inserta el registro en la tabla Estado.
-            actualizarEstadoUsuario($id_usuario, true);  // Puedes ajustar el valor de EnPartida según sea necesario
-        }
-    }
-
     // Transformar Liga en ID
     switch($liga) {
         case "laliga":
@@ -73,46 +59,9 @@ function crearPartida($liga, $dificultad) {
 
     // Sacar array de jugadores a partir de la configuración seleccionada por el usuario.
     $jugadores = crearArrayJugadores($IDliga, $dificultad);
-
     return $jugadores;
 }
 
-// Funcion para obtener el ID de un usuario con el nombre de usuario
-function obtenerIdUsuario($nombreUsuario) {
-    global $conex;
-
-    $id_usuario = 0;
-
-    // Obtén el ID del usuario basado en el nombre de usuario.
-    $consulta_id_usuario = "SELECT ID_Usuario FROM Usuario WHERE Nombre_Usuario LIKE '$nombreUsuario';";
-    
-    if ($resultado_id_usuario = $conex->query($consulta_id_usuario)) {
-        while ($fila_id_usuario = $resultado_id_usuario->fetch_assoc()) {
-            $id_usuario = $fila_id_usuario['ID_Usuario'];
-        }
-    }
-
-    return $id_usuario;
-}
-
-// Funcion que modifica o crea la tabla estado de un usuario
-function actualizarEstadoUsuario($idUsuario, $enPartida) {
-    global $conex;
-
-    // Comprueba si el usuario ya tiene un registro en la tabla Estado.
-    $consulta_estado = "SELECT * FROM Estado WHERE ID_Usuario = $idUsuario";
-    $resultado_estado = $conex->query($consulta_estado);
-
-    if ($resultado_estado->num_rows > 0) {
-        // Si el usuario ya tiene un registro, actualiza EnPartida según el valor proporcionado.
-        $update_estado = "UPDATE Estado SET EnPartida = " . ($enPartida ? 'TRUE' : 'FALSE') . " WHERE ID_Usuario = $idUsuario";
-        $conex->query($update_estado);
-    } else {
-        // Si no existe un registro, crea uno con EnPartida según el valor proporcionado.
-        $insert_estado = "INSERT INTO Estado (ID_Usuario, EnPartida) VALUES ($idUsuario, " . ($enPartida ? 'TRUE' : 'FALSE') . ")";
-        $conex->query($insert_estado);
-    }
-}
 
 // Funcion para crear una array de jugadores
 function crearArrayJugadores($IDliga, $dificultad) {
@@ -164,28 +113,9 @@ function crearArrayJugadores($IDliga, $dificultad) {
 
     return $arrayJugadores;
 }
-
-// Comprueba si un usuario está en partida
-function comprobarEnPartida($nombreUsuario) {
-    global $conex;
-
-    // Obtener el ID del usuario
-    $idUsuario = obtenerIdUsuario($nombreUsuario);
-
-    // Consultar el estado del usuario
-    $consultaEstado = "SELECT EnPartida FROM Estado WHERE ID_Usuario = $idUsuario";
-    $resultadoEstado = $conex->query($consultaEstado);
-
-    if ($resultadoEstado->num_rows > 0) {
-        $filaEstado = $resultadoEstado->fetch_assoc();
-        return $filaEstado['EnPartida'] === '1'; // Retorna true si EnPartida es 1, false si es 0
-    }
-
-    return false; // Por defecto, el usuario no está en partida
-}
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -199,31 +129,37 @@ function comprobarEnPartida($nombreUsuario) {
 <body>
     <?php  
         $datos = recogerDatos($_POST['modo'], $_POST['liga'], $_POST['dificultad']);
-        if ($datos === -1) {
-            echo "<p class='datosIncorrectos'>No has configurado ninguna partida, la puedes configurar <a href='index.php'>aquí</a>.</p>";
-        }
-        else {
-            // JUGAR
-            // FALTA CONTROLAR SI EL USUARIO ESTA EN PARTIDA, DE MOMENTO SOLO LA CREA
-            $modo = $datos[0];
-            $liga = $datos[1];
-            $dificultad = $datos[2];
-            // Array de jugadores
-            $jugadores = crearPartida($liga, $dificultad);
-            ?>
-            <script>
-            var jugadores = <?php echo json_encode(array_map(function($jugador) {
-                return array(
-                    'id' => $jugador->getID(),
-                    'nombre' => $jugador->getNombre(),
-                    'imagen' => $jugador->getImagen()
-                );
-            }, $jugadores)); ?>;
-            var estadistica = <?php echo json_encode($modo)?>
-            </script>
+        if ($datos != -1) { // Verificar si se ha enviado el formulario
+            // Guardar los datos del formulario en variables de sesión
+            $_SESSION['modo'] = $_POST['modo'];
+            $_SESSION['liga'] = $_POST['liga'];
+            $_SESSION['dificultad'] = $_POST['dificultad'];
+        } 
+        if (isset($_SESSION['modo'], $_SESSION['liga'], $_SESSION['dificultad'])) {
+                // Utilizar los datos almacenados en las variables de sesión
+                $modo = $_SESSION['modo'];
+                $liga = $_SESSION['liga'];
+                $dificultad = $_SESSION['dificultad'];
+                // Array de jugadores
+                $jugadores = crearPartida($liga, $dificultad);
+
+
+                ?>
+                <script>
+                <?php /*var jugadores = <?php echo json_encode(array_map(function($jugador) {
+                    return array(
+                        'id' => $jugador->getID(),
+                        'nombre' => $jugador->getNombre(),
+                        'imagen' => $jugador->getImagen()
+                    );
+                }, $jugadores)); ?>;*/?>
+                var jugadores = <?php echo json_encode($jugadores); ?>;
+                var estadistica = <?php echo json_encode($modo)?>
+                </script>
 
             <?php
-        }
+        } 
+        
     ?>
 </body>
 </html>

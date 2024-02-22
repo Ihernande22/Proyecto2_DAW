@@ -4,15 +4,27 @@ function capitalize(str) {
     return str.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join(' ');
   }
 
-addEventListener("DOMContentLoaded", function() {
+  addEventListener("DOMContentLoaded", function() {
+    var configEnviada = localStorage.getItem("configEnviada");
+    var enPartida = localStorage.getItem("enPartida");
+    console.log("ConfigEnviada -> " + configEnviada);
+    console.log("EnPartida -> " + enPartida);
+    if (configEnviada === "yes") {
+        localStorage.setItem("configEnviada", "no");
+        localStorage.setItem("jugadores", JSON.stringify(jugadores)); // Convierte a JSON antes de guardar
+    }
+    else {
+        var jugadoresJSON = localStorage.getItem("jugadores");
+        jugadores = JSON.parse(jugadoresJSON);
+    }        
     // Verificar si la variable jugadores está definida y no es nula    
-    if (typeof jugadores !== 'undefined' && jugadores !== null) {
-        // La variable jugadores está definida y no es nula
+    if (jugadores !== null) {
+        // La variable jugadores está definida y no es nula en localStorage
         crearInterfaz(jugadores);
         añadirBotones();
     } else {
-        // La variable jugadores no está definida o es nula
-        console.log("La variable jugadores no está definida o es nula");
+        // La variable jugadores no está definida o es nula en localStorage
+        console.log("La variable jugadores no está definida o es nula en localStorage");
     }
 });
 
@@ -93,7 +105,6 @@ function eliminarBotonesRespuesta() {
     }
 }
 
-
 function añadirBotones() {
     let jugador2 = document.getElementById("jugador2");
     let botones = document.createElement("div");
@@ -116,71 +127,9 @@ function añadirBotones() {
 }
 
 function actualizarInterfaz() {
-    // Mostrar estadistica J2
-    mostrarEstadisticaJugador2();
+    let size = window.innerWidth;
+    let isHorizontal = size > 700;
 
-    // Eliminar texto explicativo
-    let explicacion = document.getElementById("explicacion");
-    explicacion.textContent = "";
-
-    // EliminarEstadistica J1
-    eliminarEstadisticaJ1();
-
-
-    // Eliminar los botones de respuesta
-    eliminarBotonesRespuesta();
-
-    // Recoger el contenedor
-    var central = document.getElementById("central");
-
-    //Añadir transicion
-    $("#central").css("transition", "transform 3s ease");
-
-    // Mueve el contenedor a la izquierda
-    $("#central").css("transform", "translateX(-33.3%)");
-
-    //Recoge el jugador 1 para que no haya conflictos con el ID            
-    var jugador1 = document.getElementById('jugador1');
-
-    // Escucha el evento transitionend para detectar el final de la transición
-    central.addEventListener('transitionend', function() {
-
-        // Elimina el jugador del principio
-        jugador1.parentNode.removeChild(jugador1);
-
-        // Cambia los IDs
-        document.getElementById('jugador2').id = 'jugador1';
-        document.getElementById('jugador3').id = 'jugador2';
-
-        // Añade el nuevo jugador
-        var nuevoJugador = document.createElement('div');
-        nuevoJugador.id = 'jugador3';
-        var imgNuevoJugador = document.createElement('img');
-        imgNuevoJugador.src = './img/jugadores/' + jugadores[2].imagen;
-        nuevoJugador.appendChild(imgNuevoJugador);
-        central.appendChild(nuevoJugador);
-    
-        // Eliminar transicion
-        $("#central").css("transition", "");
-
-        // Reestablece la posicion del contenedor
-        $("#central").css("transform", "translateX(0%)");
-
-        // Actualizar texto explicativo con los jugadores actuales
-        explicacion.textContent = "Crees que " + jugadores[0].nombre + " tiene más " + estadistica + " que " + jugadores[1].nombre + "?";
-        
-        // Sumar y actualizar puntuación
-        puntos += 1;
-        document.getElementById("puntuacion").textContent = "Puntuación: " + puntos;
-
-        // Añadir botones de respuesta
-        añadirBotones();
-        actualizarIDEstadisticaJugadores();
-
-    }, {once: true});
-}
-
-function actualizarInterfazVertical() {
     // Mostrar estadistica J2
     mostrarEstadisticaJugador2();
     
@@ -200,8 +149,13 @@ function actualizarInterfazVertical() {
     //Añadir transicion
     $("#central").css("transition", "transform 3s ease");
 
-    // Mueve el contenedor a la izquierda
-    $("#central").css("transform", "translateY(-33.3%)");
+    if (isHorizontal) {
+        // Mueve el contenedor a la izquierda
+        $("#central").css("transform", "translateX(-33.3%)");
+    } else {
+        // Mueve el contenedor hacia arriba
+        $("#central").css("transform", "translateY(-33.3%)");
+    }
 
     //Recoge el jugador 1 para que no haya conflictos con el ID            
     var jugador1 = document.getElementById('jugador1');
@@ -228,7 +182,11 @@ function actualizarInterfazVertical() {
         $("#central").css("transition", "");
 
         // Reestablece la posicion del contenedor
-        $("#central").css("transform", "translateY(0%)");
+        if (isHorizontal) {
+            $("#central").css("transform", "translateX(0%)");
+        } else {
+            $("#central").css("transform", "translateY(0%)");
+        }
 
         // Actualizar texto explicativo con los jugadores actuales
         explicacion.textContent = "Crees que " + jugadores[0].nombre + " tiene más " + estadistica + " que " + jugadores[1].nombre + "?";
@@ -239,7 +197,7 @@ function actualizarInterfazVertical() {
 
         //Añadir botones de respuesta
         añadirBotones();
-        actualizarIDEstadisticaJugadores();
+        actualizarPartida();
 
     }, {once: true});
 }
@@ -248,18 +206,12 @@ function actualizarInterfazVertical() {
 async function respuestaSi() {
     try {
         let resultado = await compararEstadisticas();
-        console.log("Respuesta si ->", resultado);
         if (resultado == 2 || resultado == 0) {
             // Eliminar el primer jugador de la matriz de jugadores
             jugadores.shift();
             
-            if (window.innerWidth > 700) {
-                // Actualizar la interfaz con el nuevo jugador
-                actualizarInterfaz();
-            } else {
-                // Actualizar la interfaz vertical con el nuevo jugador
-                actualizarInterfazVertical();
-            }
+            // Actualizar la interfaz con el nuevo jugador
+            actualizarInterfaz();
         } else {
             gameOver();
         }
@@ -272,18 +224,13 @@ async function respuestaSi() {
 async function respuestaNo() {
     try {
         let resultado = await compararEstadisticas();
-        console.log("Respuesta no ->", resultado);
         if (resultado == 1 || resultado == 0) {
             // Eliminar el primer jugador de la matriz de jugadores
             jugadores.shift();
-            
-            if (window.innerWidth > 700) {
-                // Actualizar la interfaz con el nuevo jugador
-                actualizarInterfaz();
-            } else {
-                // Actualizar la interfaz vertical con el nuevo jugador
-                actualizarInterfazVertical();
-            }
+
+            // Actualizar la interfaz con el nuevo jugador
+            actualizarInterfaz();
+
         } else {
             gameOver();
         }
@@ -369,29 +316,70 @@ function eliminarEstadisticaJ1() {
     }
 }
 
-function actualizarIDEstadisticaJugadores() {
-    let estadisticaJ2 = document.getElementById("estadisticaJ2");
-    if (estadisticaJ2) {
-        estadisticaJ2.id = "estadisticaJ1";
-        console.log("e1 -> e2");
-    }
-}
 
 async function compararEstadisticas() {
-    let e1 = await recogerEstadistica(jugadores[0].id, capitalize(estadistica));
-    let e2 = await recogerEstadistica(jugadores[1].id, capitalize(estadistica));
-    if (e1 > e2) {
-        return 1;
-    }
-    else if (e2 > e1) {
-        return 2;
-    }
-    else if (e1 == e2) {
-        return 0;
+    try {
+        let e1 = Number(await recogerEstadistica(jugadores[0].id, capitalize(estadistica)));
+        let e2 = Number(await recogerEstadistica(jugadores[1].id, capitalize(estadistica)));
+        if (e1 > e2) {
+            return 1;
+        }
+        else if (e2 > e1) {
+            return 2;
+        }
+        else if (e1 == e2) {
+            return 0;
+        }
+    } catch (error) {
+        console.error("Error al comparar estadísticas:", error);
+        // Puedes decidir qué hacer en caso de error. Por ejemplo, podrías devolver un valor especial:
+        return -1;
     }
 }
 
 
 function gameOver() {
     console.log("Has perdido");
+}
+
+
+function recogerEstado(Partida){
+
+    $.post({
+        url: './Estado.php',
+        data: {enPartida: Partida},
+        success: resposta,
+        dataType: 'text'
+    });
+
+    function resposta(dades){
+  
+       console.log(dades); //resposta consulta php
+        
+        
+        }
+        
+
+}
+
+
+//Recoger estado Partida
+
+function recogerPartida(Puntuacion,ListaJugadores){
+    console.log(Puntuacion,ListaJugadores);
+    var listaJugadoresJson = JSON.stringify(ListaJugadores);
+    $.post({
+        url: './Estado_Partida.php',
+        data: {puntuacion: Puntuacion, listaJugadoresJson: listaJugadoresJson},
+        success: resposta,
+        dataType: 'text',
+    });
+
+    function resposta(dades){
+        console.log(dades); //resposta consulta php
+    }
+}
+
+function actualizarPartida () {
+    localStorage.setItem("jugadores", JSON.stringify(jugadores)); // Convierte a JSON antes de guardar
 }
