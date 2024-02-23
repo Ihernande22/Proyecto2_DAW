@@ -4,29 +4,108 @@ function capitalize(str) {
     return str.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join(' ');
   }
 
-  addEventListener("DOMContentLoaded", function() {
+
+// Lo que se ejecuta al cargar
+addEventListener("DOMContentLoaded", function() {
     var configEnviada = localStorage.getItem("configEnviada");
     var enPartida = localStorage.getItem("enPartida");
     console.log("ConfigEnviada -> " + configEnviada);
     console.log("EnPartida -> " + enPartida);
-    if (configEnviada === "yes") {
-        localStorage.setItem("configEnviada", "no");
-        localStorage.setItem("jugadores", JSON.stringify(jugadores)); // Convierte a JSON antes de guardar
+    if (enPartida === "yes") {
+        if (configEnviada === "yes") {
+            localStorage.setItem("configEnviada", "no");
+            localStorage.setItem("puntos", 0);
+            localStorage.setItem("jugadores", JSON.stringify(jugadores)); // Convierte a JSON antes de guardar
+        }
+        else {
+            if (localStorage.getItem("puntos")) {
+                puntos = localStorage.getItem("puntos");
+            }
+            else {
+                localStorage.setItem("puntos", 0);
+            }
+            var jugadoresJSON = localStorage.getItem("jugadores");
+            jugadores = JSON.parse(jugadoresJSON);
+        }        
+        // Verificar si la variable jugadores está definida y no es nula    
+        if (jugadores !== null) {
+            // La variable jugadores está definida y no es nula en localStorage
+            crearInterfaz(jugadores);
+            añadirBotones();
+        } else {
+            // La variable jugadores no está definida o es nula en localStorage
+            console.log("La variable jugadores no está definida o es nula en localStorage");
+        }
     }
     else {
-        var jugadoresJSON = localStorage.getItem("jugadores");
-        jugadores = JSON.parse(jugadoresJSON);
-    }        
-    // Verificar si la variable jugadores está definida y no es nula    
-    if (jugadores !== null) {
-        // La variable jugadores está definida y no es nula en localStorage
-        crearInterfaz(jugadores);
-        añadirBotones();
-    } else {
-        // La variable jugadores no está definida o es nula en localStorage
-        console.log("La variable jugadores no está definida o es nula en localStorage");
+        if (enPartida === "no") {
+            crearInterfazFinalPartida();
+        }
+        else {
+            var aviso = document.createElement("p");
+            var avisoEnlace = document.createElement("a");
+            avisoEnlace.setAttribute("href", "index.php");
+            avisoEnlace.textContent = "aqui";
+            aviso.setAttribute("id", "partidaError");
+            aviso.textContent = "No hay ninguna partida configurada, para configurar una ves ";
+            aviso.appendChild(avisoEnlace);
+            document.body.appendChild(aviso);
+        }
     }
 });
+
+function añadirExplicacion() {
+    var explicacion = document.createElement("p");
+    var span = document.createElement("span");
+    var span2 = document.createElement("span");
+    var span3 = document.createElement("span");
+    var span4 = document.createElement("span");
+    var span5 = document.createElement("span");
+    var span6 = document.createElement("span");
+    var span7 = document.createElement("span");
+    var span8 = document.createElement("span");
+    var span9 = document.createElement("span");
+    var span10 = document.createElement("span");
+    var span11 = document.createElement("span");
+    explicacion.setAttribute("id", "explicacion");
+
+    span.textContent = "Crees que la cantidada de ";
+    explicacion.appendChild(span);
+    
+    span2.textContent = estadistica;
+    explicacion.appendChild(span2);
+
+    span3.textContent = " de ";
+    explicacion.appendChild(span3);
+
+    span4.textContent = jugadores[1].nombre;
+    explicacion.appendChild(span4);
+
+    span5.textContent = " es ";
+    explicacion.appendChild(span5);
+
+    span6.textContent = "superior";
+    explicacion.appendChild(span6);
+
+    span7.textContent = " o ";
+    explicacion.appendChild(span7);
+
+    span8.textContent = "inferior";
+    explicacion.appendChild(span8);
+
+    span9.textContent = " que la de ";
+    explicacion.appendChild(span9);
+
+    span10.textContent = jugadores[0].nombre;
+    explicacion.appendChild(span10);
+
+    span11.textContent = "?";
+    explicacion.appendChild(span11);
+    
+    var j2 = document.getElementById("jugador2");
+    j2.appendChild(explicacion);
+}
+
 
 function crearInterfaz(j) {
     // Verificar si los jugadores están definidos y no son nulos
@@ -43,7 +122,6 @@ function crearInterfaz(j) {
 
     //CONTENEDORES
     let principal = document.createElement("div");
-    let superior = document.createElement("div");
     let centralPadre = document.createElement("div"); // Nuevo contenedor padre
     let central = document.createElement("div");
     let inferior = document.createElement("div");
@@ -53,7 +131,6 @@ function crearInterfaz(j) {
 
     //OTROS
     let puntuacion = document.createElement("p");
-    let textoExplicativo = document.createElement("p");
 
     //IMGs
     var imgJ1 = document.createElement('img');
@@ -66,7 +143,6 @@ function crearInterfaz(j) {
 
     // IDs
     principal.setAttribute("id", "principal");
-    superior.setAttribute("id", "superior");
     centralPadre.setAttribute("id", "centralPadre"); // Nuevo contenedor padre
     central.setAttribute("id", "central");
     inferior.setAttribute("id", "inferior");
@@ -74,11 +150,9 @@ function crearInterfaz(j) {
     jugador2.setAttribute("id", "jugador2");
     jugador3.setAttribute("id", "jugador3");
     puntuacion.setAttribute("id", "puntuacion");
-    textoExplicativo.setAttribute("id", "explicacion");
 
     // Textos
     puntuacion.textContent = "Puntuación: " + puntos;
-    textoExplicativo.textContent = "Crees que " + j[1].nombre + " tiene más " + estadistica + " que " + j[0].nombre + "?";
 
 
     // APPEND CHILDS
@@ -90,12 +164,20 @@ function crearInterfaz(j) {
     central.appendChild(jugador3);
     mostrarEstadisticaJugador1();
     centralPadre.appendChild(central); // Añadir el contenedor central al contenedor padre
-    superior.appendChild(textoExplicativo);
     inferior.appendChild(puntuacion);
-    principal.appendChild(superior);
     principal.appendChild(centralPadre); // Añadir el contenedor padre al principal
     principal.appendChild(inferior);
     document.body.appendChild(principal);
+
+    añadirExplicacion();
+    añadirVersus();
+}
+
+function añadirVersus() {
+    var versus = document.createElement("p");
+    versus.setAttribute("id","versus");
+    versus.textContent = "VS";
+    document.getElementById("centralPadre").appendChild(versus);
 }
 
 function eliminarBotonesRespuesta() {
@@ -115,8 +197,8 @@ function añadirBotones() {
     botonSi.setAttribute("id", "respuestaSi");
     botonNo.setAttribute("id", "respuestaNo");
 
-    botonSi.textContent = "SI";
-    botonNo.textContent = "NO";
+    botonSi.textContent = "SUPERIOR";
+    botonNo.textContent = "INFERIOR";
     
     botonSi.addEventListener("click", respuestaSi);
     botonNo.addEventListener("click", respuestaNo);
@@ -127,18 +209,25 @@ function añadirBotones() {
 }
 
 function actualizarInterfaz() {
+    actualizarPartida();
+    
+    // EliminarEstadistica J1
+    eliminarEstadisticaJ1();
+
     let size = window.innerWidth;
     let isHorizontal = size > 700;
 
     // Mostrar estadistica J2
     mostrarEstadisticaJugador2();
-    
+
+
     // Eliminar texto explicativo
     let explicacion = document.getElementById("explicacion");
-    explicacion.textContent = "";
+    explicacion.parentNode.removeChild(explicacion);
 
-    // EliminarEstadistica J1
-    eliminarEstadisticaJ1();
+    // Eliminar versus
+    let versus = document.getElementById("versus");
+    versus.parentNode.removeChild(versus); 
 
     // Eliminar los botones de respuesta
     eliminarBotonesRespuesta();
@@ -147,7 +236,7 @@ function actualizarInterfaz() {
     var central = document.getElementById("central");
 
     //Añadir transicion
-    $("#central").css("transition", "transform 3s ease");
+    $("#central").css("transition", "transform 1.5s ease");
 
     if (isHorizontal) {
         // Mueve el contenedor a la izquierda
@@ -189,15 +278,18 @@ function actualizarInterfaz() {
         }
 
         // Actualizar texto explicativo con los jugadores actuales
-        explicacion.textContent = "Crees que " + jugadores[0].nombre + " tiene más " + estadistica + " que " + jugadores[1].nombre + "?";
+        añadirExplicacion();
+
+        añadirVersus();
 
         // Sumar y actualizar puntuación
+        puntos = parseInt(localStorage.getItem("puntos")) || 0; // Convertir a número y establecer a 0 si es null
         puntos += 1;
+        localStorage.setItem("puntos", puntos);
         document.getElementById("puntuacion").textContent = "Puntuación: " + puntos;
 
         //Añadir botones de respuesta
         añadirBotones();
-        actualizarPartida();
 
     }, {once: true});
 }
@@ -239,10 +331,6 @@ async function respuestaNo() {
     }
 }
 
-
-function gameOver() {
-    console.log("Has perdido");
-}
 
 function recogerEstadistica(IDJugador, Modo) {
     return new Promise(function(resolve, reject) {
@@ -303,6 +391,11 @@ function mostrarEstadisticaJugador2() {
         parrafoEstadisticaJ2.appendChild(span1);
         parrafoEstadisticaJ2.appendChild(span2);        
         document.getElementById("jugador2").appendChild(parrafoEstadisticaJ2);
+
+        // Hacer que el texto explicativo aparezca después de que aparezca la estadística del jugador 2
+        setTimeout(function() {
+            document.getElementById("explicacion").style.opacity = 1;
+        }, 500); // Espera 500ms antes de cambiar la opacidad del texto explicativo
     })
     .catch(function(error) {
         console.error("Error al recoger las estadísticas:", error);
@@ -337,10 +430,6 @@ async function compararEstadisticas() {
     }
 }
 
-
-function gameOver() {
-    console.log("Has perdido");
-}
 
 
 function recogerEstado(Partida){
@@ -382,4 +471,81 @@ function recogerPartida(Puntuacion,ListaJugadores){
 
 function actualizarPartida () {
     localStorage.setItem("jugadores", JSON.stringify(jugadores)); // Convierte a JSON antes de guardar
+}
+
+function gameOver() {
+    // GUARDAR DATOS EN LA BBDD 
+    // DESPUES
+    localStorage.removeItem("jugadores");
+    localStorage.setItem("enPartida", "no");
+    location.reload()
+}
+
+function crearInterfazFinalPartida() {
+    var contenedorFinalPartida = document.createElement("div");
+    contenedorFinalPartida.setAttribute("id", "FinalPartida");
+
+    var FinalPartidaTop = document.createElement("div");
+    var FinalPartidaBottom = document.createElement("div");
+
+    var FinalPartidaH1 = document.createElement("h1");
+    FinalPartidaH1.textContent = "Final de la partida";
+
+    var FinalPartidaP = document.createElement("p");
+    var puntosFinales = localStorage.getItem("puntos");
+    if (puntosFinales === null) {
+        puntosFinales = 0; // Valor predeterminado si puntosFinales es null
+    }
+    FinalPartidaP.textContent = "Has obtenido " + puntosFinales + " puntos!";
+    
+
+    var BotonVolverAJugar = document.createElement("button");
+    BotonVolverAJugar.textContent = "Jugar de nuevo";
+    BotonVolverAJugar.addEventListener("click", function() {
+        localStorage.setItem("enPartida", "yes");
+        localStorage.setItem("configEnviada", "yes");
+        location.reload();
+    });
+
+    var BotonVolver = document.createElement("button");
+    var EnlaceVolver = document.createElement("a");
+    EnlaceVolver.setAttribute("href", "index.php");
+    EnlaceVolver.textContent = "Volver";
+    BotonVolver.appendChild(EnlaceVolver);
+
+    FinalPartidaTop.appendChild(FinalPartidaH1);
+    FinalPartidaTop.appendChild(FinalPartidaP);
+    FinalPartidaBottom.appendChild(BotonVolverAJugar);
+    FinalPartidaBottom.appendChild(BotonVolver);
+    contenedorFinalPartida.appendChild(FinalPartidaTop);
+    contenedorFinalPartida.appendChild(FinalPartidaBottom);
+    document.body.appendChild(contenedorFinalPartida);
+}
+
+function recogerRegistro(Puntuacion){
+
+    $.post({
+        url: './actualizarRegistroPartida.php',
+        data: {puntuacion:Puntuacion},
+        success: resposta,
+        dataType: 'text',
+    })
+
+    function resposta(dades){
+        console.log(dades); //resposta consulta php
+    }
+}
+
+function recogerLISTA(){
+
+    $.post({
+        url: './recuperarArray.php',
+        success: resposta,
+        dataType: 'text',
+    })
+
+    function resposta(dades){
+        console.log(dades); //resposta consulta php
+    }
+
 }
