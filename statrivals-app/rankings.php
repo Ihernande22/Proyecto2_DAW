@@ -113,9 +113,7 @@
     </div>
     <br><br>
 
-    <div style="text-align: right;" class="contenedorBoton">
-    <button type="submit" name="submit" value="submit" id="boton" class="btn btn-success ">Buscar</button>
-</div>
+    <button type="submit" name="submit" value="submit" id="boton" class="filtrar-rankings">Buscar</button>
     
     
 
@@ -182,7 +180,7 @@
                             $query = $query . ") " ;    
                         }
 
-                        $query = $query . ") AS Puntuacion FROM Usuario u  WHERE u.ID_Usuario = $id_usuario HAVING Puntuacion > 0 LIMIT 5;";
+                        $query = $query . ") AS Puntuacion FROM Usuario u  WHERE u.ID_Usuario = $id_usuario HAVING Puntuacion > 0 ORDER BY Puntuacion desc LIMIT 5;";
                                 
 
                     }
@@ -224,7 +222,7 @@
                             $query = $query . ") " ;    
                         }
                         //ESTOY AQUI
-                        $query = $query . "ORDER BY rp2.Puntuacion DESC LIMIT 1) AS Nombre_Modo, ( SELECT l.Nombre_Liga FROM Registro_Partida rp2
+                        $query = $query . " ORDER BY rp2.Puntuacion DESC LIMIT 1) AS Nombre_Modo, ( SELECT l.Nombre_Liga FROM Registro_Partida rp2
                         JOIN Liga l ON rp2.ID_Modo = l.ID_LIGA WHERE rp2.ID_Usuario = u.ID_Usuario";
                         
 
@@ -262,7 +260,7 @@
                         }
     
                         //ESTOY AQUI
-                        $query = $query . "ORDER BY rp2.Puntuacion DESC LIMIT 1)AS Liga, ( SELECT rp2.Dificultad FROM Registro_Partida rp2
+                        $query = $query . " ORDER BY rp2.Puntuacion DESC LIMIT 1)AS Liga, ( SELECT rp2.Dificultad FROM Registro_Partida rp2
                         WHERE rp2.ID_Usuario = u.ID_Usuario";
 
 
@@ -299,7 +297,7 @@
                         }
 
                          //ESTOY AQUI
-                         $query = $query . "ORDER BY rp2.Puntuacion DESC LIMIT 1 ) AS Dificultad,
+                         $query = $query . " ORDER BY rp2.Puntuacion DESC LIMIT 1 ) AS Dificultad,
                          (SELECT MAX(rp2.Puntuacion) FROM Registro_Partida rp2 WHERE rp2.ID_Usuario = u.ID_Usuario";
                         
 
@@ -337,7 +335,7 @@
                             $query = $query . ") " ;    
                         }
 
-                        $query = $query . ")AS Puntuacion FROM Usuario u  WHERE u.ID_Usuario = $id_usuario HAVING Puntuacion > 0 LIMIT 5";
+                        $query = $query . ")AS Puntuacion FROM Usuario u  WHERE u.ID_Usuario = $id_usuario HAVING Puntuacion > 0 ORDER BY Puntuacion desc LIMIT 5";
                         
     
                     }
@@ -385,7 +383,7 @@
                         $query = $query . ") " ;    
                     }
 
-                    $query = $query . ") AS Puntuacion FROM Usuario u HAVING Puntuacion > 0 LIMIT 5;";
+                    $query = $query . ") AS Puntuacion FROM Usuario u HAVING Puntuacion > 0 ORDER BY Puntuacion desc LIMIT 5;";
                             
 
                 }
@@ -429,7 +427,7 @@
                         $query = $query . ") " ;    
                     }
 
-                    $query = $query . "ORDER BY rp2.Puntuacion DESC LIMIT 1 ) AS Nombre_Modo,
+                    $query = $query . " ORDER BY rp2.Puntuacion DESC LIMIT 1 ) AS Nombre_Modo,
                     ( SELECT l.Nombre_Liga FROM Registro_Partida rp2 JOIN Liga l ON rp2.ID_Modo = l.ID_Liga
                     WHERE rp2.ID_Usuario = u.ID_Usuario"; 
                     
@@ -466,7 +464,7 @@
                     }
 
                     //ESTOY AQUI
-                    $query = $query . "ORDER BY rp2.Puntuacion DESC LIMIT 1) AS Liga, ( SELECT rp2.Dificultad FROM
+                    $query = $query . " ORDER BY rp2.Puntuacion DESC LIMIT 1) AS Liga, ( SELECT rp2.Dificultad FROM
                     Registro_Partida rp2 WHERE rp2.ID_Usuario = u.ID_Usuario";
 
                     if(count($modos) > 0){
@@ -501,7 +499,7 @@
                         $query = $query . ") " ;    
                     }
                        //ESTOY AQUI
-                       $query = $query . "ORDER BY rp2.Puntuacion DESC LIMIT 1) AS Dificultad, ( SELECT MAX(rp2.Puntuacion) FROM Registro_Partida rp2
+                       $query = $query . " ORDER BY rp2.Puntuacion DESC LIMIT 1) AS Dificultad, ( SELECT MAX(rp2.Puntuacion) FROM Registro_Partida rp2
                        WHERE rp2.ID_Usuario = u.ID_Usuario";
 
                        if(count($modos) > 0){
@@ -536,7 +534,7 @@
                         $query = $query . ") " ;    
                     }
                        //ESTOY AQUI
-                       $query = $query . ") AS  Puntuacion FROM Usuario u HAVING Puntuacion >0 LIMIT 5";
+                       $query = $query . ") AS  Puntuacion FROM Usuario u HAVING Puntuacion >0 ORDER BY Puntuacion desc LIMIT 5";
                     
                     
                     }
@@ -544,7 +542,6 @@
        
             }
             if ($ejecutarQuery === TRUE) {
-               
                 $contador = 0;
                 $contadorQuery = str_replace(";","","select count(*) as contador from ($query) as subconsulta");
                 $contadorQuery = $contadorQuery.";";
