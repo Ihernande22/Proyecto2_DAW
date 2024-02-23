@@ -127,7 +127,19 @@ tr td{
 }
 
 
-#boton{
-    display: inline-flex;
-    margin-right: 30px;
+.filtrar-rankings{
+    background-color: var(--color-principal);
+    border: 1px solid var(--color-secundario);
+    padding: 20px 50px 20px 50px;
+    text-align: center;
+    margin: auto;
+    width: max-content;
+    font-weight: bold;
+    display: flex;
+    text-transform: uppercase;
+    margin-bottom: 40px;
+}
+
+.filtrar-rankings:hover {
+    cursor: pointer;
 }
