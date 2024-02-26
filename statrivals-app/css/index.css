@@ -24,8 +24,7 @@ nav {
     background-color: var(--color-secundario);
     padding: 5px;
     display: flex;
-    padding-left: 10%;
-    padding-right: 10%;
+    padding: 10px 10% 10px 10%;
 }
 
 .menu {
@@ -499,4 +498,58 @@ h1 {
 
 .cerrarSesionContainer {
     display: none;
+}
+
+
+/* POPUP */
+#popup {
+    position: fixed;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.6); /* Color de fondo con opacidad */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    top: 0%;
+    z-index: 199999;
+}
+
+#popup div {
+    background-color: white;
+    border-radius: 5px;
+    padding: 50px;
+    opacity: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    max-width: 90%;
+}
+
+#popup div div {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+#popup button {
+    width: 100px;
+    padding: 20px;
+    border: 1px solid var(--color-principal);
+    background-color: var(--color-secundario);
+    color: white;
+    font-weight: bold;
+    pointer-events: auto;
+}
+
+button:hover {
+    cursor: pointer;
+    background-color: var(--color-principal);
+    color: var(--color-secundario);
+    border: none
+}
+
+.menu_lista {
+    margin-bottom: 0;
 }

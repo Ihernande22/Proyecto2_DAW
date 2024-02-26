@@ -380,7 +380,23 @@ function recogerLISTA(){
 
     function resposta(dades){
         localStorage.setItem("jugadoresBBDD", dades);
-        console.log(dades); //resposta consulta php
+        console.log(); //resposta consulta php
+    }
+
+}
+
+// Recoger Modo
+function recogerModo(){
+
+    $.post({
+        url: './recuperarModo.php',
+        success: resposta,
+        dataType: 'text',
+    })
+
+    function resposta(dades){
+        localStorage.setItem("modoBBDD", dades);
+        console.log(); //resposta consulta php
     }
 
 }
@@ -396,7 +412,7 @@ function recogerPuntuacion(){
 
     function resposta(dades){
         localStorage.setItem("puntos", dades);
-        console.log(dades); //resposta consulta php
+        console.log(); //resposta consulta php
     }
 
 }
@@ -412,7 +428,7 @@ function recogerEstado(Partida){
 
     function resposta(dades){
   
-       console.log(dades); //resposta consulta php
+       console.log(); //resposta consulta php
         
         
         }
@@ -449,50 +465,73 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         });
     }
+
+    
 });
 
-addEventListener("DOMContentLoaded", function() {
-        // Verificar estado usuario
-        recuperarEstado();
-        var estado = localStorage.getItem("estadoUsuario");
+// Verificar estado usuario
+recuperarEstado();
+var estado = localStorage.getItem("estadoUsuario");
+
+document.addEventListener("DOMContentLoaded", function() {
+    // Verificar estado usuario
+    recuperarEstado();
+    var estado = localStorage.getItem("estadoUsuario");
     
-        // Si esta en partida crea un popup para que decida si continuar esa partida
-        if (estado == 1) {
-            recogerLISTA();
-            var popup = document.createElement("div");
-            var popupContent = document.createElement("div");
-            var PContH3 = document.createElement("h3");
-            var PContButtons = document.createElement("div");
-            var PCButtonYes = document.createElement("button");
-            var PCButtonNo = document.createElement("button");
-    
-            popup.setAttribute("id", "popup");
-            PContH3.textContent = "Se ha detectado una partida empezada. Quieres continuar con ella?"
-            PCButtonNo.textContent = "NO";
-            PCButtonYes.textContent = "SI";
-            PCButtonNo.addEventListener("click", function() {
-                recogerEstado(0);
-                localStorage.removeItem("jugadores");
-                localStorage.removeItem("jugadoresBBDD");
-                localStorage.setItem("enPartida", "no");
-                localStorage.removeItem("estadoUsuario");
-                window.location.href = "";
-            });
-            PCButtonYes.addEventListener("click", function() {
-                var JBBDD = localStorage.getItem("jugadoresBBDD");
-                localStorage.setItem("jugadores", JBBDD);
-                localStorage.setItem("enPartida", "yes");
-                localStorage.setItem("configEnviada", "no");
-                localStorage.removeItem("jugadoresBBDD");
-                recogerPuntuacion();
-                window.location.href = "game.php";
-            });
-    
-            PContButtons.appendChild(PCButtonYes);
-            PContButtons.appendChild(PCButtonNo);
-            popupContent.appendChild(PContH3);
-            popupContent.appendChild(PContButtons);
-            popup.appendChild(popupContent);
-            document.body.appendChild(popup);
-        }
-})
+    // Si está en partida, crea un popup para que decida si continuar esa partida
+    console.log("Revisando estado");
+    if (estado == 1) {
+        console.log("Estado: 1");
+        recogerLISTA();
+        recogerModo();
+        var popup = document.createElement("div");
+        var popupContent = document.createElement("div");
+        var PContH3 = document.createElement("h3");
+        var PContButtons = document.createElement("div");
+        var PCButtonYes = document.createElement("button");
+        var PCButtonNo = document.createElement("button");
+
+        popup.setAttribute("id", "popup");
+        PContH3.textContent = "Se ha detectado una partida empezada. ¿Quieres continuar con ella?";
+        PCButtonNo.textContent = "NO";
+        PCButtonYes.textContent = "SI";
+        // Deshabilitar interacción del usuario
+        document.body.style.pointerEvents = 'none';
+
+        PCButtonNo.addEventListener("click", function() {
+            recogerEstado(0);
+            localStorage.removeItem("jugadores");
+            localStorage.removeItem("jugadoresBBDD");
+            localStorage.setItem("enPartida", "no");
+            localStorage.removeItem("estadoUsuario");
+
+            // Habilitar interacción del usuario nuevamente
+            document.body.style.pointerEvents = 'auto';
+
+            window.location.href = "";
+        });
+        PCButtonYes.addEventListener("click", function() {
+            var JBBDD = localStorage.getItem("jugadoresBBDD");
+            var MBBDD = localStorage.getItem("modoBBDD");
+            localStorage.setItem("jugadores", JBBDD);
+            localStorage.setItem("enPartida", "yes");
+            localStorage.setItem("configEnviada", "no");
+            localStorage.setItem("modo", MBBDD);
+            localStorage.removeItem("jugadoresBBDD");
+            localStorage.removeItem("modoBBDD");
+            recogerPuntuacion();
+
+            // Habilitar interacción del usuario nuevamente
+            document.body.style.pointerEvents = 'auto';
+
+            window.location.href = "game.php";
+        });
+
+        PContButtons.appendChild(PCButtonYes);
+        PContButtons.appendChild(PCButtonNo);
+        popupContent.appendChild(PContH3);
+        popupContent.appendChild(PContButtons);
+        popup.appendChild(popupContent);
+        document.body.appendChild(popup);
+    }
+});

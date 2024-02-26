@@ -4,6 +4,30 @@ function capitalize(str) {
     return str.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join(' ');
   }
 
+console.log("Comprovando Estadistica");
+if (!estadistica) {
+    console.log("La estadistica no esta configurada");
+    var stat = localStorage.getItem("modo");
+    if (!stat) {
+        recogerModo();
+        var estadistica = localStorage.getItem("modo");
+    }
+    else {
+        estadistica = stat;
+    }
+    console.log("Estadistica: " + estadistica);
+}
+else {
+    localStorage.setItem("modo", estadistica);
+}
+
+
+recuperarEstado();
+var estado = localStorage.getItem("estadoUsuario");
+if (estado == 1) {
+    recogerLISTA();
+}
+
 
 // Lo que se ejecuta al cargar
 addEventListener("DOMContentLoaded", function() {
@@ -76,7 +100,7 @@ function añadirExplicacion() {
     var span11 = document.createElement("span");
     explicacion.setAttribute("id", "explicacion");
 
-    span.textContent = "Crees que la cantidada de ";
+    span.textContent = "Crees que la cantidad de ";
     explicacion.appendChild(span);
     
     span2.textContent = estadistica;
@@ -216,6 +240,10 @@ function añadirBotones() {
 }
 
 function actualizarInterfaz() {
+    var j1 = document.getElementById("jugador1");
+    var j2 = document.getElementById("jugador2");
+    j1.style.border = "none";
+    j2.style.border = "none";
     actualizarPartida();
     
     // EliminarEstadistica J1
@@ -451,7 +479,7 @@ function recogerEstado(Partida){
 
     function resposta(dades){
   
-       console.log(dades); //resposta consulta php
+       console.log(); //resposta consulta php
         
         
         }
@@ -462,7 +490,6 @@ function recogerEstado(Partida){
 
 //Recoger estado Partida
 function recogerPartida(Puntuacion,ListaJugadores){
-    console.log(Puntuacion,ListaJugadores);
     var listaJugadoresJson = JSON.stringify(ListaJugadores);
     $.post({
         url: './Estado_Partida.php',
@@ -472,7 +499,7 @@ function recogerPartida(Puntuacion,ListaJugadores){
     });
 
     function resposta(dades){
-        console.log(dades); //resposta consulta php
+        console.log(); //resposta consulta php
     }
 }
 
@@ -521,10 +548,11 @@ function crearInterfazFinalPartida() {
     });
 
     var BotonVolver = document.createElement("button");
-    var EnlaceVolver = document.createElement("a");
-    EnlaceVolver.setAttribute("href", "index.php");
-    EnlaceVolver.textContent = "Volver";
-    BotonVolver.appendChild(EnlaceVolver);
+    BotonVolver.textContent = "Volver";
+    BotonVolver.addEventListener("click", function() {
+        localStorage.removeItem("modo");
+        window.location.href = "index.php";
+    });
 
     FinalPartidaTop.appendChild(FinalPartidaH1);
     FinalPartidaTop.appendChild(FinalPartidaP);
@@ -545,7 +573,7 @@ function recogerRegistro(Puntuacion){
     })
 
     function resposta(dades){
-        console.log(dades); //resposta consulta php
+        console.log(); //resposta consulta php
     }
 }
 
@@ -558,7 +586,8 @@ function recogerLISTA(){
     })
 
     function resposta(dades){
-        console.log(dades); //resposta consulta php
+        localStorage.setItem("jugadores", dades);
+        console.log();
     }
 
 }
@@ -571,3 +600,54 @@ function actualizarEstadoPartida() {
     listaJ = JSON.parse(listaJ);
     recogerPartida(puntu+1, listaJ);
 }
+
+function recuperarEstado(){
+
+    $.post({
+        url: './recuperarEstado.php',
+        success: resposta,
+        dataType: 'text',
+    })
+
+    function resposta(dades){
+        console.log(); //resposta consulta php
+        localStorage.setItem("estadoUsuario", dades);
+    }
+
+}
+
+// Recoger Modo
+function recogerModo(){
+
+    $.post({
+        url: './recuperarModo.php',
+        success: resposta,
+        dataType: 'text',
+    })
+
+    function resposta(dades){
+        localStorage.setItem("modo", dades);
+        console.log();
+    }
+
+}
+
+
+function ajustarTamanioCentralPadre() {
+    var central = document.getElementById("central");
+    var centralPadre = document.getElementById("centralPadre");
+
+    if (window.innerWidth < 500) {
+        var nuevoAncho = central.offsetWidth * 2;
+        centralPadre.style.height = nuevoAncho + "px";
+        console.log("Ancho de la ventana es menor que 500px. Nuevo ancho de #centralPadre:", nuevoAncho);
+    } else {
+        // Restablecer el tamaño si la pantalla es igual o mayor a 500px
+        centralPadre.style.height = "";
+        console.log("Ancho de la ventana es igual o mayor que 500px. Restableciendo el ancho de #centralPadre.");
+    }
+}
+
+// Llamar a la función al cargar la página y cuando se redimensione la ventana
+window.addEventListener("load", ajustarTamanioCentralPadre);
+window.addEventListener("resize", ajustarTamanioCentralPadre);

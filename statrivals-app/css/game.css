@@ -243,6 +243,9 @@ button:hover {
 }
 
 @media screen and (max-width: 700px) {
+    #centralPadre {
+        height: 899px;
+    }
     #jugador1 {
         border-right: none;
         border-bottom: 5px solid white;
@@ -251,4 +254,17 @@ button:hover {
         border-left: none;
         boreder-top: 5px solid white;
     }
+    #inferior {
+        position: relative;
+        z-index: 19999;
+    }
+
+    #botonesRespuesta {
+        bottom: 10%;
+    }
+
+    #explicacion {
+        top: 30%;
+    }
 }
+

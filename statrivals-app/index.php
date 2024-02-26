@@ -19,7 +19,6 @@
     <div class="menu">
             <a class="logo" href="index.php"><img src="img/logo.png" alt="image"></a>
             <ul class="menu_lista">
-                <li class="item"><a href="logros.php">LOGROS</a></li>
                 <li class="item"><a href="rankings.php">RANKINGS</a></li>
                 <?php if ($_SESSION['logeado'] === TRUE): ?>
                 <?php echo "<li class='logeado' id='nombreUsuario'>".$_SESSION['usuario']."</li>"?>

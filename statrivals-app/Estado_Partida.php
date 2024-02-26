@@ -33,7 +33,7 @@ function obtenerIdUsuario($nombreUsuario) {
     return $id_usuario;
 }
 
-function actualizarEstadoUsuario($idUsuario,$puntuacion,$listaJugadoresJson) {
+function actualizarEstadoUsuario($idUsuario,$puntuacion,$listaJugadoresJson, $modo) {
     global $conex;
 
     // Comprueba si el usuario ya tiene un registro en la tabla Estado.
@@ -44,11 +44,11 @@ function actualizarEstadoUsuario($idUsuario,$puntuacion,$listaJugadoresJson) {
 
     if ($resultado_estado->num_rows > 0) {
         // Si el usuario ya tiene un registro, actualiza Puntuacion y Lista_Jugadores según los valores proporcionados.
-        $update_estado = "UPDATE Estado_Partida SET Puntuacion = $puntuacion, Lista_Jugadores = '$listaJugadoresJson' WHERE ID_Usuario = $idUsuario";
+        $update_estado = "UPDATE Estado_Partida SET Puntuacion = $puntuacion, Lista_Jugadores = '$listaJugadoresJson', Modo = '$modo' WHERE ID_Usuario = $idUsuario";
         $conex->query($update_estado);
     } else {
        // Si no existe un registro, crea uno con Puntuacion y Lista_Jugadores según los valores proporcionados.
-    $insert_estado = "INSERT INTO Estado_Partida (ID_Usuario, Puntuacion, Lista_Jugadores) VALUES ($idUsuario, $puntuacion, '$listaJugadoresJson')";
+    $insert_estado = "INSERT INTO Estado_Partida (ID_Usuario, Puntuacion, Lista_Jugadores, Modo) VALUES ($idUsuario, $puntuacion, '$listaJugadoresJson', '$modo')";
     $conex->query($insert_estado);
     }
 
@@ -58,7 +58,7 @@ function actualizarEstadoUsuario($idUsuario,$puntuacion,$listaJugadoresJson) {
     //echo "TU puntuacion es $puntuacion y tu lista de jugadores es $listaJugadores";
     
     
-    actualizarEstadoUsuario($usuario, $puntuacion,$listaJugadores);
+    actualizarEstadoUsuario($usuario, $puntuacion,$listaJugadores, $_SESSION['modo']);
  
 
 
