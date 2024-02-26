@@ -93,11 +93,6 @@ function crearArrayJugadores($IDliga, $dificultad) {
             $jugador = new Jugador(
                 $row['ID_Jugador'],
                 $row['Nombre_Jugador'],
-                $row['Goles'],
-                $row['Asistencias'],
-                $row['Valor'],
-                $row['Partidos_Jugados'],
-                $row['Popularidad'],
                 $row['Imagen']
             );
 

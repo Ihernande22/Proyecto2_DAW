@@ -12,6 +12,7 @@ addEventListener("DOMContentLoaded", function() {
     console.log("ConfigEnviada -> " + configEnviada);
     console.log("EnPartida -> " + enPartida);
     if (enPartida === "yes") {
+        recogerEstado(1);
         if (configEnviada === "yes") {
             localStorage.setItem("configEnviada", "no");
             localStorage.setItem("puntos", 0);
@@ -32,6 +33,12 @@ addEventListener("DOMContentLoaded", function() {
             // La variable jugadores está definida y no es nula en localStorage
             crearInterfaz(jugadores);
             añadirBotones();
+            // Actualizar estado partida bbdd
+            // Actualizar estado partida bbdd
+            let listaJ = localStorage.getItem("jugadores");
+            let puntu = localStorage.getItem("puntos");
+            listaJ = JSON.parse(listaJ);
+            recogerPartida(puntu, listaJ);
         } else {
             // La variable jugadores no está definida o es nula en localStorage
             console.log("La variable jugadores no está definida o es nula en localStorage");
@@ -213,7 +220,7 @@ function actualizarInterfaz() {
     
     // EliminarEstadistica J1
     eliminarEstadisticaJ1();
-
+    
     let size = window.innerWidth;
     let isHorizontal = size > 700;
 
@@ -304,6 +311,7 @@ async function respuestaSi() {
             
             // Actualizar la interfaz con el nuevo jugador
             actualizarInterfaz();
+
         } else {
             gameOver();
         }
@@ -322,7 +330,6 @@ async function respuestaNo() {
 
             // Actualizar la interfaz con el nuevo jugador
             actualizarInterfaz();
-
         } else {
             gameOver();
         }
@@ -382,7 +389,7 @@ function mostrarEstadisticaJugador2() {
     let parrafoEstadisticaJ2 = document.createElement("p");
     let span1 = document.createElement("span");
     let span2 = document.createElement("span");
-    parrafoEstadisticaJ2.setAttribute("id", "estadisticaJ2");
+    parrafoEstadisticaJ2.setAttribute("id", "estadisticaJ1");
     recogerEstadistica(jugadores[0].id, capitalize(estadistica))
     .then(function(stat) {
         // Mostrar los goles en el párrafo
@@ -394,7 +401,7 @@ function mostrarEstadisticaJugador2() {
 
         // Hacer que el texto explicativo aparezca después de que aparezca la estadística del jugador 2
         setTimeout(function() {
-            document.getElementById("explicacion").style.opacity = 1;
+            //document.getElementById("explicacion").style.opacity = 1;
         }, 500); // Espera 500ms antes de cambiar la opacidad del texto explicativo
     })
     .catch(function(error) {
@@ -407,6 +414,7 @@ function eliminarEstadisticaJ1() {
     if (estadisticaJ1) {
         estadisticaJ1.parentNode.removeChild(estadisticaJ1);
     }
+
 }
 
 
@@ -453,7 +461,6 @@ function recogerEstado(Partida){
 
 
 //Recoger estado Partida
-
 function recogerPartida(Puntuacion,ListaJugadores){
     console.log(Puntuacion,ListaJugadores);
     var listaJugadoresJson = JSON.stringify(ListaJugadores);
@@ -471,10 +478,16 @@ function recogerPartida(Puntuacion,ListaJugadores){
 
 function actualizarPartida () {
     localStorage.setItem("jugadores", JSON.stringify(jugadores)); // Convierte a JSON antes de guardar
+    actualizarEstadoPartida();
 }
 
 function gameOver() {
+    let puntu= parseInt(localStorage.getItem("puntos")) || 0; // Convertir a número y establecer a 0 si es null
+
     // GUARDAR DATOS EN LA BBDD 
+    recogerRegistro(puntu);
+    recogerEstado(0);
+
     // DESPUES
     localStorage.removeItem("jugadores");
     localStorage.setItem("enPartida", "no");
@@ -548,4 +561,13 @@ function recogerLISTA(){
         console.log(dades); //resposta consulta php
     }
 
+}
+
+function actualizarEstadoPartida() {
+    // Actualizar estado partida bbdd
+    let listaJ = localStorage.getItem("jugadores");
+    puntu= parseInt(localStorage.getItem("puntos")) || 0; // Convertir a número y establecer a 0 si es null
+
+    listaJ = JSON.parse(listaJ);
+    recogerPartida(puntu+1, listaJ);
 }

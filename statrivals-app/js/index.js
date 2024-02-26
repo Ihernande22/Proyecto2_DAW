@@ -304,20 +304,6 @@ function cargarPaginaInicio() {
     }
 }
 
-cargarPaginaInicio();
-
-/*function enviarConfiguraciones(confModo, confLiga, confDificultad) {
-    //Redirecciona a game.php pasando los parametros de la partida
-    window.location.href = "game.php?modo=" + confModo + "&liga=" + confLiga + "&dificultad=" + confDificultad;
-
-
-    // Borra las configuraciones almacenadas en localStorage
-    localStorage.removeItem("modo");
-    localStorage.removeItem("liga");
-    localStorage.removeItem("dificultad");
-    localStorage.removeItem("estado");
-    localStorage.removeItem("recargar");
-};*/
 
 function enviarConfiguraciones(confModo, confLiga, confDificultad) {
     // Crear un formulario dinámicamente
@@ -364,6 +350,78 @@ function enviarConfiguraciones(confModo, confLiga, confDificultad) {
 
 
 
+
+// Popup para cargar partida de bbdd
+
+// Recoger estado
+function recuperarEstado(){
+
+    $.post({
+        url: './recuperarEstado.php',
+        success: resposta,
+        dataType: 'text',
+    })
+
+    function resposta(dades){
+        console.log(dades); //resposta consulta php
+        localStorage.setItem("estadoUsuario", dades);
+    }
+
+}
+
+// Recoger jugadores
+function recogerLISTA(){
+
+    $.post({
+        url: './recuperarArray.php',
+        success: resposta,
+        dataType: 'text',
+    })
+
+    function resposta(dades){
+        localStorage.setItem("jugadoresBBDD", dades);
+        console.log(dades); //resposta consulta php
+    }
+
+}
+
+// Recoger puntuacion
+function recogerPuntuacion(){
+
+    $.post({
+        url: './recuperarPuntuacion.php',
+        success: resposta,
+        dataType: 'text',
+    })
+
+    function resposta(dades){
+        localStorage.setItem("puntos", dades);
+        console.log(dades); //resposta consulta php
+    }
+
+}
+
+function recogerEstado(Partida){
+
+    $.post({
+        url: './Estado.php',
+        data: {enPartida: Partida},
+        success: resposta,
+        dataType: 'text'
+    });
+
+    function resposta(dades){
+  
+       console.log(dades); //resposta consulta php
+        
+        
+        }
+        
+
+}
+cargarPaginaInicio();
+
+
 document.addEventListener("DOMContentLoaded", function() {
     let botonJugar = document.getElementById("boton_jugar2");
 
@@ -393,6 +451,48 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 });
 
-
-
-// Hacer peticion ajax a PHP para recibir estadistica
+addEventListener("DOMContentLoaded", function() {
+        // Verificar estado usuario
+        recuperarEstado();
+        var estado = localStorage.getItem("estadoUsuario");
+    
+        // Si esta en partida crea un popup para que decida si continuar esa partida
+        if (estado == 1) {
+            recogerLISTA();
+            var popup = document.createElement("div");
+            var popupContent = document.createElement("div");
+            var PContH3 = document.createElement("h3");
+            var PContButtons = document.createElement("div");
+            var PCButtonYes = document.createElement("button");
+            var PCButtonNo = document.createElement("button");
+    
+            popup.setAttribute("id", "popup");
+            PContH3.textContent = "Se ha detectado una partida empezada. Quieres continuar con ella?"
+            PCButtonNo.textContent = "NO";
+            PCButtonYes.textContent = "SI";
+            PCButtonNo.addEventListener("click", function() {
+                recogerEstado(0);
+                localStorage.removeItem("jugadores");
+                localStorage.removeItem("jugadoresBBDD");
+                localStorage.setItem("enPartida", "no");
+                localStorage.removeItem("estadoUsuario");
+                window.location.href = "";
+            });
+            PCButtonYes.addEventListener("click", function() {
+                var JBBDD = localStorage.getItem("jugadoresBBDD");
+                localStorage.setItem("jugadores", JBBDD);
+                localStorage.setItem("enPartida", "yes");
+                localStorage.setItem("configEnviada", "no");
+                localStorage.removeItem("jugadoresBBDD");
+                recogerPuntuacion();
+                window.location.href = "game.php";
+            });
+    
+            PContButtons.appendChild(PCButtonYes);
+            PContButtons.appendChild(PCButtonNo);
+            popupContent.appendChild(PContH3);
+            popupContent.appendChild(PContButtons);
+            popup.appendChild(popupContent);
+            document.body.appendChild(popup);
+        }
+})

@@ -83,19 +83,16 @@ function actualizarEstadoUsuario($idUsuario,$id_modo,$IDliga,$dificultad, $puntu
     // Comprueba si el usuario ya tiene un registro en la tabla Estado.
     $consulta_registro = "SELECT * FROM Registro_Partida WHERE ID_Usuario = $idUsuario";
     $resultado_estado = $conex->query($consulta_registro);
-    
-    if ($resultado_estado->num_rows > 0) {
-    // Si el usuario ya tiene un registro, actualiza EnPartida según el valor proporcionado.
+
     $insert_registro = "INSERT INTO Registro_Partida (ID_Usuario, ID_Modo, ID_Liga, Dificultad, Puntuacion, Fecha) VALUES ($idUsuario, $id_modo, $IDliga, '$dificultad', $puntuacion, '$fecha_actual')";
-    //echo $insert_registro;
+
     $conex->query($insert_registro);
     
-    }
     
     }
     
     $usuario = obtenerIdUsuario($_SESSION['usuario']);
-    
+
     
     
     actualizarEstadoUsuario($usuario,$id_modo,$IDliga,$dificultad, $puntuacion,$fecha_actual);

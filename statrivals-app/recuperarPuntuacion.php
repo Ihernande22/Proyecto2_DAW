@@ -23,10 +23,10 @@ function obtenerIdUsuario($nombreUsuario) {
 }
 
 $usuario = obtenerIdUsuario($_SESSION['usuario']);
-$consulta = $conex->query("SELECT Lista_Jugadores FROM Estado_Partida  Where ID_Usuario = $usuario");
+$consulta = $conex->query("SELECT Puntuacion FROM Estado_Partida  Where ID_Usuario = $usuario");
 
 while ($row = $consulta->fetch_assoc()) {
-    $lista = $row['Lista_Jugadores'];
+    $lista = $row['Puntuacion'];
 }
 
 echo $lista;
