@@ -77,6 +77,9 @@ CREATE TABLE Estado_Partida (
     FOREIGN KEY (ID_Usuario) REFERENCES Usuario(ID_Usuario)
 );
 
+ALTER TABLE Estado_Partida
+ADD COLUMN Modo VARCHAR(255);
+
 /*Modos*/
 insert into Modo_De_Juego values (1,'Goles','Inferir con los goles anotados a lo largo de su carrera','goles.jpg');
 insert into Modo_De_Juego values (2,'Asistencias','Inferir con las asistencias dadas a lo largo de su carrera','asistencias.jpg');
