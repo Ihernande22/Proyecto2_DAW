@@ -499,6 +499,10 @@ document.addEventListener("DOMContentLoaded", function() {
         document.body.style.pointerEvents = 'none';
 
         PCButtonNo.addEventListener("click", function() {
+            let puntu= parseInt(localStorage.getItem("puntos")) || 0; // Convertir a número y establecer a 0 si es null
+
+            // GUARDAR DATOS EN LA BBDD 
+            recogerRegistro(puntu);
             recogerEstado(0);
             localStorage.removeItem("jugadores");
             localStorage.removeItem("jugadoresBBDD");
@@ -535,3 +539,17 @@ document.addEventListener("DOMContentLoaded", function() {
         document.body.appendChild(popup);
     }
 });
+
+function recogerRegistro(Puntuacion){
+
+    $.post({
+        url: './actualizarRegistroPartida.php',
+        data: {puntuacion:Puntuacion},
+        success: resposta,
+        dataType: 'text',
+    })
+
+    function resposta(dades){
+        console.log(); //resposta consulta php
+    }
+}

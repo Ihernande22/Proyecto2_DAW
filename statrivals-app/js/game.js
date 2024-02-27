@@ -640,11 +640,9 @@ function ajustarTamanioCentralPadre() {
     if (window.innerWidth < 500) {
         var nuevoAncho = central.offsetWidth * 2;
         centralPadre.style.height = nuevoAncho + "px";
-        console.log("Ancho de la ventana es menor que 500px. Nuevo ancho de #centralPadre:", nuevoAncho);
     } else {
         // Restablecer el tamaño si la pantalla es igual o mayor a 500px
         centralPadre.style.height = "";
-        console.log("Ancho de la ventana es igual o mayor que 500px. Restableciendo el ancho de #centralPadre.");
     }
 }
 

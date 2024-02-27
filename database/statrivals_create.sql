@@ -120,11 +120,11 @@ INSERT INTO `Jugador` (`ID_Jugador`, `ID_LIGA`, `Nombre_Jugador`, `Goles`, `Asis
 
 INSERT INTO `Jugador` (`ID_Jugador`, `ID_LIGA`, `Nombre_Jugador`, `Goles`, `Asistencias`, `Valor`, `Partidos_Jugados`, `Popularidad`, `Imagen`) VALUES ('11', '1', 'Eduardo Camavinga', '8', '11', '90', '225', 'alta', 'Camavinga.jpg');
 
-INSERT INTO `Jugador` (`ID_Jugador`, `ID_LIGA`, `Nombre_Jugador`, `Goles`, `Asistencias`, `Valor`, `Partidos_Jugados`, `Popularidad`, `Imagen`) VALUES ('12', '1', ' Aurelien Tchouameni', '11', '13', '90', '206', 'alta', 'Tchouameni.jpg');
+INSERT INTO `Jugador` (`ID_Jugador`, `ID_LIGA`, `Nombre_Jugador`, `Goles`, `Asistencias`, `Valor`, `Partidos_Jugados`, `Popularidad`, `Imagen`) VALUES ('12', '1', 'Aurelien Tchouameni', '11', '13', '90', '206', 'alta', 'Tchouameni.jpg');
 
-INSERT INTO `Jugador` (`ID_Jugador`, `ID_LIGA`, `Nombre_Jugador`, `Goles`, `Asistencias`, `Valor`, `Partidos_Jugados`, `Popularidad`, `Imagen`) VALUES ('13', '1', ' Robert Lewandowski', '556', '150', '20', '753', 'alta', 'Lewandowski.jpg');
+INSERT INTO `Jugador` (`ID_Jugador`, `ID_LIGA`, `Nombre_Jugador`, `Goles`, `Asistencias`, `Valor`, `Partidos_Jugados`, `Popularidad`, `Imagen`) VALUES ('13', '1', 'Robert Lewandowski', '556', '150', '20', '753', 'alta', 'Lewandowski.jpg');
 
-INSERT INTO `Jugador` (`ID_Jugador`, `ID_LIGA`, `Nombre_Jugador`, `Goles`, `Asistencias`, `Valor`, `Partidos_Jugados`, `Popularidad`, `Imagen`) VALUES ('14', '1', '  Raphinha', '76', '57', '50', '316', 'alta', ' Raphinha.jpg');
+INSERT INTO `Jugador` (`ID_Jugador`, `ID_LIGA`, `Nombre_Jugador`, `Goles`, `Asistencias`, `Valor`, `Partidos_Jugados`, `Popularidad`, `Imagen`) VALUES ('14', '1', 'Raphinha', '76', '57', '50', '316', 'alta', 'Raphinha.jpg');
 INSERT INTO `Jugador` (`ID_Jugador`, `ID_LIGA`, `Nombre_Jugador`, `Goles`, `Asistencias`, `Valor`, `Partidos_Jugados`, `Popularidad`, `Imagen`) VALUES ('15', '1', 'Brahim Diaz', '49', '35', '20', '247', 'media', 'Brahim.jpg');
 INSERT INTO `Jugador` (`ID_Jugador`, `ID_LIGA`, `Nombre_Jugador`, `Goles`, `Asistencias`, `Valor`, `Partidos_Jugados`, `Popularidad`, `Imagen`) VALUES ('16', '1', 'Toni Kroos', '73', '160', '15', '723', 'alta', 'kroos.jpg');
 
