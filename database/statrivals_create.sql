@@ -73,7 +73,7 @@ CREATE TABLE Estado (
 CREATE TABLE Estado_Partida (
     ID_Usuario INT NOT NULL,
     Puntuacion INT NOT NULL,
-    Lista_Jugadores TEXT,
+    Lista_Jugadores LONGTEXT,
     FOREIGN KEY (ID_Usuario) REFERENCES Usuario(ID_Usuario)
 );
 

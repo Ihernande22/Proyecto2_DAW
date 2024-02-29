@@ -178,12 +178,13 @@ body {
     border-radius: 10px;
     text-transform: uppercase;
     font-weight: bold;
-    color: black;
+    color: white;
     background-color: var(--color-secundario);
 }
 
 #FinalPartida div:nth-child(2) button:first-child {
     background-color: var(--color-principal);
+    color: var(--color-secundario);
 }
 
 #FinalPartida div:nth-child(2) button a {
