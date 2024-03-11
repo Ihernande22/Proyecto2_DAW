@@ -41,6 +41,9 @@
                 <button type="submit" name='iniciar_sesion'>Iniciar sesión</button>
                 <hr>
                 <div id="OtrasOpciones">
+                    <div id="passwordOlvidada">
+                        <a href="passwordOlvidada.php" target="_blank">Has olvidado tu contraseña?</a>
+                    </div>
                     <div id="sinUsuario">
                         No tienes un usuario creado?&nbsp;<a href="registrar.php">Crea uno</a>
                     </div>
